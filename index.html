@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HC IT Pros</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -18,10 +18,9 @@
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
   </nav>
-  <button class="mode-toggle" onclick="toggleMode()">🌙</button>
 </header>
 
-<div class="hero fade-in">
+<section class="hero fade-in">
   <div class="hero-text slide-up">
     <h2>Your Local IT Partner</h2>
     <p>Professional technology solutions for small businesses across Central Texas. From networks to cybersecurity — we keep your systems running smoothly.</p>
@@ -30,36 +29,13 @@
   <div class="hero-image">
     <img src="logo.png" alt="HC IT Pros Logo">
   </div>
-</div>
+</section>
 
-<main>
-</main>
+<main></main>
 
 <footer>
   <p>© 2025 HC IT Pros — All Rights Reserved.</p>
 </footer>
-
-<script>
-function toggleMode() {
-  document.body.classList.toggle('dark-mode');
-  const modeButton = document.querySelector('.mode-toggle');
-  if (document.body.classList.contains('dark-mode')) {
-    modeButton.textContent = '☀️';
-    localStorage.setItem('mode', 'dark');
-  } else {
-    modeButton.textContent = '🌙';
-    localStorage.setItem('mode', 'light');
-  }
-}
-
-window.onload = () => {
-  const mode = localStorage.getItem('mode');
-  if (mode === 'dark') {
-    document.body.classList.add('dark-mode');
-    document.querySelector('.mode-toggle').textContent = '☀️';
-  }
-};
-</script>
 
 </body>
 </html>
