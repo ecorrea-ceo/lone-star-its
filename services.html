@@ -18,10 +18,11 @@
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
   </nav>
+  <button class="mode-toggle" onclick="toggleMode()">🌙</button>
 </header>
 
-<div class="hero">
-  <div class="hero-text">
+<div class="hero fade-in">
+  <div class="hero-text slide-up">
     <h2>Our Services</h2>
     <p>Comprehensive IT solutions for small businesses — from support and networking to backups and cybersecurity.</p>
   </div>
@@ -31,37 +32,41 @@
 </div>
 
 <main>
-  <div class="services-grid">
-    <div class="service-card">
-      <h3>Managed IT Support</h3>
-      <p>Remote and on-site support to keep your business running without interruptions.</p>
-    </div>
-    <div class="service-card">
-      <h3>Network Setup & Security</h3>
-      <p>Wi-Fi optimization, VPN configuration, and firewall protection tailored for small businesses.</p>
-    </div>
-    <div class="service-card">
-      <h3>Backup & Recovery</h3>
-      <p>Cloud and local backups to safeguard your valuable business data.</p>
-    </div>
-    <div class="service-card">
-      <h3>Cybersecurity & Audits</h3>
-      <p>Protect your systems with antivirus, patching, and employee awareness training.</p>
-    </div>
-    <div class="service-card">
-      <h3>Website & Email Setup</h3>
-      <p>Professional business websites and email domains at affordable rates.</p>
-    </div>
-    <div class="service-card">
-      <h3>Device Management</h3>
-      <p>Inventory, monitoring, and lifecycle management for all your tech assets.</p>
-    </div>
+  <div class="services-grid fade-in">
+    <div class="service-card"><h3>Managed IT Support</h3><p>Remote and on-site support to keep your business running without interruptions.</p></div>
+    <div class="service-card"><h3>Network Setup & Security</h3><p>Wi-Fi optimization, VPN configuration, and firewall protection tailored for small businesses.</p></div>
+    <div class="service-card"><h3>Backup & Recovery</h3><p>Cloud and local backups to safeguard your valuable business data.</p></div>
+    <div class="service-card"><h3>Cybersecurity & Audits</h3><p>Protect your systems with antivirus, patching, and employee awareness training.</p></div>
+    <div class="service-card"><h3>Website & Email Setup</h3><p>Professional business websites and email domains at affordable rates.</p></div>
+    <div class="service-card"><h3>Device Management</h3><p>Inventory, monitoring, and lifecycle management for all your tech assets.</p></div>
   </div>
 </main>
 
 <footer>
   <p>© 2025 HC IT Pros — All Rights Reserved.</p>
 </footer>
+
+<script>
+function toggleMode() {
+  document.body.classList.toggle('dark-mode');
+  const modeButton = document.querySelector('.mode-toggle');
+  if (document.body.classList.contains('dark-mode')) {
+    modeButton.textContent = '☀️';
+    localStorage.setItem('mode', 'dark');
+  } else {
+    modeButton.textContent = '🌙';
+    localStorage.setItem('mode', 'light');
+  }
+}
+
+window.onload = () => {
+  const mode = localStorage.getItem('mode');
+  if (mode === 'dark') {
+    document.body.classList.add('dark-mode');
+    document.querySelector('.mode-toggle').textContent = '☀️';
+  }
+};
+</script>
 
 </body>
 </html>
