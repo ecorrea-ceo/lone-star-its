@@ -29,7 +29,7 @@ hc-it-pros/
 Once deployed, your website will be available at:  
 
 
-https://<your-username>.github.io/hc-it-pros/
+https://<your-username>.github.io/hc-it-pros/](https://elspaniard97.github.io/hc-it-pros/
 
 
 ---
