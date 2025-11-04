@@ -23,7 +23,7 @@
 <section class="hero fade-in">
   <div class="hero-text slide-up">
     <h2>Contact Us</h2>
-    <p>We’re here to help your business stay connected, secure, and productive. Reach out today for a consultation.</p>
+    <p>We’d love to hear from you! Whether you’re looking for IT support, system upgrades, or AI integration, our team is ready to help.</p>
   </div>
   <div class="hero-image">
     <img src="logo.png" alt="HC IT Pros Logo">
@@ -31,17 +31,43 @@
 </section>
 
 <main>
-  <form class="fade-in">
-    <input type="text" placeholder="Your Name" required>
-    <input type="email" placeholder="Your Email" required>
-    <textarea rows="5" placeholder="How can we help?" required></textarea>
-    <button class="submit">Send Message</button>
-  </form>
+  <section class="contact fade-in">
+    <h2>Get in Touch</h2>
+
+    <form action="https://formsubmit.co/ezekielcorrea@gmail.com" method="POST" id="contact-form">
+      <!-- Redirect to Thank You page -->
+      <input type="hidden" name="_next" value="https://yourusername.github.io/hc-it-pros/thankyou.html">
+      <!-- Disable CAPTCHA -->
+      <input type="hidden" name="_captcha" value="false">
+
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="6" placeholder="How can we help you?" required></textarea>
+
+      <button type="submit" class="submit">Send Message</button>
+    </form>
+
+    <p class="confirmation-message" id="confirmation"></p>
+  </section>
 </main>
 
 <footer>
   <p>© 2025 HC IT Pros — All Rights Reserved.</p>
 </footer>
+
+<script>
+  const form = document.getElementById("contact-form");
+  const confirmation = document.getElementById("confirmation");
+
+  form.addEventListener("submit", function() {
+    confirmation.textContent = "✅ Thank you for your message! We’ll get back to you soon.";
+  });
+</script>
 
 </body>
 </html>
