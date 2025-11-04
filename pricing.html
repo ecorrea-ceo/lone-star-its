@@ -18,10 +18,9 @@
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
   </nav>
-  <button class="mode-toggle" onclick="toggleMode()">🌙</button>
 </header>
 
-<div class="hero fade-in">
+<section class="hero fade-in">
   <div class="hero-text slide-up">
     <h2>Plans & Pricing</h2>
     <p>Simple, predictable pricing options for every business size and need.</p>
@@ -29,7 +28,7 @@
   <div class="hero-image">
     <img src="logo.png" alt="HC IT Pros Logo">
   </div>
-</div>
+</section>
 
 <main>
   <div class="pricing fade-in">
@@ -42,28 +41,6 @@
 <footer>
   <p>© 2025 HC IT Pros — All Rights Reserved.</p>
 </footer>
-
-<script>
-function toggleMode() {
-  document.body.classList.toggle('dark-mode');
-  const modeButton = document.querySelector('.mode-toggle');
-  if (document.body.classList.contains('dark-mode')) {
-    modeButton.textContent = '☀️';
-    localStorage.setItem('mode', 'dark');
-  } else {
-    modeButton.textContent = '🌙';
-    localStorage.setItem('mode', 'light');
-  }
-}
-
-window.onload = () => {
-  const mode = localStorage.getItem('mode');
-  if (mode === 'dark') {
-    document.body.classList.add('dark-mode');
-    document.querySelector('.mode-toggle').textContent = '☀️';
-  }
-};
-</script>
 
 </body>
 </html>
