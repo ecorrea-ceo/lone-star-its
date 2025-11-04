@@ -1,6 +1,4 @@
-/* ---------- Design Tokens ---------- */
 :root {
-  /* Light Mode */
   --bg: #ffffff;
   --text: #0B1C2C;
   --accent: #0097A7;
@@ -14,28 +12,11 @@
   --footer-bg: #0B1C2C;
 }
 
-/* Dark Mode */
-body.dark-mode {
-  --bg: #0D141A;
-  --text: #E9ECEF;
-  --accent: #00BCD4;
-  --accent-light: #26C6DA;
-  --header-bg: #0E202C;
-  --card-bg: #16232F;
-  --hero-gradient: linear-gradient(90deg, #003D4A 0%, #001F25 100%);
-  --bubble-bg: #16232F;
-  --shadow: rgba(0, 0, 0, 0.6);
-  --border: #2C3E50;
-  --footer-bg: #0E202C;
-}
-
-/* ---------- Global Layout ---------- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-  transition: background 0.4s, color 0.4s, border-color 0.4s;
 }
 
 body {
@@ -46,7 +27,7 @@ body {
   min-height: 100vh;
 }
 
-/* ---------- Header ---------- */
+/* Header */
 header {
   background-color: var(--header-bg);
   color: #E9ECEF;
@@ -77,25 +58,7 @@ nav a.active {
   border-bottom: 2px solid var(--accent-light);
 }
 
-/* ---------- Mode Toggle ---------- */
-.mode-toggle {
-  cursor: pointer;
-  font-size: 1.1em;
-  border: 1px solid var(--accent);
-  border-radius: 25px;
-  padding: 6px 14px;
-  background: transparent;
-  color: var(--accent-light);
-  margin-left: 10px;
-  transition: 0.3s;
-}
-
-.mode-toggle:hover {
-  background: var(--accent);
-  color: #fff;
-}
-
-/* ---------- Hero Section ---------- */
+/* Hero */
 .hero {
   display: flex;
   flex-wrap: wrap;
@@ -141,7 +104,7 @@ nav a.active {
   color: #fff;
 }
 
-/* ---------- Hero Bubble ---------- */
+/* Bubble */
 .hero-image {
   display: flex;
   align-items: center;
@@ -159,7 +122,7 @@ nav a.active {
   border-radius: 50%;
 }
 
-/* ---------- Cards & Sections ---------- */
+/* Services / Cards */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -185,6 +148,14 @@ nav a.active {
 .service-card h3 {
   color: var(--accent);
   margin-bottom: 10px;
+}
+
+/* Pricing */
+.pricing {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
 .plan {
@@ -222,7 +193,7 @@ nav a.active {
   background: var(--accent-light);
 }
 
-/* ---------- Form ---------- */
+/* Forms */
 form {
   max-width: 500px;
   margin: auto;
@@ -252,7 +223,7 @@ button.submit:hover {
   background: var(--accent-light);
 }
 
-/* ---------- Footer ---------- */
+/* Footer */
 footer {
   text-align: center;
   padding: 20px;
@@ -261,37 +232,37 @@ footer {
   box-shadow: 0 -2px 6px var(--shadow);
 }
 
-/* ---------- Responsive ---------- */
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.8s ease-in forwards;
+  opacity: 0;
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes slideUp {
+  from {opacity: 0; transform: translateY(25px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   header {
     flex-direction: column;
     text-align: center;
   }
-  nav {
-    margin-top: 10px;
-  }
+  nav {margin-top: 10px;}
   .hero {
     flex-direction: column;
     text-align: center;
   }
-  .hero-image {
-    margin-top: 30px;
-  }
-}
-/* ---------- Animations ---------- */
-.fade-in {
-  animation: fadeIn 0.8s ease-in forwards;
-  opacity: 0;
-}
-.slide-up {
-  animation: slideUp 0.8s ease-out forwards;
-  opacity: 0;
-}
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(10px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-@keyframes slideUp {
-  from {opacity: 0; transform: translateY(25px);}
-  to {opacity: 1; transform: translateY(0);}
+  .hero-image {margin-top: 30px;}
 }
