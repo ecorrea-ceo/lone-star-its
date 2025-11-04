@@ -280,6 +280,58 @@ button.submit:hover {
   background: var(--accent-light);
 }
 
+/* ---------- Founder Section ---------- */
+.founder {
+  max-width: 1000px;
+  margin: 80px auto;
+  text-align: center;
+  color: var(--text);
+  padding: 40px 20px;
+}
+
+.founder-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 3px 10px var(--shadow);
+  padding: 30px;
+  gap: 30px;
+}
+
+.founder-card img {
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--accent);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.founder-info {
+  max-width: 600px;
+  text-align: left;
+}
+
+.founder-info h2 {
+  color: var(--accent);
+  font-size: 1.9em;
+  margin-bottom: 10px;
+}
+
+.founder-info h3 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.founder-info p {
+  line-height: 1.7;
+  margin-bottom: 10px;
+  font-size: 1.05em;
+}
+
 /* ---------- Footer ---------- */
 footer {
   text-align: center;
@@ -322,4 +374,11 @@ footer {
     text-align: center;
   }
   .hero-image {margin-top: 30px;}
+  .founder-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .founder-info {
+    text-align: center;
+  }
 }
