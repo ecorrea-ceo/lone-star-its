@@ -18,10 +18,11 @@
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
   </nav>
+  <button class="mode-toggle" onclick="toggleMode()">🌙</button>
 </header>
 
-<div class="hero">
-  <div class="hero-text">
+<div class="hero fade-in">
+  <div class="hero-text slide-up">
     <h2>Plans & Pricing</h2>
     <p>Simple, predictable pricing options for every business size and need.</p>
   </div>
@@ -31,48 +32,38 @@
 </div>
 
 <main>
-  <div class="pricing">
-    <div class="plan">
-      <h3>Basic Support</h3>
-      <p class="price">$350/mo</p>
-      <ul>
-        <li>Remote support (up to 5 devices)</li>
-        <li>Monthly system updates</li>
-        <li>Basic antivirus monitoring</li>
-        <li>1 backup policy</li>
-      </ul>
-      <button class="btn">Select Plan</button>
-    </div>
-
-    <div class="plan">
-      <h3>Standard Plan</h3>
-      <p class="price">$650/mo</p>
-      <ul>
-        <li>Up to 10 devices</li>
-        <li>1 on-site visit/month</li>
-        <li>Cloud backup + monitoring</li>
-        <li>Website/email setup</li>
-      </ul>
-      <button class="btn">Select Plan</button>
-    </div>
-
-    <div class="plan">
-      <h3>Premium Plan</h3>
-      <p class="price">$1,000/mo</p>
-      <ul>
-        <li>Unlimited support</li>
-        <li>Priority response (2hr)</li>
-        <li>Full security audits</li>
-        <li>Disaster recovery testing</li>
-      </ul>
-      <button class="btn">Select Plan</button>
-    </div>
+  <div class="pricing fade-in">
+    <div class="plan"><h3>Basic Support</h3><p class="price">$350/mo</p><ul><li>Remote support (up to 5 devices)</li><li>Monthly system updates</li><li>Basic antivirus monitoring</li><li>1 backup policy</li></ul><button class="btn">Select Plan</button></div>
+    <div class="plan"><h3>Standard Plan</h3><p class="price">$650/mo</p><ul><li>Up to 10 devices</li><li>1 on-site visit/month</li><li>Cloud backup + monitoring</li><li>Website/email setup</li></ul><button class="btn">Select Plan</button></div>
+    <div class="plan"><h3>Premium Plan</h3><p class="price">$1,000/mo</p><ul><li>Unlimited support</li><li>Priority response (2hr)</li><li>Full security audits</li><li>Disaster recovery testing</li></ul><button class="btn">Select Plan</button></div>
   </div>
 </main>
 
 <footer>
   <p>© 2025 HC IT Pros — All Rights Reserved.</p>
 </footer>
+
+<script>
+function toggleMode() {
+  document.body.classList.toggle('dark-mode');
+  const modeButton = document.querySelector('.mode-toggle');
+  if (document.body.classList.contains('dark-mode')) {
+    modeButton.textContent = '☀️';
+    localStorage.setItem('mode', 'dark');
+  } else {
+    modeButton.textContent = '🌙';
+    localStorage.setItem('mode', 'light');
+  }
+}
+
+window.onload = () => {
+  const mode = localStorage.getItem('mode');
+  if (mode === 'dark') {
+    document.body.classList.add('dark-mode');
+    document.querySelector('.mode-toggle').textContent = '☀️';
+  }
+};
+</script>
 
 </body>
 </html>
