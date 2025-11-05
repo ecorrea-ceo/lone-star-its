@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact - HC IT Pros</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -26,70 +26,45 @@
     <p>We’d love to hear from you! Whether you’re looking for IT support, managed services, or AI integration — our team is ready to help your business grow.</p>
   </div>
   <div class="hero-image">
-    <img src="logo.png" alt="HC IT Pros Logo">
+    <img src="logo.png" alt="HC IT Pros Logo" />
   </div>
 </section>
 
 <main>
-  <!-- Combined Contact Section -->
-  <section class="contact-container fade-in">
-    <!-- Left: Contact Info -->
-    <div class="contact-info">
-      <h2>Our Contact Information</h2>
-      <p><strong>Phone:</strong> <a href="tel:2543179258">254-317-9258</a></p>
-      <p><strong>Email:</strong> <a href="mailto:ezekielcorrea2016@gmail.com">ezekielcorrea2016@gmail.com</a></p>
-      <p><strong>Location:</strong> Rockdale, TX 76567</p>
+  <section class="contact fade-in">
+    <h2>Get in Touch</h2>
 
-      <!-- Embedded Google Map -->
-      <div class="map-container">
-        <iframe
-          src="https://www.google.com/maps?q=Rockdale,TX,76567&output=embed"
-          allowfullscreen
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-      </div>
-    </div>
+    <!-- ✅ Formspree (working) -->
+    <form action="https://formspree.io/f/mqagreqy" method="POST" id="contact-form">
+      <input type="hidden" name="_subject" value="New Contact Form Submission - HC IT Pros" />
+      <input type="hidden" name="_next" value="https://elspaniard97.github.io/hc-it-pros/thankyou.html" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
 
-    <!-- Right: Contact Form -->
-    <div class="contact-form">
-      <h2>Get in Touch</h2>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required />
 
-      <!-- ✅ Formspree Integration -->
-      <form action="https://formspree.io/f/mqagreqy" method="POST" id="contact-form">
-        <input type="hidden" name="_subject" value="New Contact Form Submission - HC IT Pros">
-        <input type="hidden" name="_next" value="https://elspaniard97.github.io/hc-it-pros/thankyou.html">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required />
 
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+      <label for="plan">Select Plan</label>
+      <select id="plan" name="plan" required>
+        <option value="" disabled selected>Select a plan</option>
+        <option value="Basic Support">Basic Support</option>
+        <option value="Standard Support">Standard Support</option>
+        <option value="Premium Support">Premium Support</option>
+        <option value="Not Sure">Not Sure</option>
+      </select>
 
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="6" placeholder="How can we help you?" required></textarea>
 
-        <label for="plan">Select Plan</label>
-        <select id="plan" name="plan" required>
-          <option value="" disabled selected>Select a plan</option>
-          <option value="Basic Support">Basic Support</option>
-          <option value="Standard Support">Standard Support</option>
-          <option value="Premium Support">Premium Support</option>
-          <option value="Not Sure">Not Sure</option>
-        </select>
+      <button type="submit" class="submit">Send Message</button>
+    </form>
 
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="6" placeholder="How can we help you?" required></textarea>
-
-        <button type="submit" class="submit">Send Message</button>
-      </form>
-
-      <p class="confirmation-message" id="confirmation"></p>
-    </div>
+    <p class="confirmation-message" id="confirmation"></p>
   </section>
 </main>
-
-<!-- 📱 Floating Call Now Button -->
-<a href="tel:2543179258" class="call-now" aria-label="Call Now">📞 Call Now</a>
 
 <footer>
   <p>© 2025 HC IT Pros — All Rights Reserved.</p>
@@ -99,7 +74,7 @@
   const form = document.getElementById("contact-form");
   const confirmation = document.getElementById("confirmation");
 
-  form.addEventListener("submit", function() {
+  form.addEventListener("submit", function () {
     confirmation.textContent = "✅ Thank you! Your message has been sent successfully.";
   });
 </script>
