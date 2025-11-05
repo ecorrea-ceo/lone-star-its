@@ -36,13 +36,11 @@
 
     <!-- ✅ Working Formspree Integration -->
     <form action="https://formspree.io/f/mqagreqy" method="POST" id="contact-form">
-      <!-- Hidden configuration fields -->
       <input type="hidden" name="_subject" value="New Contact Form Submission - HC IT Pros">
       <input type="hidden" name="_next" value="https://elspaniard97.github.io/hc-it-pros/thankyou.html">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
 
-      <!-- Visible fields -->
       <label for="name">Full Name</label>
       <input type="text" id="name" name="name" placeholder="Enter your name" required>
 
@@ -63,10 +61,17 @@
 
       <button type="submit" class="submit">Send Message</button>
     </form>
-
-    <p class="confirmation-message" id="confirmation"></p>
   </section>
 </main>
+
+<!-- ✅ Confirmation Modal -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h3>✅ Message Sent!</h3>
+    <p>Thank you for reaching out to HC IT Pros.<br>Our team will contact you shortly.</p>
+  </div>
+</div>
 
 <footer>
   <p>© 2025 HC IT Pros — All Rights Reserved.</p>
@@ -74,10 +79,23 @@
 
 <script>
   const form = document.getElementById("contact-form");
-  const confirmation = document.getElementById("confirmation");
+  const modal = document.getElementById("modal");
+  const closeBtn = document.querySelector(".close");
 
-  form.addEventListener("submit", function() {
-    confirmation.textContent = "✅ Thank you! Your message has been sent successfully.";
+  form.addEventListener("submit", function(e) {
+    setTimeout(() => {
+      modal.style.display = "flex";
+    }, 500);
+  });
+
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
   });
 </script>
 
