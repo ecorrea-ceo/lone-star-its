@@ -31,58 +31,59 @@
 </section>
 
 <main>
-  <!-- Contact Form Section -->
-  <section class="contact fade-in">
-    <h2>Get in Touch</h2>
+  <!-- Combined Contact Section -->
+  <section class="contact-container fade-in">
+    <!-- Left: Contact Info -->
+    <div class="contact-info">
+      <h2>Our Contact Information</h2>
+      <p><strong>Phone:</strong> <a href="tel:2543179258">254-317-9258</a></p>
+      <p><strong>Email:</strong> <a href="mailto:ezekielcorrea2016@gmail.com">ezekielcorrea2016@gmail.com</a></p>
+      <p><strong>Location:</strong> Rockdale, TX 76567</p>
 
-    <!-- ✅ Formspree Integration -->
-    <form action="https://formspree.io/f/mqagreqy" method="POST" id="contact-form">
-      <!-- Hidden configuration fields -->
-      <input type="hidden" name="_subject" value="New Contact Form Submission - HC IT Pros">
-      <input type="hidden" name="_next" value="https://elspaniard97.github.io/hc-it-pros/thankyou.html">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
+      <!-- Embedded Google Map -->
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps?q=Rockdale,TX,76567&output=embed"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
 
-      <!-- Visible fields -->
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+    <!-- Right: Contact Form -->
+    <div class="contact-form">
+      <h2>Get in Touch</h2>
 
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      <!-- ✅ Formspree Integration -->
+      <form action="https://formspree.io/f/mqagreqy" method="POST" id="contact-form">
+        <input type="hidden" name="_subject" value="New Contact Form Submission - HC IT Pros">
+        <input type="hidden" name="_next" value="https://elspaniard97.github.io/hc-it-pros/thankyou.html">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
 
-      <label for="plan">Select Plan</label>
-      <select id="plan" name="plan" required>
-        <option value="" disabled selected>Select a plan</option>
-        <option value="Basic Support">Basic Support</option>
-        <option value="Standard Support">Standard Support</option>
-        <option value="Premium Support">Premium Support</option>
-        <option value="Not Sure">Not Sure</option>
-      </select>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
 
-      <label for="message">Message</label>
-      <textarea id="message" name="message" rows="6" placeholder="How can we help you?" required></textarea>
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
-      <button type="submit" class="submit">Send Message</button>
-    </form>
+        <label for="plan">Select Plan</label>
+        <select id="plan" name="plan" required>
+          <option value="" disabled selected>Select a plan</option>
+          <option value="Basic Support">Basic Support</option>
+          <option value="Standard Support">Standard Support</option>
+          <option value="Premium Support">Premium Support</option>
+          <option value="Not Sure">Not Sure</option>
+        </select>
 
-    <p class="confirmation-message" id="confirmation"></p>
-  </section>
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" placeholder="How can we help you?" required></textarea>
 
-  <!-- 📞 Contact Info Section -->
-  <section class="contact-info fade-in">
-    <h2>Our Contact Information</h2>
-    <p><strong>Phone:</strong> <a href="tel:2543179258">254-317-9258</a></p>
-    <p><strong>Email:</strong> <a href="mailto:ezekielcorrea2016@gmail.com">ezekielcorrea2016@gmail.com</a></p>
-    <p><strong>Location:</strong> Rockdale, TX 76567</p>
+        <button type="submit" class="submit">Send Message</button>
+      </form>
 
-    <!-- 🗺️ Embedded Google Map -->
-    <div class="map-container">
-      <iframe
-        src="https://www.google.com/maps?q=Rockdale,TX,76567&output=embed"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
+      <p class="confirmation-message" id="confirmation"></p>
     </div>
   </section>
 </main>
