@@ -12,7 +12,7 @@
   --footer-bg: #0B1C2C;
 }
 
-/* ---------- Global ---------- */
+/* ---------- Global Reset ---------- */
 * {
   margin: 0;
   padding: 0;
@@ -26,6 +26,11 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+section {
+  padding: 60px 10%;
+  text-align: center;
 }
 
 /* ---------- Header ---------- */
@@ -59,7 +64,7 @@ nav a.active {
   border-bottom: 2px solid var(--accent-light);
 }
 
-/* ---------- Hero ---------- */
+/* ---------- Hero Section ---------- */
 .hero {
   display: flex;
   flex-wrap: wrap;
@@ -106,20 +111,51 @@ nav a.active {
   border-radius: 50%;
 }
 
-/* ---------- Contact Layout ---------- */
+/* ---------- Generic Sections (All Tabs Except Contact) ---------- */
+main {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+main h2 {
+  color: var(--accent);
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+main p {
+  font-size: 1.05em;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+ul {
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* ---------- Contact Page (Scoped Styling) ---------- */
+body.contact-page main {
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 20px;
+}
+
 .contact-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
   gap: 40px;
-  max-width: 1100px;
-  margin: 60px auto;
-  padding: 20px;
 }
 
-.contact-info,
-.contact-form {
+.contact-container .contact-info,
+.contact-container .contact-form {
   background: var(--card-bg);
   border-radius: 12px;
   box-shadow: 0 3px 10px var(--shadow);
@@ -128,31 +164,30 @@ nav a.active {
   min-width: 320px;
 }
 
-.contact-info h2,
-.contact-form h2 {
+.contact-container .contact-info h2,
+.contact-container .contact-form h2 {
   color: var(--accent);
   margin-bottom: 15px;
   text-align: left;
 }
 
-/* ---------- Contact Info ---------- */
-.contact-info p {
+.contact-container .contact-info p {
   margin: 8px 0;
   font-size: 1.05em;
 }
 
-.contact-info a {
+.contact-container .contact-info a {
   color: var(--accent);
   text-decoration: none;
   font-weight: 500;
 }
 
-.contact-info a:hover {
+.contact-container .contact-info a:hover {
   text-decoration: underline;
 }
 
 /* ---------- Map Styling ---------- */
-.map-container {
+.contact-container .map-container {
   margin-top: 20px;
   border-radius: 12px;
   overflow: hidden;
@@ -162,7 +197,7 @@ nav a.active {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.map-container::after {
+.contact-container .map-container::after {
   content: "";
   position: absolute;
   top: 0; left: 0;
@@ -171,19 +206,19 @@ nav a.active {
   pointer-events: none;
 }
 
-.map-container:hover {
+.contact-container .map-container:hover {
   transform: scale(1.01);
   box-shadow: 0 6px 18px rgba(0, 151, 167, 0.45);
 }
 
-.map-container iframe {
+.contact-container .map-container iframe {
   width: 100%;
   height: 250px;
   border: 0;
   border-radius: 12px;
 }
 
-/* ---------- Form ---------- */
+/* ---------- Form Fields ---------- */
 label {
   display: block;
   margin-top: 15px;
@@ -262,7 +297,10 @@ button.submit:hover {
 
 @media (max-width: 768px) {
   .contact-container { flex-direction: column; }
-  .contact-info, .contact-form { width: 100%; }
+  .contact-container .contact-info,
+  .contact-container .contact-form {
+    width: 100%;
+  }
 }
 
 /* ---------- Footer ---------- */
