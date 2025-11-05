@@ -12,7 +12,7 @@
   --footer-bg: #0B1C2C;
 }
 
-/* ---------- Global Reset ---------- */
+/* ---------- Global ---------- */
 * {
   margin: 0;
   padding: 0;
@@ -59,7 +59,7 @@ nav a.active {
   border-bottom: 2px solid var(--accent-light);
 }
 
-/* ---------- Hero Section ---------- */
+/* ---------- Hero ---------- */
 .hero {
   display: flex;
   flex-wrap: wrap;
@@ -89,24 +89,6 @@ nav a.active {
   font-size: 1.05em;
 }
 
-.hero button {
-  background: #ffffff;
-  color: var(--accent);
-  border: none;
-  padding: 12px 26px;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.hero button:hover {
-  background: var(--accent-light);
-  color: #fff;
-}
-
-/* ---------- Hero Bubble ---------- */
 .hero-image {
   display: flex;
   align-items: center;
@@ -124,92 +106,38 @@ nav a.active {
   border-radius: 50%;
 }
 
-/* ---------- Contact Form ---------- */
-.contact {
-  max-width: 600px;
-  margin: 80px auto;
-  text-align: center;
-  color: var(--text);
-  padding: 40px 20px;
-}
-
-.contact h2 {
-  color: var(--accent);
-  font-size: 1.9em;
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  text-align: left;
-  margin-top: 15px;
-  font-weight: 500;
-}
-
-input, textarea, select {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--card-bg);
-  color: var(--text);
-  font-size: 1em;
-  appearance: none;
-}
-
-select {
-  text-align: center;
-  text-align-last: center;
-}
-
-select:focus, input:focus, textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 5px var(--accent-light);
-}
-
-button.submit {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button.submit:hover {
-  background: var(--accent-light);
-}
-
-.confirmation-message {
-  margin-top: 20px;
-  color: var(--accent);
-  font-weight: 600;
-}
-
-/* ---------- Contact Info Section ---------- */
-.contact-info {
-  max-width: 700px;
+/* ---------- Contact Container ---------- */
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 1100px;
   margin: 60px auto;
-  text-align: center;
-  padding: 40px 20px;
-  color: var(--text);
+  padding: 20px;
+}
+
+.contact-info,
+.contact-form {
   background: var(--card-bg);
   border-radius: 12px;
   box-shadow: 0 3px 10px var(--shadow);
+  padding: 30px;
+  flex: 1;
+  min-width: 320px;
 }
 
-.contact-info h2 {
+.contact-info h2,
+.contact-form h2 {
   color: var(--accent);
-  font-size: 1.9em;
   margin-bottom: 15px;
+  text-align: left;
 }
 
 .contact-info p {
-  font-size: 1.1em;
   margin: 8px 0;
+  font-size: 1.05em;
 }
 
 .contact-info a {
@@ -222,9 +150,8 @@ button.submit:hover {
   text-decoration: underline;
 }
 
-/* ---------- Map Styling ---------- */
 .map-container {
-  margin-top: 25px;
+  margin-top: 20px;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 10px var(--shadow);
@@ -232,12 +159,63 @@ button.submit:hover {
 
 .map-container iframe {
   width: 100%;
-  height: 350px;
+  height: 250px;
   border: 0;
   border-radius: 12px;
 }
 
-/* ---------- Floating Call Now Button ---------- */
+/* ---------- Form Fields ---------- */
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 1em;
+}
+
+select {
+  text-align: center;
+  text-align-last: center;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 5px var(--accent-light);
+}
+
+button.submit {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 20px;
+  width: 100%;
+}
+
+button.submit:hover {
+  background: var(--accent-light);
+}
+
+.confirmation-message {
+  margin-top: 15px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ---------- Floating Call Button ---------- */
 .call-now {
   position: fixed;
   bottom: 25px;
@@ -259,16 +237,13 @@ button.submit:hover {
   transform: scale(1.05);
 }
 
-@media (max-width: 768px) {
-  .call-now {
-    display: inline-block;
-  }
+@media (min-width: 769px) {
+  .call-now { display: none; }
 }
 
-@media (min-width: 769px) {
-  .call-now {
-    display: none;
-  }
+@media (max-width: 768px) {
+  .contact-container { flex-direction: column; }
+  .contact-info, .contact-form { width: 100%; }
 }
 
 /* ---------- Footer ---------- */
@@ -277,7 +252,6 @@ footer {
   padding: 20px;
   background: var(--footer-bg);
   color: #E9ECEF;
-  box-shadow: 0 -2px 6px var(--shadow);
 }
 
 /* ---------- Animations ---------- */
