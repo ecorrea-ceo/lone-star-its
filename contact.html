@@ -23,7 +23,7 @@
 <section class="hero fade-in">
   <div class="hero-text slide-up">
     <h2>Contact Us</h2>
-    <p>We’d love to hear from you! Whether you’re looking for IT support, system upgrades, or AI integration, our team is ready to help.</p>
+    <p>We’d love to hear from you! Whether you’re looking for IT support, managed services, or AI integration — our team is ready to help your business grow.</p>
   </div>
   <div class="hero-image">
     <img src="logo.png" alt="HC IT Pros Logo">
@@ -32,12 +32,11 @@
 
 <main>
   <section class="contact fade-in">
-  
+    <h2>Get in Touch</h2>
 
     <form action="https://formsubmit.co/ezekielcorrea@gmail.com" method="POST" id="contact-form">
       <!-- Redirect to Thank You page -->
       <input type="hidden" name="_next" value="https://elspaniard97.github.io/hc-it-pros/thankyou.html">
-      <!-- Disable CAPTCHA -->
       <input type="hidden" name="_captcha" value="false">
 
       <label for="name">Full Name</label>
@@ -45,6 +44,15 @@
 
       <label for="email">Email Address</label>
       <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <label for="plan">Select Plan</label>
+      <select id="plan" name="plan" required>
+        <option value="" disabled selected>Select a plan</option>
+        <option value="Basic Support">Basic Support</option>
+        <option value="Standard Support">Standard Support</option>
+        <option value="Premium Support">Premium Support</option>
+        <option value="Not Sure">Not Sure</option>
+      </select>
 
       <label for="message">Message</label>
       <textarea id="message" name="message" rows="6" placeholder="How can we help you?" required></textarea>
