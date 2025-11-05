@@ -34,11 +34,14 @@
   <section class="contact fade-in">
     <h2>Get in Touch</h2>
 
-    <form action="https://formsubmit.co/ezekielcorrea@gmail.com" method="POST" id="contact-form">
-      <!-- Redirect to Thank You page -->
+    <!-- ✅ Formspree Integration -->
+    <form action="https://formspree.io/f/your-endpoint-id" method="POST" id="contact-form">
+      <!-- Hidden fields -->
+      <input type="hidden" name="_subject" value="New Contact Form Submission from HC IT Pros">
       <input type="hidden" name="_next" value="https://elspaniard97.github.io/hc-it-pros/thankyou.html">
       <input type="hidden" name="_captcha" value="false">
 
+      <!-- Form fields -->
       <label for="name">Full Name</label>
       <input type="text" id="name" name="name" placeholder="Enter your name" required>
 
@@ -73,7 +76,7 @@
   const confirmation = document.getElementById("confirmation");
 
   form.addEventListener("submit", function() {
-    confirmation.textContent = "✅ Thank you for your message! We’ll get back to you soon.";
+    confirmation.textContent = "✅ Thank you! Your message has been sent successfully.";
   });
 </script>
 
