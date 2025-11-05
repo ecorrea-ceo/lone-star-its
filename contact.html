@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact - HC IT Pros</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -23,10 +23,10 @@
 <section class="hero fade-in">
   <div class="hero-text slide-up">
     <h2>Contact Us</h2>
-    <p>Reach out today — our Hill Country team is ready to help you streamline IT, protect your network, and grow your business.</p>
+    <p>We’d love to hear from you! Whether you’re looking for IT support, managed services, or AI integration — our team is ready to help your business grow.</p>
   </div>
   <div class="hero-image">
-    <img src="logo.png" alt="HC IT Pros Logo" />
+    <img src="logo.png" alt="HC IT Pros Logo">
   </div>
 </section>
 
@@ -34,17 +34,20 @@
   <section class="contact fade-in">
     <h2>Get in Touch</h2>
 
+    <!-- ✅ Working Formspree Integration -->
     <form action="https://formspree.io/f/mqagreqy" method="POST" id="contact-form">
-      <input type="hidden" name="_subject" value="New Contact Form Submission - HC IT Pros" />
-      <input type="hidden" name="_next" value="https://elspaniard97.github.io/hc-it-pros/thankyou.html" />
-      <input type="hidden" name="_captcha" value="false" />
-      <input type="hidden" name="_template" value="table" />
+      <!-- Hidden configuration fields -->
+      <input type="hidden" name="_subject" value="New Contact Form Submission - HC IT Pros">
+      <input type="hidden" name="_next" value="https://elspaniard97.github.io/hc-it-pros/thankyou.html">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
 
+      <!-- Visible fields -->
       <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" placeholder="Enter your name" required />
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
 
       <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="Enter your email" required />
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
       <label for="plan">Select Plan</label>
       <select id="plan" name="plan" required>
@@ -60,17 +63,10 @@
 
       <button type="submit" class="submit">Send Message</button>
     </form>
+
+    <p class="confirmation-message" id="confirmation"></p>
   </section>
 </main>
-
-<!-- ✅ Modal Confirmation -->
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h3>✅ Message Sent!</h3>
-    <p>Thank you for reaching out to HC IT Pros. Our team will contact you shortly.</p>
-  </div>
-</div>
 
 <footer>
   <p>© 2025 HC IT Pros — All Rights Reserved.</p>
@@ -78,18 +74,10 @@
 
 <script>
   const form = document.getElementById("contact-form");
-  const modal = document.getElementById("modal");
-  const closeBtn = document.querySelector(".close");
+  const confirmation = document.getElementById("confirmation");
 
-  form.addEventListener("submit", function(e) {
-    setTimeout(() => {
-      modal.style.display = "flex";
-    }, 500);
-  });
-
-  closeBtn.addEventListener("click", () => modal.style.display = "none");
-  window.addEventListener("click", (e) => {
-    if (e.target === modal) modal.style.display = "none";
+  form.addEventListener("submit", function() {
+    confirmation.textContent = "✅ Thank you! Your message has been sent successfully.";
   });
 </script>
 
