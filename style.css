@@ -89,24 +89,6 @@ nav a.active {
   font-size: 1.05em;
 }
 
-.hero button {
-  background: #ffffff;
-  color: var(--accent);
-  border: none;
-  padding: 12px 26px;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.hero button:hover {
-  background: var(--accent-light);
-  color: #fff;
-}
-
-/* ---------- Hero Bubble ---------- */
 .hero-image {
   display: flex;
   align-items: center;
@@ -124,139 +106,13 @@ nav a.active {
   border-radius: 50%;
 }
 
-/* ---------- Mission, Values, Goals ---------- */
-.mission, .values, .goals {
-  max-width: 900px;
-  margin: 60px auto;
-  text-align: center;
-  color: var(--text);
-  background: transparent;
-  padding: 30px 20px;
-  line-height: 1.8;
-}
-
-.mission h2, .values h2, .goals h2 {
-  color: var(--accent);
-  margin-bottom: 15px;
-  font-size: 1.9em;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  position: relative;
-}
-
-/* Subtle underline accent */
-.mission h2::after, .values h2::after, .goals h2::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 3px;
-  background: var(--accent);
-  margin: 10px auto;
-  border-radius: 3px;
-}
-
-.mission p {
-  max-width: 700px;
-  margin: 0 auto 30px;
-  font-size: 1.05em;
-}
-
-.values ul, .goals ol {
-  list-style: none;
-  padding: 0;
-  max-width: 750px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-.values li, .goals li {
-  margin: 8px 0;
-  font-size: 1.02em;
-}
-
-.values li strong, .goals li strong {
-  color: var(--accent);
-  font-weight: 600;
-}
-
-/* ---------- Services Grid ---------- */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
-  margin-top: 30px;
-}
-
-.service-card {
-  border: 1px solid var(--border);
-  background: var(--card-bg);
-  padding: 24px;
-  border-radius: 10px;
-  text-align: center;
-  transition: 0.3s;
-  box-shadow: 0 3px 8px var(--shadow);
-}
-
-.service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px var(--shadow);
-}
-
-.service-card h3 {
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-
-/* ---------- Pricing Plans ---------- */
-.pricing {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
-
-.plan {
-  border: 2px solid var(--accent);
-  border-radius: 12px;
-  padding: 30px;
-  width: 280px;
-  background: var(--card-bg);
-  text-align: center;
-  transition: 0.3s;
-}
-
-.plan:hover {
-  box-shadow: 0 6px 15px var(--shadow);
-  transform: translateY(-5px);
-}
-
-.price {
-  font-size: 2em;
-  font-weight: 600;
-  color: var(--text);
-}
-
-.btn {
-  background: var(--accent);
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  background: var(--accent-light);
-}
-
 /* ---------- Forms ---------- */
 form {
   max-width: 500px;
   margin: auto;
 }
 
-input, textarea {
+input, textarea, select {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
@@ -266,32 +122,9 @@ input, textarea {
   color: var(--text);
 }
 
-button.submit {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button.submit:hover {
-  background: var(--accent-light);
-}
-
-/* ---------- Plan Dropdown Styling (Centered and Seamless) ---------- */
-label[for="plan"] {
-  display: block;
-  text-align: center;
-  font-weight: 600;
-  margin-top: 20px;
-}
-
 select {
   display: block;
   margin: 10px auto 20px;
-  width: 100%;
   padding: 12px;
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -311,6 +144,21 @@ select:focus {
   box-shadow: 0 0 5px var(--accent-light);
 }
 
+button.submit {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+}
+
+button.submit:hover {
+  background: var(--accent-light);
+}
+
 /* ---------- Contact Form ---------- */
 .contact {
   max-width: 600px;
@@ -326,69 +174,51 @@ select:focus {
   margin-bottom: 20px;
 }
 
-label {
-  display: block;
-  text-align: left;
-  margin-top: 15px;
-  font-weight: 500;
-}
-
-.confirmation-message {
-  margin-top: 20px;
-  color: var(--accent);
-  font-weight: 600;
-}
-
-/* ---------- Founder Section ---------- */
-.founder {
-  max-width: 1000px;
-  margin: 80px auto;
-  text-align: center;
-  color: var(--text);
-  padding: 40px 20px;
-}
-
-.founder-card {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+/* ---------- Modal ---------- */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
   justify-content: center;
-  background: var(--card-bg);
-  border-radius: 12px;
-  box-shadow: 0 3px 10px var(--shadow);
-  padding: 30px;
-  gap: 30px;
+  align-items: center;
 }
 
-.founder-card img {
-  width: 240px;
-  height: 240px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 4px solid var(--accent);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+.modal-content {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  animation: fadeIn 0.4s ease;
+  position: relative;
+  max-width: 400px;
 }
 
-.founder-info {
-  max-width: 600px;
-  text-align: left;
-}
-
-.founder-info h2 {
+.modal-content h3 {
   color: var(--accent);
-  font-size: 1.9em;
   margin-bottom: 10px;
+  font-size: 1.5em;
 }
 
-.founder-info h3 {
-  font-weight: 600;
-  margin-bottom: 10px;
+.modal-content p {
+  color: var(--text);
+  font-size: 1em;
+  line-height: 1.5;
 }
 
-.founder-info p {
-  line-height: 1.7;
-  margin-bottom: 10px;
-  font-size: 1.05em;
+.close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  color: var(--accent);
+  font-size: 1.5em;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 /* ---------- Footer ---------- */
@@ -401,15 +231,8 @@ footer {
 }
 
 /* ---------- Animations ---------- */
-.fade-in {
-  animation: fadeIn 0.8s ease-in forwards;
-  opacity: 0;
-}
-
-.slide-up {
-  animation: slideUp 0.8s ease-out forwards;
-  opacity: 0;
-}
+.fade-in { animation: fadeIn 0.8s ease-in forwards; opacity: 0; }
+.slide-up { animation: slideUp 0.8s ease-out forwards; opacity: 0; }
 
 @keyframes fadeIn {
   from {opacity: 0; transform: translateY(10px);}
@@ -423,21 +246,8 @@ footer {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    text-align: center;
-  }
+  header {flex-direction: column; text-align: center;}
   nav {margin-top: 10px;}
-  .hero {
-    flex-direction: column;
-    text-align: center;
-  }
+  .hero {flex-direction: column; text-align: center;}
   .hero-image {margin-top: 30px;}
-  .founder-card {
-    flex-direction: column;
-    text-align: center;
-  }
-  .founder-info {
-    text-align: center;
-  }
 }
