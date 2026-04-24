@@ -391,6 +391,15 @@ label {
   font-size: 1.05em;
 }
 
+.service-card .btn {
+  margin-top: 15px;
+  display: inline-block;
+}
+
+.plan .btn {
+  display: inline-block;
+}
+
 /* ---------- Footer ---------- */
 footer {
   text-align: center;
