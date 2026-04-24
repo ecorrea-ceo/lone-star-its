@@ -4,7 +4,7 @@
    ============================================================ */
 
 // ✅ STEP 1: Paste your Cloudflare Worker URL here after deploying worker.js
-const WORKER_URL = 'https://YOUR-WORKER-NAME.YOUR-SUBDOMAIN.workers.dev';
+const WORKER_URL = 'https://worker.saints-correa23.workers.dev';
 
 document.addEventListener('DOMContentLoaded', () => {
 
