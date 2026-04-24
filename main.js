@@ -1,13 +1,16 @@
 /* ============================================================
    HC IT Pros — main.js
-   Dark Mode | Hamburger Menu | Live Chat Widget
+   Dark Mode | Hamburger Menu | Claude AI Chat Widget
    ============================================================ */
+
+// ✅ STEP 1: Paste your Cloudflare Worker URL here after deploying worker.js
+const WORKER_URL = 'https://YOUR-WORKER-NAME.YOUR-SUBDOMAIN.workers.dev';
 
 document.addEventListener('DOMContentLoaded', () => {
 
   /* -------- Dark Mode -------- */
   const toggle = document.getElementById('dark-mode-toggle');
-  const saved = localStorage.getItem('darkMode');
+  const saved  = localStorage.getItem('darkMode');
 
   if (saved === 'true') {
     document.body.classList.add('dark-mode');
@@ -25,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* -------- Hamburger Menu -------- */
   const hamburger = document.getElementById('hamburger');
-  const nav = document.getElementById('main-nav');
+  const nav       = document.getElementById('main-nav');
 
   if (hamburger && nav) {
     hamburger.addEventListener('click', () => {
@@ -33,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
       nav.classList.toggle('open');
     });
 
-    // Close nav when a link is clicked
     nav.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('open');
@@ -42,54 +44,106 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* -------- Live Chat Widget -------- */
-  const chatToggle = document.getElementById('chat-toggle');
-  const chatBox = document.getElementById('chat-box');
-  const chatClose = document.getElementById('chat-close');
-  const chatSend = document.getElementById('chat-send');
-  const chatInput = document.getElementById('chat-input');
+  /* -------- Claude AI Chat Widget -------- */
+  const chatToggle   = document.getElementById('chat-toggle');
+  const chatBox      = document.getElementById('chat-box');
+  const chatClose    = document.getElementById('chat-close');
+  const chatSend     = document.getElementById('chat-send');
+  const chatInput    = document.getElementById('chat-input');
   const chatMessages = document.getElementById('chat-messages');
   const quickReplies = document.querySelectorAll('.quick-reply');
 
-  const responses = {
-    'pricing':    "Our plans start at $300/mo (Basic), $500/mo (Standard), and $1,000/mo (Premium). Each plan includes different levels of support and on-site visits. Check out our Pricing page for full details!",
-    'services':   "We offer Managed IT Support, Network Setup & Security, Backup & Recovery, Cybersecurity Audits, Website & Email Setup, and Device Management. Visit our Services page to learn more!",
-    'contact':    "You can reach us through the Contact page on our website. We'll get back to you as soon as possible — usually within a few hours!",
-    'hours':      "We provide support during normal business hours, with priority response times depending on your plan. Premium clients receive 1-hour response times!",
-    'area':       "We serve small businesses across the Texas Hill Country and Central Texas region, including Rockdale and surrounding areas.",
-    'default':    "Thanks for reaching out to HC IT Pros! For detailed inquiries, please use our Contact page and we'll get back to you shortly. 😊"
-  };
+  // Conversation history sent to Claude (role: user | assistant)
+  const conversationHistory = [];
 
+  /* -- UI helpers -- */
   function addMessage(text, type) {
     const msg = document.createElement('div');
     msg.classList.add('chat-msg', type);
     msg.textContent = text;
     chatMessages.appendChild(msg);
     chatMessages.scrollTop = chatMessages.scrollHeight;
+    return msg;
   }
 
-  function getBotResponse(input) {
-    const lower = input.toLowerCase();
-    if (lower.includes('price') || lower.includes('cost') || lower.includes('plan') || lower.includes('pricing')) return responses.pricing;
-    if (lower.includes('service') || lower.includes('offer') || lower.includes('do you')) return responses.services;
-    if (lower.includes('contact') || lower.includes('email') || lower.includes('reach') || lower.includes('phone')) return responses.contact;
-    if (lower.includes('hour') || lower.includes('open') || lower.includes('available') || lower.includes('response')) return responses.hours;
-    if (lower.includes('area') || lower.includes('location') || lower.includes('serve') || lower.includes('texas') || lower.includes('hill country')) return responses.area;
-    return responses.default;
+  function setInputLocked(locked) {
+    chatInput.disabled = locked;
+    chatSend.disabled  = locked;
+    quickReplies.forEach(btn => btn.disabled = locked);
   }
 
-  function handleSend() {
+  function showTypingIndicator() {
+    const indicator = document.createElement('div');
+    indicator.classList.add('chat-msg', 'bot', 'typing-indicator');
+    indicator.id = 'typing-indicator';
+    indicator.innerHTML = '<span></span><span></span><span></span>';
+    chatMessages.appendChild(indicator);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function removeTypingIndicator() {
+    const indicator = document.getElementById('typing-indicator');
+    if (indicator) indicator.remove();
+  }
+
+  /* -- Call Cloudflare Worker proxy -- */
+  async function getAIResponse(userMessage) {
+    // Add user message to history
+    conversationHistory.push({ role: 'user', content: userMessage });
+
+    setInputLocked(true);
+    showTypingIndicator();
+
+    try {
+      const res = await fetch(WORKER_URL, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ messages: conversationHistory }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Request failed');
+      }
+
+      const reply = data.reply;
+
+      // Add assistant reply to history
+      conversationHistory.push({ role: 'assistant', content: reply });
+
+      return reply;
+
+    } catch (err) {
+      console.error('Chat error:', err);
+      // Remove the failed user message from history so it doesn't corrupt context
+      conversationHistory.pop();
+      return "Sorry, I'm having trouble connecting right now. Please use our Contact page or try again in a moment!";
+    } finally {
+      removeTypingIndicator();
+      setInputLocked(false);
+      chatInput.focus();
+    }
+  }
+
+  /* -- Send handler -- */
+  async function handleSend() {
     const text = chatInput.value.trim();
-    if (!text) return;
-    addMessage(text, 'user');
+    if (!text || chatInput.disabled) return;
+
     chatInput.value = '';
-    setTimeout(() => addMessage(getBotResponse(text), 'bot'), 600);
+    addMessage(text, 'user');
+
+    const reply = await getAIResponse(text);
+    addMessage(reply, 'bot');
   }
 
+  /* -- Toggle open/close -- */
   if (chatToggle) {
     chatToggle.addEventListener('click', () => {
       chatBox.classList.toggle('open');
       chatToggle.textContent = chatBox.classList.contains('open') ? '✕' : '💬';
+      if (chatBox.classList.contains('open')) chatInput.focus();
     });
   }
 
@@ -100,19 +154,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* -- Send button & Enter key -- */
   if (chatSend) chatSend.addEventListener('click', handleSend);
 
   if (chatInput) {
     chatInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter') handleSend();
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSend();
+      }
     });
   }
 
+  /* -- Quick reply buttons -- */
   quickReplies.forEach(btn => {
     btn.addEventListener('click', () => {
+      if (chatInput.disabled) return;
       const text = btn.textContent;
+      chatInput.value = '';
       addMessage(text, 'user');
-      setTimeout(() => addMessage(getBotResponse(text), 'bot'), 600);
+      getAIResponse(text).then(reply => addMessage(reply, 'bot'));
     });
   });
 
