@@ -9,7 +9,7 @@
   <meta property="og:description" content="Reach out to HC IT Pros for a free consultation on IT support and managed services.">
   <meta property="og:image" content="https://elspaniard97.github.io/hc-it-pros/logo.png">
   <link rel="icon" type="image/png" href="logo.png">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action https://formspree.io;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action https://formspree.io;">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -20,13 +20,19 @@
 
 <header>
   <h1>HC IT Pros</h1>
-  <nav>
+  <div class="header-right">
+    <nav id="main-nav">
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
-    <a href="pricing.html">Plans & Pricing</a>
+    <a href="pricing.html">Plans &amp; Pricing</a>
     <a href="about.html">About</a>
     <a class="active" href="contact.html">Contact</a>
-  </nav>
+    </nav>
+    <button class="dark-toggle" id="dark-mode-toggle">🌙 Dark</button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
 
 <section class="hero fade-in">
@@ -78,6 +84,36 @@
 <footer>
   <p>© 2026 HC IT Pros — All Rights Reserved.</p>
 </footer>
+
+
+<!-- Live Chat Widget -->
+<div id="chat-widget">
+  <div id="chat-box">
+    <div id="chat-header">
+      <div class="chat-status">
+        <span class="status-dot"></span>
+        HC IT Pros Support
+      </div>
+      <button id="chat-close">✕</button>
+    </div>
+    <div id="chat-messages">
+      <div class="chat-msg bot">👋 Hi there! I'm the HC IT Pros assistant. How can I help you today?</div>
+    </div>
+    <div id="chat-quick-replies">
+      <button class="quick-reply">Pricing</button>
+      <button class="quick-reply">Services</button>
+      <button class="quick-reply">Service Area</button>
+      <button class="quick-reply">Contact</button>
+    </div>
+    <div id="chat-input-row">
+      <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off">
+      <button id="chat-send">➤</button>
+    </div>
+  </div>
+  <button id="chat-toggle" title="Chat with us">💬</button>
+</div>
+
+<script src="main.js"></script>
 
 </body>
 </html>

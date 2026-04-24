@@ -1,3 +1,9 @@
+/* ============================================================
+   HC IT Pros — Main Stylesheet
+   Features: Sticky Nav, Dark Mode, Hamburger Menu, Chat Widget
+   ============================================================ */
+
+/* ---------- CSS Variables (Light Mode) ---------- */
 :root {
   --bg: #ffffff;
   --text: #0B1C2C;
@@ -10,6 +16,28 @@
   --shadow: rgba(0, 0, 0, 0.1);
   --border: #e0e0e0;
   --footer-bg: #0B1C2C;
+  --nav-link: #E9ECEF;
+  --chat-bg: #ffffff;
+  --chat-header: #0B1C2C;
+  --chat-bubble-bot: #f0f4f8;
+  --chat-bubble-user: #0097A7;
+  --chat-text: #0B1C2C;
+}
+
+/* ---------- Dark Mode Variables ---------- */
+body.dark-mode {
+  --bg: #0d1b2a;
+  --text: #e0e6ed;
+  --header-bg: #07111c;
+  --card-bg: #132233;
+  --bubble-bg: #132233;
+  --shadow: rgba(0, 0, 0, 0.4);
+  --border: #1e3448;
+  --footer-bg: #07111c;
+  --nav-link: #cdd8e3;
+  --chat-bg: #132233;
+  --chat-bubble-bot: #1e3448;
+  --chat-text: #e0e6ed;
 }
 
 /* ---------- Global Reset ---------- */
@@ -26,17 +54,22 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-/* ---------- Header ---------- */
+/* ---------- Sticky Header ---------- */
 header {
   background-color: var(--header-bg);
-  color: #E9ECEF;
+  color: var(--nav-link);
   padding: 15px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 6px var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: background-color 0.3s;
 }
 
 header h1 {
@@ -45,10 +78,16 @@ header h1 {
   font-weight: 600;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 nav a {
-  color: #E9ECEF;
+  color: var(--nav-link);
   text-decoration: none;
-  margin: 0 15px;
+  margin: 0 12px;
   font-weight: 500;
   transition: color 0.3s;
 }
@@ -58,6 +97,49 @@ nav a.active {
   color: var(--accent-light);
   border-bottom: 2px solid var(--accent-light);
 }
+
+/* ---------- Dark Mode Toggle ---------- */
+.dark-toggle {
+  background: none;
+  border: 2px solid var(--accent-light);
+  border-radius: 20px;
+  padding: 4px 10px;
+  color: var(--accent-light);
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 600;
+  transition: 0.3s;
+  white-space: nowrap;
+}
+
+.dark-toggle:hover {
+  background: var(--accent-light);
+  color: #fff;
+}
+
+/* ---------- Hamburger ---------- */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: var(--nav-link);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
 /* ---------- Hero Section ---------- */
 .hero {
@@ -73,9 +155,7 @@ nav a.active {
   margin: 40px 5% 20px;
 }
 
-.hero-text {
-  max-width: 600px;
-}
+.hero-text { max-width: 600px; }
 
 .hero h2 {
   font-size: 2.5em;
@@ -98,7 +178,7 @@ nav a.active {
   font-weight: 600;
   cursor: pointer;
   transition: 0.3s;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .hero button:hover {
@@ -106,7 +186,6 @@ nav a.active {
   color: #fff;
 }
 
-/* ---------- Hero Bubble ---------- */
 .hero-image {
   display: flex;
   align-items: center;
@@ -115,7 +194,7 @@ nav a.active {
   border-radius: 50%;
   width: 220px;
   height: 220px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
 .hero-image img {
@@ -144,7 +223,6 @@ nav a.active {
   position: relative;
 }
 
-/* Subtle underline accent */
 .mission h2::after, .values h2::after, .goals h2::after {
   content: "";
   display: block;
@@ -202,12 +280,10 @@ nav a.active {
   box-shadow: 0 6px 15px var(--shadow);
 }
 
-.service-card h3 {
-  color: var(--accent);
-  margin-bottom: 10px;
-}
+.service-card h3 { color: var(--accent); margin-bottom: 10px; }
+.service-card .btn { margin-top: 15px; display: inline-block; }
 
-/* ---------- Pricing Plans ---------- */
+/* ---------- Pricing ---------- */
 .pricing {
   display: flex;
   flex-wrap: wrap;
@@ -246,15 +322,11 @@ nav a.active {
   transition: 0.3s;
 }
 
-.btn:hover {
-  background: var(--accent-light);
-}
+.btn:hover { background: var(--accent-light); }
+.plan .btn { display: inline-block; margin-top: 20px; }
 
 /* ---------- Forms ---------- */
-form {
-  max-width: 500px;
-  margin: auto;
-}
+form { max-width: 500px; margin: auto; }
 
 input, textarea {
   width: 100%;
@@ -264,6 +336,7 @@ input, textarea {
   border-radius: 6px;
   background: var(--card-bg);
   color: var(--text);
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 button.submit {
@@ -276,11 +349,8 @@ button.submit {
   transition: 0.3s;
 }
 
-button.submit:hover {
-  background: var(--accent-light);
-}
+button.submit:hover { background: var(--accent-light); }
 
-/* ---------- Plan Dropdown Styling (Centered and Seamless) ---------- */
 label[for="plan"] {
   display: block;
   text-align: center;
@@ -311,7 +381,7 @@ select:focus {
   box-shadow: 0 0 5px var(--accent-light);
 }
 
-/* ---------- Contact Form ---------- */
+/* ---------- Contact ---------- */
 .contact {
   max-width: 600px;
   margin: 80px auto;
@@ -320,11 +390,7 @@ select:focus {
   padding: 40px 20px;
 }
 
-.contact h2 {
-  color: var(--accent);
-  font-size: 1.9em;
-  margin-bottom: 20px;
-}
+.contact h2 { color: var(--accent); font-size: 1.9em; margin-bottom: 20px; }
 
 label {
   display: block;
@@ -333,13 +399,9 @@ label {
   font-weight: 500;
 }
 
-.confirmation-message {
-  margin-top: 20px;
-  color: var(--accent);
-  font-weight: 600;
-}
+.confirmation-message { margin-top: 20px; color: var(--accent); font-weight: 600; }
 
-/* ---------- Founder Section ---------- */
+/* ---------- Founder ---------- */
 .founder {
   max-width: 1000px;
   margin: 80px auto;
@@ -366,39 +428,182 @@ label {
   object-fit: cover;
   border-radius: 50%;
   border: 4px solid var(--accent);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
-.founder-info {
-  max-width: 600px;
-  text-align: left;
+.founder-info { max-width: 600px; text-align: left; }
+.founder-info h2 { color: var(--accent); font-size: 1.9em; margin-bottom: 10px; }
+.founder-info h3 { font-weight: 600; margin-bottom: 10px; }
+.founder-info p { line-height: 1.7; margin-bottom: 10px; font-size: 1.05em; }
+
+/* ---------- Live Chat Widget ---------- */
+#chat-widget {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9999;
+  font-family: 'Poppins', sans-serif;
 }
 
-.founder-info h2 {
-  color: var(--accent);
-  font-size: 1.9em;
-  margin-bottom: 10px;
+#chat-toggle {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,151,167,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  transition: transform 0.3s, background 0.3s;
+  font-size: 1.5em;
 }
 
-.founder-info h3 {
+#chat-toggle:hover { transform: scale(1.1); background: var(--accent-light); }
+
+#chat-box {
+  display: none;
+  flex-direction: column;
+  width: 320px;
+  height: 420px;
+  background: var(--chat-bg);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+  transition: background-color 0.3s;
+}
+
+#chat-box.open { display: flex; }
+
+#chat-header {
+  background: var(--chat-header);
+  color: #fff;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-weight: 600;
-  margin-bottom: 10px;
+  font-size: 0.95em;
 }
 
-.founder-info p {
-  line-height: 1.7;
-  margin-bottom: 10px;
-  font-size: 1.05em;
+.chat-status { display: flex; align-items: center; gap: 8px; }
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  background: #4caf50;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
 }
 
-.service-card .btn {
-  margin-top: 15px;
-  display: inline-block;
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
-.plan .btn {
-  display: inline-block;
+#chat-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
 }
+
+#chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-msg {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.88em;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.chat-msg.bot {
+  background: var(--chat-bubble-bot);
+  color: var(--chat-text);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.chat-msg.user {
+  background: var(--chat-bubble-user);
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+#chat-quick-replies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 16px 10px;
+}
+
+.quick-reply {
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 0.78em;
+  cursor: pointer;
+  transition: 0.2s;
+  font-family: 'Poppins', sans-serif;
+}
+
+.quick-reply:hover { background: var(--accent); color: #fff; }
+
+#chat-input-row {
+  display: flex;
+  border-top: 1px solid var(--border);
+  padding: 10px;
+  gap: 8px;
+}
+
+#chat-input {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-size: 0.85em;
+  outline: none;
+  background: var(--card-bg);
+  color: var(--text);
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#chat-send {
+  background: var(--accent);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  color: #fff;
+  font-size: 1em;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#chat-send:hover { background: var(--accent-light); }
 
 /* ---------- Footer ---------- */
 footer {
@@ -410,43 +615,60 @@ footer {
 }
 
 /* ---------- Animations ---------- */
-.fade-in {
-  animation: fadeIn 0.8s ease-in forwards;
-  opacity: 0;
-}
-
-.slide-up {
-  animation: slideUp 0.8s ease-out forwards;
-  opacity: 0;
-}
+.fade-in { animation: fadeIn 0.8s ease-in forwards; opacity: 0; }
+.slide-up { animation: slideUp 0.8s ease-out forwards; opacity: 0; }
 
 @keyframes fadeIn {
-  from {opacity: 0; transform: translateY(10px);}
-  to {opacity: 1; transform: translateY(0);}
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideUp {
-  from {opacity: 0; transform: translateY(25px);}
-  to {opacity: 1; transform: translateY(0);}
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
-  header {
+  header { flex-wrap: wrap; padding: 15px 20px; }
+
+  .hamburger { display: flex; }
+
+  nav {
+    display: none;
+    width: 100%;
     flex-direction: column;
-    text-align: center;
+    padding: 10px 0;
+    gap: 4px;
   }
-  nav {margin-top: 10px;}
+
+  nav.open { display: flex; }
+
+  nav a {
+    display: block;
+    margin: 8px 0;
+    padding: 6px 0;
+    font-size: 1em;
+    border-bottom: none;
+  }
+
+  nav a:hover, nav a.active {
+    border-bottom: none;
+    color: var(--accent-light);
+  }
+
   .hero {
     flex-direction: column;
     text-align: center;
+    padding: 50px 8%;
+    margin: 20px 4%;
   }
-  .hero-image {margin-top: 30px;}
-  .founder-card {
-    flex-direction: column;
-    text-align: center;
-  }
-  .founder-info {
-    text-align: center;
-  }
+
+  .hero-image { margin-top: 30px; }
+
+  .founder-card { flex-direction: column; text-align: center; }
+  .founder-info { text-align: center; }
+
+  #chat-box { width: 290px; height: 380px; }
+  #chat-widget { bottom: 20px; right: 16px; }
 }
