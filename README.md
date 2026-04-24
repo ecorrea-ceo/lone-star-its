@@ -48,6 +48,8 @@ hc-it-pros/
 
 The chat widget in the bottom-right corner of every page is powered by **Claude Haiku** (Anthropic) via a **Cloudflare Worker proxy**.
 
+![HC IT Pros Chat Assistant Architecture](infographics-hc-it-pro.png)
+
 ### How it works
 
 ```
