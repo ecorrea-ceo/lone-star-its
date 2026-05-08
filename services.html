@@ -3,30 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Services - HC IT Pros</title>
-  <meta name="description" content="HC IT Pros offers managed IT support, network security, backup & recovery, cybersecurity audits, website setup, and device management for small businesses in Texas.">
-  <meta property="og:title" content="Services - HC IT Pros">
-  <meta property="og:description" content="Comprehensive IT solutions for small businesses — from support and networking to backups and cybersecurity.">
-  <meta property="og:image" content="https://elspaniard97.github.io/hc-it-pros/logo.png">
+  <title>Services | AnchorLink Tech</title>
+  <meta name="description" content="Managed IT support, network security, backup and recovery, cybersecurity audits, cloud/email setup, and device lifecycle management.">
+  <meta property="og:title" content="Services | AnchorLink Tech">
+  <meta property="og:description" content="Managed IT support, network security, backup and recovery, cybersecurity audits, cloud/email setup, and device lifecycle management.">
+  <meta property="og:image" content="https://elspaniard97.github.io/anchorlink-msp/logo.png">
+  <meta property="og:url" content="https://elspaniard97.github.io/anchorlink-msp/services.html">
   <link rel="icon" type="image/png" href="logo.png">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action https://formspree.io;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action https://formspree.io; connect-src 'self' https://hc-it-pros.saints-correa23.workers.dev;">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <header>
-  <h1>HC IT Pros</h1>
+  <a class="brand" href="index.html" aria-label="AnchorLink Tech home">
+    <img src="logo.png" alt="AnchorLink Tech anchor and link logo">
+    <span class="brand-copy"><strong><span>Anchor</span>Link</strong><small>TECH</small></span>
+  </a>
   <div class="header-right">
     <nav id="main-nav">
-    <a href="index.html">Home</a>
-    <a class="active" href="services.html">Services</a>
-    <a href="pricing.html">Plans &amp; Pricing</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
+      <a href="index.html">Home</a>
+      <a class="active" href="services.html">Services</a>
+      <a href="pricing.html">Plans &amp; Pricing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
     </nav>
     <button class="dark-toggle" id="dark-mode-toggle">🌙 Dark</button>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -34,45 +37,31 @@
     </button>
   </div>
 </header>
-
-<section class="hero fade-in">
-  <div class="hero-text slide-up">
-    <h2>Our Services</h2>
-    <p>Comprehensive IT solutions for small businesses — from support and networking to backups and cybersecurity.</p>
-  </div>
-  <div class="hero-image">
-    <img src="logo.png" alt="HC IT Pros Logo">
-  </div>
-</section>
-
+<section class="hero compact fade-in"><div class="hero-text slide-up"><p class="eyebrow">Services</p><h1>Managed IT services that keep your business linked, protected, and moving.</h1><p>Choose focused support or a complete managed technology partnership.</p></div><div class="hero-logo-panel"><img src="logo.png" alt="AnchorLink Tech logo"></div></section>
 <main>
-  <div class="services-grid fade-in">
-    <div class="service-card"><h3>Managed IT Support</h3><p>Remote and on-site support to keep your business running without interruptions.</p><a href="pricing.html"><button class="btn">See Plans</button></a></div>
-    <div class="service-card"><h3>Network Setup & Security</h3><p>Wi-Fi optimization, VPN configuration, and firewall protection tailored for small businesses.</p><a href="contact.html"><button class="btn">Get Started</button></a></div>
-    <div class="service-card"><h3>Backup & Recovery</h3><p>Cloud and local backups to safeguard your valuable business data.</p><a href="contact.html"><button class="btn">Get Started</button></a></div>
-    <div class="service-card"><h3>Cybersecurity & Audits</h3><p>Protect your systems with antivirus, patching, and employee awareness training.</p><a href="contact.html"><button class="btn">Get Started</button></a></div>
-    <div class="service-card"><h3>Website & Email Setup</h3><p>Professional business websites and email domains at affordable rates.</p><a href="contact.html"><button class="btn">Get Started</button></a></div>
-    <div class="service-card"><h3>Device Management</h3><p>Inventory, monitoring, and lifecycle management for all your tech assets.</p><a href="contact.html"><button class="btn">Get Started</button></a></div>
-  </div>
+  <section class="services-grid fade-in">
+    <div class="service-card"><h3>Managed IT Support</h3><p>Remote and on-site troubleshooting, device support, user onboarding, and day-to-day help desk coverage.</p><a class="btn small" href="pricing.html">See Plans</a></div>
+    <div class="service-card"><h3>Network Setup & Security</h3><p>Business Wi-Fi, firewall tuning, VPN access, segmentation, and reliable connectivity for staff and guests.</p><a class="btn small" href="contact.html">Get Started</a></div>
+    <div class="service-card"><h3>Backup & Recovery</h3><p>Cloud and local backup strategies that protect critical files, systems, and recovery timelines.</p><a class="btn small" href="contact.html">Get Started</a></div>
+    <div class="service-card"><h3>Cybersecurity & Audits</h3><p>Endpoint protection, patching, account hygiene, awareness guidance, and practical risk reviews.</p><a class="btn small" href="contact.html">Get Started</a></div>
+    <div class="service-card"><h3>Cloud, Email & Websites</h3><p>Microsoft/Google workspace setup, domain email, website support, and cloud app configuration.</p><a class="btn small" href="contact.html">Get Started</a></div>
+    <div class="service-card"><h3>Device Lifecycle Management</h3><p>Inventory, asset tracking, procurement guidance, refresh planning, and secure device retirement.</p><a class="btn small" href="contact.html">Get Started</a></div>
+  </section>
 </main>
-
 <footer>
-  <p>© 2026 HC IT Pros — All Rights Reserved.</p>
+  <p>© 2026 AnchorLink Tech — Managed Technology Services. Reliable · Connected · Secure · Supported.</p>
 </footer>
-
-
-<!-- Live Chat Widget -->
 <div id="chat-widget">
   <div id="chat-box">
     <div id="chat-header">
       <div class="chat-status">
         <span class="status-dot"></span>
-        HC IT Pros Support
+        AnchorLink Tech Support
       </div>
-      <button id="chat-close">✕</button>
+      <button id="chat-close" aria-label="Close chat">✕</button>
     </div>
     <div id="chat-messages">
-      <div class="chat-msg bot">👋 Hi there! I'm the HC IT Pros assistant. How can I help you today?</div>
+      <div class="chat-msg bot">👋 Hi there! I'm the AnchorLink Tech assistant. How can I help you secure, connect, or support your business today?</div>
     </div>
     <div id="chat-quick-replies">
       <button class="quick-reply">Pricing</button>
@@ -82,13 +71,11 @@
     </div>
     <div id="chat-input-row">
       <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off">
-      <button id="chat-send">➤</button>
+      <button id="chat-send" aria-label="Send message">➤</button>
     </div>
   </div>
   <button id="chat-toggle" title="Chat with us">💬</button>
 </div>
-
 <script src="main.js"></script>
-
 </body>
 </html>

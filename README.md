@@ -1,163 +1,157 @@
-# 💻 HC IT Pros
+# AnchorLink Tech / anchorlink-msp
 
-**HC IT Pros** is an Austin, TX–based IT services company providing affordable and reliable technology solutions for small businesses such as restaurants, auto shops, and local offices.
+**AnchorLink Tech** is a managed technology services website for small businesses that need reliable IT support, secure connectivity, cybersecurity basics, backups, cloud/email setup, and practical help desk coverage.
 
-This website advertises services, pricing plans, and company information — with each section built as a separate HTML file for easy updates. It includes a **Claude AI-powered live chat widget** backed by a **Cloudflare Worker proxy**.
-
----
-
-## 🌐 Live Site
-
-[https://elspaniard97.github.io/hc-it-pros/](https://elspaniard97.github.io/hc-it-pros/)
+The site has been rebranded from `hc-it-pros` to `anchorlink-msp` and redesigned around the supplied AnchorLink Tech logo image: navy, teal, silver, white space, circuit-line accents, and the tagline **Managed Technology Services**.
 
 ---
 
-## 🧱 Project Structure
+## Live Site
+
+After the repository is renamed and GitHub Pages redeploys, the expected URL is:
+
+https://elspaniard97.github.io/anchorlink-msp/
+
+Old URL before rename:
+
+https://elspaniard97.github.io/hc-it-pros/
+
+---
+
+## Project Structure
 
 ```
-hc-it-pros/
-│
-├── index.html          # Home page — mission, values, goals
-├── services.html       # IT services offered
-├── pricing.html        # Pricing tiers (Basic, Standard, Premium)
-├── about.html          # Company background and founder info
-├── contact.html        # Contact form (Formspree integration)
-├── thankyou.html       # Post-form submission confirmation
-├── style.css           # Shared styling across all pages
-├── main.js             # Dark mode, hamburger menu, Claude AI chat widget
+anchorlink-msp/
+├── index.html          # Homepage — hero, mission, brand pillars, goals
+├── services.html       # Managed technology services offered
+├── pricing.html        # Pricing tiers: Basic, Standard, Premium
+├── about.html          # Company/founder information
+├── contact.html        # Contact form via Formspree
+├── thankyou.html       # Post-form confirmation page
+├── style.css           # Shared AnchorLink visual system
+├── main.js             # Dark mode, hamburger menu, AI chat widget
+├── logo.png            # AnchorLink Tech brand image
 └── README.md           # Project documentation
 ```
 
 ---
 
-## 🚀 Features
+## Features
 
-- **Clean, modern design** with responsive layout
-- **Dark mode toggle** — persists across sessions via localStorage
-- **Mobile hamburger menu** — collapses navigation on small screens
-- **Claude AI live chat widget** — powered by Claude Haiku via Cloudflare Worker
-- **Animated typing indicator** — three bouncing dots while AI responds
-- **Lead capture** — AI asks for name/email when visitors show buying intent
-- **Rate limiting** — 20 messages per IP per 10 minutes (built into Worker)
-- **Formspree contact form** — submissions go directly to email
-- **Professional pricing section** — Basic ($300/mo), Standard ($500/mo), Premium ($1,000/mo)
-
----
-
-## 🤖 Claude AI Chat Widget
-
-The chat widget in the bottom-right corner of every page is powered by **Claude Haiku** (Anthropic) via a **Cloudflare Worker proxy**.
-
-![HC IT Pros Chat Assistant Architecture](infographics-hc-it-pro.png)
-
-### How it works
-
-```
-Website visitor types message
-        ↓
-main.js sends POST request to Cloudflare Worker
-        ↓
-Worker validates origin (CORS) + rate limits by IP
-        ↓
-Worker calls Anthropic API with full conversation history
-        ↓
-Claude Haiku responds as HC IT Pros support assistant
-        ↓
-Reply displayed in chat widget with typing animation
-```
-
-### Architecture
-
-| Component | Details |
-|---|---|
-| **Frontend** | `main.js` — sends conversation history to Worker, renders responses |
-| **Proxy** | Cloudflare Worker at `hc-it-pros.saints-correa23.workers.dev` |
-| **AI Model** | `claude-haiku-4-5-20251001` — fast and cost-efficient |
-| **API Key** | Stored as encrypted secret `Claude_API_Token` on the Worker — never exposed in browser |
-| **CORS** | Worker only accepts requests from `https://elspaniard97.github.io` |
-
-### Cloudflare Worker setup
-
-1. Go to [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages** → open `hc-it-pros` worker
-2. The worker code handles CORS, rate limiting, and proxying to the Anthropic API
-3. The API key is stored under **Settings → Variables and Secrets** as `Claude_API_Token` (encrypted)
-
-### Updating the AI system prompt
-
-To change how the chat assistant behaves, edit the `system` prompt inside the Cloudflare Worker code:
-- Go to **Workers & Pages** → `hc-it-pros` → **Edit code**
-- Find the `system:` field inside the `claudeRes` fetch call
-- Update pricing, services, or tone instructions
-- Click **Save and Deploy**
+- Responsive static website built with HTML, CSS, and vanilla JavaScript
+- AnchorLink Tech visual identity: navy + teal + silver palette, circuit-inspired background details, clean corporate IT styling
+- Dark mode toggle persisted via `localStorage`
+- Mobile hamburger menu
+- Contact form using Formspree
+- Floating AI chat widget UI
+- Security headers via page-level meta tags
+- GitHub Pages-friendly structure with no build step
 
 ---
 
-## 🧩 Technologies Used
+## Managed Technology Services Content
 
-| Category | Tools |
-|---|---|
-| **Languages** | HTML5, CSS3, Vanilla JavaScript |
-| **Fonts** | [Google Fonts – Poppins](https://fonts.google.com/specimen/Poppins) |
-| **Hosting** | GitHub Pages |
-| **AI** | [Anthropic Claude Haiku](https://www.anthropic.com) |
-| **Proxy / Serverless** | [Cloudflare Workers](https://workers.cloudflare.com) |
-| **Contact Forms** | [Formspree](https://formspree.io) |
+Current site messaging focuses on:
+
+- Managed IT Support
+- Network Setup & Security
+- Backup & Recovery
+- Cybersecurity & Audits
+- Cloud, Email & Websites
+- Device Lifecycle Management
+
+Brand pillars used across the homepage:
+
+- Reliable
+- Connected
+- Secure
+- Supported
 
 ---
 
-## 🧰 How to Edit and Deploy
+## AI Chat Widget Notes
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/ElSpaniard97/hc-it-pros.git
-cd hc-it-pros
-```
+The chat widget still points to the existing Cloudflare Worker endpoint:
 
-### 2. Edit pages
-Each page is independent:
-- `index.html` → Homepage, mission, values
-- `services.html` → Add or edit IT services
-- `pricing.html` → Update plan pricing or features
-- `about.html` → Modify company or founder info
-- `contact.html` → Update the form or contact details
-
-### 3. Update the Worker URL (if redeploying)
-In `main.js` line 7, set your Cloudflare Worker URL:
 ```js
 const WORKER_URL = 'https://hc-it-pros.saints-correa23.workers.dev';
 ```
 
-### 4. Deploy to GitHub Pages
+Recommended follow-up after the repo rename:
+
+1. Rename or recreate the Cloudflare Worker as `anchorlink-msp` or `anchorlink-tech`.
+2. Update the Worker system prompt from HC IT Pros to AnchorLink Tech.
+3. Verify CORS allows `https://elspaniard97.github.io`.
+4. Update `main.js` with the new Worker URL if it changes.
+
+---
+
+## Contact Form Notes
+
+The Formspree endpoint remains:
+
+```html
+https://formspree.io/f/mqagreqy
+```
+
+The hidden subject and redirect URL have been updated for AnchorLink Tech and the expected GitHub Pages path:
+
+```html
+New Contact Form Submission - AnchorLink Tech
+https://elspaniard97.github.io/anchorlink-msp/thankyou.html
+```
+
+---
+
+## How to Edit and Deploy
+
+```bash
+git clone https://github.com/ElSpaniard97/anchorlink-msp.git
+cd anchorlink-msp
+```
+
+Edit pages directly:
+
+- `index.html` — homepage and brand messaging
+- `services.html` — services list
+- `pricing.html` — plan pricing and features
+- `about.html` — founder/company story
+- `contact.html` — form copy and hidden fields
+- `style.css` — shared visual design
+- `main.js` — dark mode, mobile nav, chat behavior
+
+Deploy through GitHub Pages:
+
 ```bash
 git add .
-git commit -m "Your update message"
+git commit -m "Rebrand website as AnchorLink Tech"
 git push origin main
 ```
-GitHub Pages auto-deploys from the `main` branch root within ~60 seconds.
+
+GitHub Pages should rebuild automatically from the `main` branch root.
 
 ---
 
-## 💼 Pricing Plans
+## Pricing Plans
 
 | Plan | Price | Key Features |
-|---|---|---|
-| **Basic Support** | $300/mo | Remote support, asset management, basic security, $35/visit |
-| **Standard Support** | $500/mo | All Basic + higher priority, $50/visit |
-| **Premium Support** | $1,000/mo | All features, unlimited visits, website support, 1-hr response |
+|---|---:|---|
+| Basic Support | $300/mo | Remote troubleshooting, asset management, basic security, $35/visit |
+| Standard Support | $500/mo | All Basic features, priority tickets, enhanced response, $50/visit |
+| Premium Support | $1,000/mo | All features, unlimited visits, website support, advanced monitoring/security |
 
 ---
 
-## 🧑‍💻 Author
+## Author
 
-**Ezekiel Correa**
-IT Asset Management Lead Technician | CompTIA A+ | Network+
+Ezekiel Correa<br>
+IT Asset Management Lead Technician | CompTIA A+ | Network+<br>
 Austin, TX
 
-GitHub: [@ElSpaniard97](https://github.com/ElSpaniard97)
+GitHub: https://github.com/ElSpaniard97
 
 ---
 
-## 📜 License
+## License
 
-This project is open for educational or personal use.
-Attribution to HC IT Pros is appreciated if reused publicly.
+This project is open for educational or personal use. Attribution to AnchorLink Tech is appreciated if reused publicly.

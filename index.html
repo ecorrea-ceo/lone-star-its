@@ -3,31 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HC IT Pros</title>
-  <meta name="description" content="HC IT Pros — Family-owned IT support and cybersecurity for small businesses in the Texas Hill Country. Managed IT, networking, backups, and more.">
-  <meta property="og:title" content="HC IT Pros">
-  <meta property="og:description" content="Professional IT support and cybersecurity for small businesses in Central Texas. Affordable plans starting at $300/mo.">
-  <meta property="og:image" content="https://elspaniard97.github.io/hc-it-pros/logo.png">
-  <meta property="og:url" content="https://elspaniard97.github.io/hc-it-pros/">
+  <title>AnchorLink Tech | Managed Technology Services</title>
+  <meta name="description" content="AnchorLink Tech provides reliable managed IT, cybersecurity, networking, cloud, backup, and support services for small businesses.">
+  <meta property="og:title" content="AnchorLink Tech | Managed Technology Services">
+  <meta property="og:description" content="AnchorLink Tech provides reliable managed IT, cybersecurity, networking, cloud, backup, and support services for small businesses.">
+  <meta property="og:image" content="https://elspaniard97.github.io/anchorlink-msp/logo.png">
+  <meta property="og:url" content="https://elspaniard97.github.io/anchorlink-msp/">
   <link rel="icon" type="image/png" href="logo.png">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action https://formspree.io;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action https://formspree.io; connect-src 'self' https://hc-it-pros.saints-correa23.workers.dev;">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <header>
-  <h1>HC IT Pros</h1>
+  <a class="brand" href="index.html" aria-label="AnchorLink Tech home">
+    <img src="logo.png" alt="AnchorLink Tech anchor and link logo">
+    <span class="brand-copy"><strong><span>Anchor</span>Link</strong><small>TECH</small></span>
+  </a>
   <div class="header-right">
     <nav id="main-nav">
-    <a class="active" href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="pricing.html">Plans &amp; Pricing</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
+      <a class="active" href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="pricing.html">Plans &amp; Pricing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
     </nav>
     <button class="dark-toggle" id="dark-mode-toggle">🌙 Dark</button>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -35,67 +37,58 @@
     </button>
   </div>
 </header>
-
-<section class="hero fade-in">
+<section class="hero hero-home fade-in">
   <div class="hero-text slide-up">
-    <h2>Your Local IT Partner</h2>
-    <p>Family-owned and Hill Country-based, <strong>HC IT Pros</strong> provides professional IT support and cybersecurity for small businesses. 
-    We blend modern solutions with personal service to keep your operations secure, efficient, and connected.</p>
-    <a href="services.html"><button>Get Started</button></a>
+    <p class="eyebrow">Managed Technology Services</p>
+    <h1>Reliable IT, anchored in trust and built for connection.</h1>
+    <p>AnchorLink Tech helps small businesses stay secure, connected, and supported with proactive managed IT, networking, cybersecurity, cloud, and help desk services.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="contact.html">Schedule Consultation</a>
+      <a class="btn secondary" href="services.html">Explore Services</a>
+    </div>
   </div>
-  <div class="hero-image">
-    <img src="logo.png" alt="HC IT Pros Logo">
+  <div class="hero-logo-panel" aria-label="AnchorLink Tech logo">
+    <img src="logo.png" alt="AnchorLink Tech logo">
   </div>
 </section>
-
 <main>
-  <!-- Mission Section -->
+  <section class="trust-strip fade-in" aria-label="Brand pillars">
+    <span>Reliable</span><span>Connected</span><span>Secure</span><span>Supported</span>
+  </section>
   <section class="mission fade-in">
-    <h2>Our Mission</h2>
-    <p>To empower local businesses across the Texas Hill Country with reliable, affordable, and innovative technology solutions—bridging the gap between enterprise-grade IT and community-driven service.</p>
+    <p class="eyebrow">Our Mission</p>
+    <h2>Enterprise-grade IT with local-business clarity.</h2>
+    <p>We bridge the gap between complex technology and practical business outcomes: stronger uptime, safer systems, cleaner networks, and faster support when your team needs help.</p>
   </section>
-
-  <!-- Values Section -->
-  <section class="values fade-in">
-    <h2>Our Core Values</h2>
-    <ul>
-      <li><strong>Integrity</strong> – We do what’s right, even when no one is watching.</li>
-      <li><strong>Reliability</strong> – Your business uptime is our top priority.</li>
-      <li><strong>Innovation</strong> – We stay ahead of emerging technologies to keep you protected.</li>
-      <li><strong>Community</strong> – We believe in strengthening local businesses that form the backbone of our community.</li>
-      <li><strong>Personal Service</strong> – Every client is treated as a priority, not just a ticket number.</li>
-    </ul>
+  <section class="values cards fade-in">
+    <article><h3>⚓ Stability</h3><p>Proactive maintenance, documentation, and monitoring that keep your operations steady.</p></article>
+    <article><h3>🔗 Connectivity</h3><p>Networks, cloud tools, and devices configured to work together without daily friction.</p></article>
+    <article><h3>🛡️ Security</h3><p>Layered protection across endpoints, accounts, backups, and employee workflows.</p></article>
   </section>
-
-  <!-- Goals Section -->
   <section class="goals fade-in">
-    <h2>Our Goals</h2>
+    <h2>What We Help You Do</h2>
     <ol>
-      <li><strong>Simplify Technology</strong> – Make IT approachable and easy to manage for small business owners.</li>
-      <li><strong>Enhance Security</strong> – Protect Hill Country companies from modern cyber threats through proactive defense and monitoring.</li>
-      <li><strong>Promote Growth</strong> – Use technology to help clients operate efficiently and expand with confidence.</li>
-      <li><strong>Build Relationships</strong> – Establish long-term partnerships rooted in trust, transparency, and quality service.</li>
+      <li><strong>Simplify technology</strong> so owners can focus on customers, not tickets.</li>
+      <li><strong>Reduce downtime</strong> with preventative support and clear escalation paths.</li>
+      <li><strong>Harden security</strong> with modern defenses, patching, backup, and recovery planning.</li>
+      <li><strong>Grow confidently</strong> with scalable systems and a partner who understands your environment.</li>
     </ol>
   </section>
 </main>
-
 <footer>
-  <p>© 2026 HC IT Pros — All Rights Reserved.</p>
+  <p>© 2026 AnchorLink Tech — Managed Technology Services. Reliable · Connected · Secure · Supported.</p>
 </footer>
-
-
-<!-- Live Chat Widget -->
 <div id="chat-widget">
   <div id="chat-box">
     <div id="chat-header">
       <div class="chat-status">
         <span class="status-dot"></span>
-        HC IT Pros Support
+        AnchorLink Tech Support
       </div>
-      <button id="chat-close">✕</button>
+      <button id="chat-close" aria-label="Close chat">✕</button>
     </div>
     <div id="chat-messages">
-      <div class="chat-msg bot">👋 Hi there! I'm the HC IT Pros assistant. How can I help you today?</div>
+      <div class="chat-msg bot">👋 Hi there! I'm the AnchorLink Tech assistant. How can I help you secure, connect, or support your business today?</div>
     </div>
     <div id="chat-quick-replies">
       <button class="quick-reply">Pricing</button>
@@ -105,13 +98,11 @@
     </div>
     <div id="chat-input-row">
       <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off">
-      <button id="chat-send">➤</button>
+      <button id="chat-send" aria-label="Send message">➤</button>
     </div>
   </div>
   <button id="chat-toggle" title="Chat with us">💬</button>
 </div>
-
 <script src="main.js"></script>
-
 </body>
 </html>

@@ -3,30 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact - HC IT Pros</title>
-  <meta name="description" content="Contact HC IT Pros for IT support, managed services, or AI integration. We're ready to help your Texas Hill Country business grow.">
-  <meta property="og:title" content="Contact - HC IT Pros">
-  <meta property="og:description" content="Reach out to HC IT Pros for a free consultation on IT support and managed services.">
-  <meta property="og:image" content="https://elspaniard97.github.io/hc-it-pros/logo.png">
+  <title>Contact | AnchorLink Tech</title>
+  <meta name="description" content="Contact AnchorLink Tech for managed IT support, cybersecurity, networking, backups, cloud services, or a free consultation.">
+  <meta property="og:title" content="Contact | AnchorLink Tech">
+  <meta property="og:description" content="Contact AnchorLink Tech for managed IT support, cybersecurity, networking, backups, cloud services, or a free consultation.">
+  <meta property="og:image" content="https://elspaniard97.github.io/anchorlink-msp/logo.png">
+  <meta property="og:url" content="https://elspaniard97.github.io/anchorlink-msp/contact.html">
   <link rel="icon" type="image/png" href="logo.png">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action https://formspree.io;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action https://formspree.io; connect-src 'self' https://hc-it-pros.saints-correa23.workers.dev;">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <header>
-  <h1>HC IT Pros</h1>
+  <a class="brand" href="index.html" aria-label="AnchorLink Tech home">
+    <img src="logo.png" alt="AnchorLink Tech anchor and link logo">
+    <span class="brand-copy"><strong><span>Anchor</span>Link</strong><small>TECH</small></span>
+  </a>
   <div class="header-right">
     <nav id="main-nav">
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="pricing.html">Plans &amp; Pricing</a>
-    <a href="about.html">About</a>
-    <a class="active" href="contact.html">Contact</a>
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="pricing.html">Plans &amp; Pricing</a>
+      <a href="about.html">About</a>
+      <a class="active" href="contact.html">Contact</a>
     </nav>
     <button class="dark-toggle" id="dark-mode-toggle">🌙 Dark</button>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -34,70 +37,37 @@
     </button>
   </div>
 </header>
-
-<section class="hero fade-in">
-  <div class="hero-text slide-up">
-    <h2>Contact Us</h2>
-    <p>We’d love to hear from you! Whether you’re looking for IT support, managed services, or AI integration — our team is ready to help your business grow.</p>
-  </div>
-  <div class="hero-image">
-    <img src="logo.png" alt="HC IT Pros Logo">
-  </div>
-</section>
-
+<section class="hero compact fade-in"><div class="hero-text slide-up"><p class="eyebrow">Contact</p><h1>Ready to anchor your technology stack?</h1><p>Tell us what you need help with: managed IT, network security, backups, cloud, or ongoing support.</p></div><div class="hero-logo-panel"><img src="logo.png" alt="AnchorLink Tech logo"></div></section>
 <main>
   <section class="contact fade-in">
     <h2>Get in Touch</h2>
-
-    <!-- ✅ Working Formspree Integration -->
     <form action="https://formspree.io/f/mqagreqy" method="POST" id="contact-form">
-      <!-- Hidden configuration fields -->
-      <input type="hidden" name="_subject" value="New Contact Form Submission - HC IT Pros">
-      <input type="hidden" name="_next" value="https://elspaniard97.github.io/hc-it-pros/thankyou.html">
+      <input type="hidden" name="_subject" value="New Contact Form Submission - AnchorLink Tech">
+      <input type="hidden" name="_next" value="https://elspaniard97.github.io/anchorlink-msp/thankyou.html">
       <input type="hidden" name="_captcha" value="true">
       <input type="hidden" name="_template" value="table">
-
-      <!-- Visible fields -->
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" placeholder="Enter your name" required>
-
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="Enter your email" required>
-
-      <label for="plan">Select Plan</label>
-      <select id="plan" name="plan" required>
-        <option value="" disabled selected>Select a plan</option>
-        <option value="Basic Support">Basic Support</option>
-        <option value="Standard Support">Standard Support</option>
-        <option value="Premium Support">Premium Support</option>
-        <option value="Not Sure">Not Sure</option>
-      </select>
-
-      <label for="message">Message</label>
-      <textarea id="message" name="message" rows="6" placeholder="How can we help you?" required></textarea>
-
+      <label for="name">Full Name</label><input type="text" id="name" name="name" placeholder="Enter your name" required>
+      <label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="Enter your email" required>
+      <label for="plan">Select Plan</label><select id="plan" name="plan" required><option value="" disabled selected>Select a plan</option><option value="Basic Support">Basic Support</option><option value="Standard Support">Standard Support</option><option value="Premium Support">Premium Support</option><option value="Not Sure">Not Sure</option></select>
+      <label for="message">Message</label><textarea id="message" name="message" rows="6" placeholder="How can we help you?" required></textarea>
       <button type="submit" class="submit">Send Message</button>
     </form>
   </section>
 </main>
-
 <footer>
-  <p>© 2026 HC IT Pros — All Rights Reserved.</p>
+  <p>© 2026 AnchorLink Tech — Managed Technology Services. Reliable · Connected · Secure · Supported.</p>
 </footer>
-
-
-<!-- Live Chat Widget -->
 <div id="chat-widget">
   <div id="chat-box">
     <div id="chat-header">
       <div class="chat-status">
         <span class="status-dot"></span>
-        HC IT Pros Support
+        AnchorLink Tech Support
       </div>
-      <button id="chat-close">✕</button>
+      <button id="chat-close" aria-label="Close chat">✕</button>
     </div>
     <div id="chat-messages">
-      <div class="chat-msg bot">👋 Hi there! I'm the HC IT Pros assistant. How can I help you today?</div>
+      <div class="chat-msg bot">👋 Hi there! I'm the AnchorLink Tech assistant. How can I help you secure, connect, or support your business today?</div>
     </div>
     <div id="chat-quick-replies">
       <button class="quick-reply">Pricing</button>
@@ -107,13 +77,11 @@
     </div>
     <div id="chat-input-row">
       <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off">
-      <button id="chat-send">➤</button>
+      <button id="chat-send" aria-label="Send message">➤</button>
     </div>
   </div>
   <button id="chat-toggle" title="Chat with us">💬</button>
 </div>
-
 <script src="main.js"></script>
-
 </body>
 </html>

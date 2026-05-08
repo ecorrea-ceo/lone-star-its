@@ -1,9 +1,10 @@
 /* ============================================================
-   HC IT Pros — main.js
-   Dark Mode | Hamburger Menu | Claude AI Chat Widget
+   AnchorLink Tech — main.js
+   Dark Mode | Hamburger Menu | AI Chat Widget
    ============================================================ */
 
-// ✅ STEP 1: Paste your Cloudflare Worker URL here after deploying worker.js
+// Existing Worker endpoint retained until the Cloudflare Worker is renamed/redeployed.
+// Follow-up: update the Worker system prompt and URL for AnchorLink Tech.
 const WORKER_URL = 'https://hc-it-pros.saints-correa23.workers.dev';
 
 document.addEventListener('DOMContentLoaded', () => {

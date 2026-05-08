@@ -3,34 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You - HC IT Pros</title>
-  <meta name="description" content="Thank you for contacting HC IT Pros. We'll be in touch shortly.">
+  <title>Thank You | AnchorLink Tech</title>
+  <meta name="description" content="Thank you for contacting AnchorLink Tech. We'll be in touch shortly.">
+  <meta property="og:title" content="Thank You | AnchorLink Tech">
+  <meta property="og:description" content="Thank you for contacting AnchorLink Tech. We'll be in touch shortly.">
+  <meta property="og:image" content="https://elspaniard97.github.io/anchorlink-msp/logo.png">
+  <meta property="og:url" content="https://elspaniard97.github.io/anchorlink-msp/thankyou.html">
   <link rel="icon" type="image/png" href="logo.png">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action https://formspree.io;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action https://formspree.io; connect-src 'self' https://hc-it-pros.saints-correa23.workers.dev;">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-
-  <script>
-    // Auto redirect to homepage after 5 seconds
-    setTimeout(() => {
-      window.location.href = "index.html";
-    }, 5000);
-  </script>
 </head>
 <body>
-
 <header>
-  <h1>HC IT Pros</h1>
+  <a class="brand" href="index.html" aria-label="AnchorLink Tech home">
+    <img src="logo.png" alt="AnchorLink Tech anchor and link logo">
+    <span class="brand-copy"><strong><span>Anchor</span>Link</strong><small>TECH</small></span>
+  </a>
   <div class="header-right">
     <nav id="main-nav">
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="pricing.html">Plans &amp; Pricing</a>
-    <a href="about.html">About</a>
-    <a class="active" href="contact.html">Contact</a>
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="pricing.html">Plans &amp; Pricing</a>
+      <a href="about.html">About</a>
+      <a class="active" href="contact.html">Contact</a>
     </nav>
     <button class="dark-toggle" id="dark-mode-toggle">🌙 Dark</button>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -38,36 +37,19 @@
     </button>
   </div>
 </header>
-
-<section class="hero fade-in">
-  <div class="hero-text slide-up">
-    <h2>Thank You!</h2>
-    <p>Your message has been sent successfully. We appreciate you reaching out and will get back to you soon.</p>
-    <p><em>You’ll be redirected to the home page shortly...</em></p>
-    <a href="index.html"><button>Return Home</button></a>
-  </div>
-  <div class="hero-image">
-    <img src="logo.png" alt="HC IT Pros Logo">
-  </div>
-</section>
-
-<footer>
-  <p>© 2026 HC IT Pros — All Rights Reserved.</p>
-</footer>
-
-
-<!-- Live Chat Widget -->
+<section class="hero compact fade-in"><div class="hero-text slide-up"><p class="eyebrow">Message Received</p><h1>Thank you!</h1><p>Your message has been sent successfully. AnchorLink Tech will get back to you soon.</p><p><em>You’ll be redirected to the home page shortly...</em></p><a class="btn primary" href="index.html">Return Home</a></div><div class="hero-logo-panel"><img src="logo.png" alt="AnchorLink Tech logo"></div></section>
+<footer><p>© 2026 AnchorLink Tech — Managed Technology Services. Reliable · Connected · Secure · Supported.</p></footer>
 <div id="chat-widget">
   <div id="chat-box">
     <div id="chat-header">
       <div class="chat-status">
         <span class="status-dot"></span>
-        HC IT Pros Support
+        AnchorLink Tech Support
       </div>
-      <button id="chat-close">✕</button>
+      <button id="chat-close" aria-label="Close chat">✕</button>
     </div>
     <div id="chat-messages">
-      <div class="chat-msg bot">👋 Hi there! I'm the HC IT Pros assistant. How can I help you today?</div>
+      <div class="chat-msg bot">👋 Hi there! I'm the AnchorLink Tech assistant. How can I help you secure, connect, or support your business today?</div>
     </div>
     <div id="chat-quick-replies">
       <button class="quick-reply">Pricing</button>
@@ -77,13 +59,12 @@
     </div>
     <div id="chat-input-row">
       <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off">
-      <button id="chat-send">➤</button>
+      <button id="chat-send" aria-label="Send message">➤</button>
     </div>
   </div>
   <button id="chat-toggle" title="Chat with us">💬</button>
 </div>
-
+<script>setTimeout(() => { window.location.href = "index.html"; }, 5000);</script>
 <script src="main.js"></script>
-
 </body>
 </html>
