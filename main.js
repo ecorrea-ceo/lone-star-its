@@ -3,9 +3,8 @@
    Dark Mode | Hamburger Menu | AI Chat Widget
    ============================================================ */
 
-// Existing Worker endpoint retained until the Cloudflare Worker is renamed/redeployed.
-// Follow-up: update the Worker system prompt and URL for AnchorLink Tech.
-const WORKER_URL = 'https://hc-it-pros.saints-correa23.workers.dev';
+// Cloudflare Worker endpoint for the AnchorLink Tech chat assistant.
+const WORKER_URL = 'https://hc-it-pros.saints-correa23.workers.dev/api/chat';
 
 document.addEventListener('DOMContentLoaded', () => {
 
