@@ -15,14 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (saved === 'true') {
     document.body.classList.add('dark-mode');
-    if (toggle) toggle.textContent = '☀️ Light';
+    if (toggle) toggle.textContent = 'Light';
   }
 
   if (toggle) {
     toggle.addEventListener('click', () => {
       document.body.classList.toggle('dark-mode');
       const isDark = document.body.classList.contains('dark-mode');
-      toggle.textContent = isDark ? '☀️ Light' : '🌙 Dark';
+      toggle.textContent = isDark ? 'Light' : 'Dark';
       localStorage.setItem('darkMode', isDark);
     });
   }
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (chatToggle) {
     chatToggle.addEventListener('click', () => {
       chatBox.classList.toggle('open');
-      chatToggle.textContent = chatBox.classList.contains('open') ? '✕' : '💬';
+      chatToggle.textContent = chatBox.classList.contains('open') ? 'X' : 'Chat';
       if (chatBox.classList.contains('open')) chatInput.focus();
     });
   }
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (chatClose) {
     chatClose.addEventListener('click', () => {
       chatBox.classList.remove('open');
-      chatToggle.textContent = '💬';
+      chatToggle.textContent = 'Chat';
     });
   }
 

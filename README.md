@@ -1,6 +1,6 @@
 # AnchorLink Tech / anchorlink-msp
 
-**AnchorLink Tech** is a managed technology services website for small businesses that need reliable IT support, secure connectivity, cybersecurity basics, backups, cloud/email setup, and practical help desk coverage.
+**AnchorLink Tech** is a family- and veteran-owned managed technology services website for small businesses that need reliable IT support, secure connectivity, cybersecurity basics, backups, cloud/email setup, and practical help desk coverage.
 
 The site has been rebranded from `hc-it-pros` to `anchorlink-msp` and redesigned around the supplied AnchorLink Tech logo image: navy, teal, silver, white space, circuit-line accents, and the tagline **Managed Technology Services**.
 
@@ -25,7 +25,7 @@ anchorlink-msp/
 ├── index.html          # Homepage — hero, mission, brand pillars, goals
 ├── services.html       # Managed technology services offered
 ├── pricing.html        # Pricing tiers: Basic, Standard, Premium
-├── about.html          # Company/founder information
+├── about.html          # Company background and ownership messaging
 ├── contact.html        # Contact form via Formspree
 ├── thankyou.html       # Post-form confirmation page
 ├── style.css           # Shared AnchorLink visual system
@@ -115,7 +115,7 @@ Edit pages directly:
 - `index.html` — homepage and brand messaging
 - `services.html` — services list
 - `pricing.html` — plan pricing and features
-- `about.html` — founder/company story
+- `about.html` — company background and family-/veteran-owned messaging
 - `contact.html` — form copy and hidden fields
 - `style.css` — shared visual design
 - `main.js` — dark mode, mobile nav, chat behavior
