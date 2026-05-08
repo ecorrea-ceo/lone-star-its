@@ -47,6 +47,32 @@ function getApiKey(env) {
   return env.ANTHROPIC_API_KEY || env.CLAUDE_API_TOKEN || env.Claude_API_Token || env.CLAUDE_API_KEY;
 }
 
+function fallbackReply(messages) {
+  const latest = messages[messages.length - 1]?.content?.toLowerCase() || '';
+
+  if (latest.includes('price') || latest.includes('plan') || latest.includes('cost')) {
+    return 'AnchorLink Tech offers Basic Support at $300/month, Standard Support at $500/month, and Premium Support at $1,000/month. The best fit depends on your users, devices, sites, and security needs. Please use the Contact page to request a consultation.';
+  }
+
+  if (latest.includes('service') || latest.includes('offer') || latest.includes('support')) {
+    return 'AnchorLink Tech provides managed IT support, network setup and security, cybersecurity audits, backup and recovery, cloud/email/web support, and device lifecycle management for small businesses.';
+  }
+
+  if (latest.includes('area') || latest.includes('location') || latest.includes('where')) {
+    return 'AnchorLink Tech supports small businesses with practical managed technology services. For onsite availability and service-area questions, please use the Contact page so the team can confirm coverage.';
+  }
+
+  if (latest.includes('contact') || latest.includes('call') || latest.includes('email') || latest.includes('quote')) {
+    return 'The fastest next step is to use the Contact page with a short note about your business, number of users/devices, and what you need help with. AnchorLink Tech will follow up from there.';
+  }
+
+  if (latest.includes('veteran') || latest.includes('family')) {
+    return 'AnchorLink Tech is a family- and veteran-owned managed technology services company focused on reliable, connected, secure, and supported IT for small businesses.';
+  }
+
+  return 'I can help with AnchorLink Tech services, pricing, service-area questions, and next steps. AnchorLink Tech is a family- and veteran-owned managed technology services company for small businesses. What would you like to know?';
+}
+
 async function handleChat(request, env) {
   if (request.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: corsHeaders(request) });
@@ -54,11 +80,6 @@ async function handleChat(request, env) {
 
   if (request.method !== 'POST') {
     return jsonResponse(request, { error: 'Method not allowed' }, 405);
-  }
-
-  const apiKey = getApiKey(env);
-  if (!apiKey) {
-    return jsonResponse(request, { error: 'Chat service is not configured. Missing Anthropic API key secret.' }, 503);
   }
 
   let payload;
@@ -71,6 +92,11 @@ async function handleChat(request, env) {
   const messages = sanitizeMessages(payload.messages);
   if (messages.length === 0) {
     return jsonResponse(request, { error: 'At least one user message is required.' }, 400);
+  }
+
+  const apiKey = getApiKey(env);
+  if (!apiKey) {
+    return jsonResponse(request, { reply: fallbackReply(messages) });
   }
 
   const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
