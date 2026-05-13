@@ -1,6 +1,6 @@
 /* ============================================================
    AnchorLink Tech — main.js
-   Dark Mode | Hamburger Menu | AI Chat Widget
+   Dark Mode | Hamburger Menu | Contact Prefill | AI Chat Widget
    ============================================================ */
 
 // Cloudflare Worker endpoint for the AnchorLink Tech chat assistant.
@@ -44,6 +44,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* -------- Contact Form Plan Prefill -------- */
+  const planSelect = document.getElementById('plan');
+
+  if (planSelect) {
+    const params = new URLSearchParams(window.location.search);
+    const requestedPlan = params.get('plan');
+
+    if (requestedPlan) {
+      const matchingOption = Array.from(planSelect.options).find(option => option.value === requestedPlan);
+      if (matchingOption) planSelect.value = requestedPlan;
+    }
+  }
+
   /* -------- Claude AI Chat Widget -------- */
   const chatToggle   = document.getElementById('chat-toggle');
   const chatBox      = document.getElementById('chat-box');
@@ -52,6 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const chatInput    = document.getElementById('chat-input');
   const chatMessages = document.getElementById('chat-messages');
   const quickReplies = document.querySelectorAll('.quick-reply');
+
+  if (!chatToggle || !chatBox || !chatInput || !chatSend || !chatMessages) return;
 
   // Conversation history sent to Claude (role: user | assistant)
   const conversationHistory = [];
@@ -139,13 +154,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* -- Toggle open/close -- */
-  if (chatToggle) {
-    chatToggle.addEventListener('click', () => {
-      chatBox.classList.toggle('open');
-      chatToggle.textContent = chatBox.classList.contains('open') ? 'X' : 'Chat';
-      if (chatBox.classList.contains('open')) chatInput.focus();
-    });
-  }
+  chatToggle.addEventListener('click', () => {
+    chatBox.classList.toggle('open');
+    chatToggle.textContent = chatBox.classList.contains('open') ? 'X' : 'Chat';
+    if (chatBox.classList.contains('open')) chatInput.focus();
+  });
 
   if (chatClose) {
     chatClose.addEventListener('click', () => {
@@ -155,16 +168,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* -- Send button & Enter key -- */
-  if (chatSend) chatSend.addEventListener('click', handleSend);
+  chatSend.addEventListener('click', handleSend);
 
-  if (chatInput) {
-    chatInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        handleSend();
-      }
-    });
-  }
+  chatInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  });
 
   /* -- Quick reply buttons -- */
   quickReplies.forEach(btn => {
