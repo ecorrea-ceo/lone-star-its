@@ -16,8 +16,49 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    body.pricing-page main,
+    body.pricing-page .hero {
+      width: min(1280px, calc(100% - 32px));
+    }
+
+    .pricing.pricing-four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .pricing-four .plan {
+      padding: 28px;
+    }
+
+    .pricing-four .price {
+      font-size: clamp(2rem, 3vw, 2.4rem);
+    }
+
+    .launch-note {
+      color: var(--muted);
+      line-height: 1.55;
+      margin-top: -4px;
+    }
+
+    .launch-note strong {
+      color: var(--teal);
+    }
+
+    @media (max-width: 1180px) {
+      .pricing.pricing-four {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .pricing.pricing-four {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-<body>
+<body class="pricing-page">
 <header>
   <a class="brand" href="index.html" aria-label="AnchorLink Tech home">
     <img src="logo.png" alt="AnchorLink Tech anchor and link logo">
@@ -37,46 +78,68 @@
     </button>
   </div>
 </header>
-<section class="hero compact fade-in"><div class="hero-text slide-up"><p class="eyebrow">Plans & Pricing</p><h1>Predictable support plans for growing teams.</h1><p>Start with essential support, scale into full managed technology coverage, or add standalone web design and management.</p></div><div class="hero-logo-panel"><img src="logo.png" alt="AnchorLink Tech logo"></div></section>
+<section class="hero compact fade-in"><div class="hero-text slide-up"><p class="eyebrow">Plans & Pricing</p><h1>Predictable support plans for growing teams.</h1><p>Start with essential support, scale into full managed technology coverage, or choose standalone web design and management.</p></div><div class="hero-logo-panel"><img src="logo.png" alt="AnchorLink Tech logo"></div></section>
 <main>
   <section class="pricing-note fade-in">
-    <p class="eyebrow">Managed IT Plans</p>
-    <h2>Support packages for your day-to-day technology needs.</h2>
-    <p>These plans cover managed IT support, troubleshooting, asset management, security monitoring, and on-site response options.</p>
+    <p class="eyebrow">Plans & Services</p>
+    <h2>Choose the right support package for your business.</h2>
+    <p>Managed IT plans cover day-to-day technology needs. Web Design &amp; Management is a standalone service with a custom initial launch quote and ongoing management at $150/month.</p>
   </section>
 
-  <section class="pricing fade-in" aria-label="Managed IT pricing plans">
-    <div class="plan"><p class="plan-label">Essential</p><h3>Basic Support</h3><p class="price">$300<span>/mo</span></p><ul><li>Remote troubleshooting</li><li>IT asset management</li><li>Basic security monitoring</li><li>On-site visits: $35 per visit</li></ul><a class="btn primary" href="contact.html?plan=Basic+Support">Get Started</a></div>
-    <div class="plan featured"><p class="plan-label">Most Popular</p><h3>Standard Support</h3><p class="price">$500<span>/mo</span></p><ul><li>Everything in Basic</li><li>Higher-priority support tickets</li><li>Enhanced remote response</li><li>On-site visits: $50 per visit</li></ul><a class="btn primary" href="contact.html?plan=Standard+Support">Get Started</a></div>
-    <div class="plan"><p class="plan-label">Complete</p><h3>Premium Support</h3><p class="price">$1,000<span>/mo</span></p><ul><li>Everything in Basic and Standard</li><li>Unlimited on-site visits</li><li>Priority ticket and on-site response</li><li>Advanced monitoring and security</li><li>Quarterly technology review</li></ul><a class="btn primary" href="contact.html?plan=Premium+Support">Get Started</a></div>
-  </section>
+  <section class="pricing pricing-four fade-in" aria-label="AnchorLink Tech pricing plans">
+    <div class="plan">
+      <p class="plan-label">Essential</p>
+      <h3>Basic Support</h3>
+      <p class="price">$300<span>/mo</span></p>
+      <ul>
+        <li>Remote troubleshooting</li>
+        <li>IT asset management</li>
+        <li>Basic security monitoring</li>
+        <li>On-site visits: $35 per visit</li>
+      </ul>
+      <a class="btn primary" href="contact.html?plan=Basic+Support">Get Started</a>
+    </div>
 
-  <section class="standalone-pricing fade-in" id="web-design-management" aria-label="Standalone web design and management service">
-    <div class="web-plan">
-      <div>
-        <p class="plan-label">Standalone Service</p>
-        <h2>Web Design &amp; Management</h2>
-        <p class="web-plan-copy">A separate service for businesses that need a professional website launch plus ongoing care, updates, and basic management after the site goes live.</p>
-      </div>
-      <div class="web-pricing-grid">
-        <div class="web-price-card">
-          <span>Initial Launch</span>
-          <strong>Custom Quote</strong>
-          <p>Launch cost varies based on page count, content, features, branding, forms, integrations, and project scope.</p>
-        </div>
-        <div class="web-price-card highlight">
-          <span>Ongoing Management</span>
-          <strong>$150<span>/mo</span></strong>
-          <p>Includes routine updates, basic edits, uptime checks, content refresh support, and general site management.</p>
-        </div>
-      </div>
-      <ul class="web-feature-list">
-        <li>Responsive website design for desktop and mobile</li>
+    <div class="plan featured">
+      <p class="plan-label">Most Popular</p>
+      <h3>Standard Support</h3>
+      <p class="price">$500<span>/mo</span></p>
+      <ul>
+        <li>Everything in Basic</li>
+        <li>Higher-priority support tickets</li>
+        <li>Enhanced remote response</li>
+        <li>On-site visits: $50 per visit</li>
+      </ul>
+      <a class="btn primary" href="contact.html?plan=Standard+Support">Get Started</a>
+    </div>
+
+    <div class="plan">
+      <p class="plan-label">Complete</p>
+      <h3>Premium Support</h3>
+      <p class="price">$1,000<span>/mo</span></p>
+      <ul>
+        <li>Everything in Basic and Standard</li>
+        <li>Unlimited on-site visits</li>
+        <li>Priority ticket and on-site response</li>
+        <li>Advanced monitoring and security</li>
+        <li>Quarterly technology review</li>
+      </ul>
+      <a class="btn primary" href="contact.html?plan=Premium+Support">Get Started</a>
+    </div>
+
+    <div class="plan" id="web-design-management">
+      <p class="plan-label">Standalone Service</p>
+      <h3>Web Design &amp; Management</h3>
+      <p class="price">$150<span>/mo</span></p>
+      <p class="launch-note">Initial launch: <strong>Custom Quote</strong></p>
+      <ul>
+        <li>Responsive website design</li>
         <li>Domain, hosting, and form setup guidance</li>
         <li>Content updates and basic page edits</li>
         <li>Performance, security, and availability checks</li>
+        <li>Launch cost varies by project scope</li>
       </ul>
-      <a class="btn primary" href="contact.html?plan=Web+Design+%26+Management">Request Web Service Quote</a>
+      <a class="btn primary" href="contact.html?plan=Web+Design+%26+Management">Request Quote</a>
     </div>
   </section>
 </main>
