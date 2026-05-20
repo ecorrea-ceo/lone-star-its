@@ -181,8 +181,8 @@ GitHub Pages should rebuild automatically from the `main` branch root.
 
 | Plan | Price | Key Features |
 |---|---:|---|
-| Basic Support | $300/mo | Remote troubleshooting, asset management, basic security, $35/visit, up to 10 users |
-| Standard Support | $500/mo | All Basic features, priority tickets, enhanced response, $50/visit, up to 10 users |
+| Basic Support | $300/mo | Remote troubleshooting, asset management, basic security, $50/visit, up to 10 users |
+| Standard Support | $500/mo | All Basic features, priority tickets, enhanced response, $35/visit, up to 10 users |
 | Premium Support | $1,500/mo | All features, unlimited visits, website support, advanced monitoring/security, up to 15 users |
 | Web Design & Management | $150/mo after launch | Responsive website design, hosting/form guidance, content updates, checks; initial launch custom quote |
 
