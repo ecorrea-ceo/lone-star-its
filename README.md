@@ -26,7 +26,8 @@ lone-star-its/
 ├── worker.js           # Cloudflare Worker chat proxy
 ├── wrangler.jsonc      # Cloudflare Worker config
 ├── CNAME               # GitHub Pages custom domain
-├── logo.svg            # Lone Star ITS brand image
+├── logo.png            # Lone Star ITS full brand logo
+├── logo-mark.png       # Lone Star ITS star mark for favicon/header
 └── README.md           # Project documentation
 ```
 
