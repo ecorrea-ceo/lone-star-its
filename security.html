@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security | Lone Star ITS</title>
+  <meta name="description" content="Website security practices and responsible disclosure guidance for Lone Star ITS.">
+  <meta property="og:title" content="Security | Lone Star ITS">
+  <meta property="og:description" content="Website security practices and responsible disclosure guidance for Lone Star ITS.">
+  <meta property="og:image" content="https://lonestar-its.com/logo.svg">
+  <meta property="og:url" content="https://lonestar-its.com/security.html">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action https://formspree.io; connect-src 'self' https://lone-star-its.saints-correa23.workers.dev;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="index.html" aria-label="Lone Star ITS home">
+    <img src="logo.svg" alt="Lone Star ITS Texas star and circuit logo">
+    <span class="brand-copy"><strong><span>Lone</span> Star</strong><small>ITS</small></span>
+  </a>
+  <div class="header-right">
+    <nav id="main-nav">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="pricing.html">Plans &amp; Pricing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="dark-toggle" id="dark-mode-toggle">Dark</button>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<section class="hero compact fade-in"><div class="hero-text slide-up"><p class="eyebrow">Security</p><h1>Security-first website practices.</h1><p>How Lone Star ITS protects this static site and how visitors should handle sensitive information.</p></div><div class="hero-logo-panel"><img src="logo.svg" alt="Lone Star ITS logo"></div></section>
+<main>
+  <section class="mission fade-in" style="text-align:left">
+    <p class="eyebrow">Security</p>
+    <h2>Security Practices</h2>
+    <p>Lone Star ITS uses a static GitHub Pages website, HTTPS enforcement, restrictive page-level security headers, a least-privilege contact form, and a Cloudflare Worker proxy for the chat assistant so browser code does not expose AI provider API keys.</p>
+    <p>Visitors should never send passwords, MFA codes, API keys, private keys, recovery phrases, or other credentials through the contact form or chat widget. If support work requires credential handling, use an agreed secure process outside the public website.</p>
+    <p>Responsible disclosure: if you believe this website exposes sensitive data or has a security issue, use the Contact page and include a concise, non-destructive description. Do not access, modify, delete, or exfiltrate data.</p>
+    <p>Operational recommendations before production launch: enable GitHub Pages HTTPS, verify the custom domain in GitHub, keep DNS records minimal, rotate any old Worker/API secrets, set Cloudflare Worker secrets with environment variables only, and review third-party processors such as Formspree.</p>
+  </section>
+</main>
+<footer>
+  <p>© 2026 Lone Star ITS — Managed Technology Services. Reliable · Connected · Secure · Supported.</p>
+  <p class="footer-links"><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms</a> · <a href="security.html">Security</a></p>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

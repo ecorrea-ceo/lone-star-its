@@ -1,15 +1,16 @@
 const ALLOWED_ORIGINS = new Set([
+  'https://lonestar-its.com',
+  'https://www.lonestar-its.com',
   'https://elspaniard97.github.io',
-  'https://elspaniard97.github.io/anchorlink-msp',
-  'https://hc-it-pros.saints-correa23.workers.dev',
-  'https://anchorlink-msp.saints-correa23.workers.dev',
+  'https://elspaniard97.github.io/lone-star-its',
+  'https://lone-star-its.saints-correa23.workers.dev',
 ]);
 
 function corsHeaders(request) {
   const origin = request.headers.get('Origin') || '';
   const allowOrigin = ALLOWED_ORIGINS.has(origin) || origin === ''
-    ? (origin || 'https://elspaniard97.github.io')
-    : 'https://elspaniard97.github.io';
+    ? (origin || 'https://lonestar-its.com')
+    : 'https://lonestar-its.com';
 
   return {
     'Access-Control-Allow-Origin': allowOrigin,
@@ -50,27 +51,27 @@ function getApiKey(env) {
 function fallbackReply(messages) {
   const latest = messages[messages.length - 1]?.content?.toLowerCase() || '';
 
-  if (latest.includes('price') || latest.includes('plan') || latest.includes('cost')) {
-    return 'AnchorLink Tech offers Basic Support at $300/month, Standard Support at $500/month, and Premium Support at $1,000/month. The best fit depends on your users, devices, sites, and security needs. Please use the Contact page to request a consultation.';
+  if (latest.includes('price') || latest.includes('pricing') || latest.includes('plan') || latest.includes('cost')) {
+    return 'Lone Star ITS offers Basic Support at $300/month, Standard Support at $500/month, and Premium Support at $1,500/month. The best fit depends on your users, devices, sites, and security needs. Please use the Contact page to request a consultation.';
   }
 
   if (latest.includes('service') || latest.includes('offer') || latest.includes('support')) {
-    return 'AnchorLink Tech provides managed IT support, network setup and security, cybersecurity audits, backup and recovery, cloud/email/web support, and device lifecycle management for small businesses.';
+    return 'Lone Star ITS provides managed IT support, network setup and security, cybersecurity audits, backup and recovery, cloud/email/web support, and device lifecycle management for small businesses.';
   }
 
   if (latest.includes('area') || latest.includes('location') || latest.includes('where')) {
-    return 'AnchorLink Tech supports small businesses with practical managed technology services. For onsite availability and service-area questions, please use the Contact page so the team can confirm coverage.';
+    return 'Lone Star ITS supports small businesses with practical managed technology services. For onsite availability and service-area questions, please use the Contact page so the team can confirm coverage.';
   }
 
   if (latest.includes('contact') || latest.includes('call') || latest.includes('email') || latest.includes('quote')) {
-    return 'The fastest next step is to use the Contact page with a short note about your business, number of users/devices, and what you need help with. AnchorLink Tech will follow up from there.';
+    return 'The fastest next step is to use the Contact page with a short note about your business, number of users/devices, and what you need help with. Lone Star ITS will follow up from there.';
   }
 
   if (latest.includes('veteran') || latest.includes('family')) {
-    return 'AnchorLink Tech is a family- and veteran-owned managed technology services company focused on reliable, connected, secure, and supported IT for small businesses.';
+    return 'Lone Star ITS is a family- and veteran-owned managed technology services company focused on reliable, connected, secure, and supported IT for small businesses.';
   }
 
-  return 'I can help with AnchorLink Tech services, pricing, service-area questions, and next steps. AnchorLink Tech is a family- and veteran-owned managed technology services company for small businesses. What would you like to know?';
+  return 'I can help with Lone Star ITS services, pricing, service-area questions, and next steps. Lone Star ITS is a family- and veteran-owned managed technology services company for small businesses. What would you like to know?';
 }
 
 async function handleChat(request, env) {
@@ -110,7 +111,7 @@ async function handleChat(request, env) {
       model: env.ANTHROPIC_MODEL || 'claude-3-5-haiku-latest',
       max_tokens: 450,
       temperature: 0.3,
-      system: `You are AnchorLink Tech's website assistant. AnchorLink Tech is a family- and veteran-owned managed technology services company for small businesses. Be concise, professional, and helpful. Explain services clearly, encourage visitors with buying intent to use the Contact page, and never invent unavailable contact details. Services include managed IT support, network setup and security, backup and recovery, cybersecurity audits, cloud/email/websites, and device lifecycle management. Plans are Basic Support at $300/month, Standard Support at $500/month, and Premium Support at $1,000/month.`,
+      system: `You are Lone Star ITS's website assistant. Lone Star ITS is a family- and veteran-owned managed technology services company for small businesses. Be concise, professional, and helpful. Explain services clearly, encourage visitors with buying intent to use the Contact page, and never invent unavailable contact details. Services include managed IT support, network setup and security, backup and recovery, cybersecurity audits, cloud/email/websites, and device lifecycle management. Plans are Basic Support at $300/month, Standard Support at $500/month, and Premium Support at $1,500/month.`,
       messages,
     }),
   });

@@ -1,36 +1,32 @@
-# AnchorLink Tech / anchorlink-msp
+# Lone Star ITS / lone-star-its
 
-**AnchorLink Tech** is a family- and veteran-owned managed technology services website for small businesses that need reliable IT support, secure connectivity, cybersecurity basics, backups, cloud/email setup, and practical help desk coverage.
+**Lone Star ITS** is a family- and veteran-owned managed technology services website for small businesses that need reliable IT support, secure connectivity, cybersecurity basics, backups, cloud/email setup, website support, and practical help desk coverage.
 
-The site has been rebranded from `hc-it-pros` to `anchorlink-msp` and redesigned around the supplied AnchorLink Tech logo image: navy, teal, silver, white space, circuit-line accents, and the tagline **Managed Technology Services**.
+Primary domain: https://lonestar-its.com/
 
----
-
-## Live Site
-
-After the repository is renamed and GitHub Pages redeploys, the expected URL is:
-
-https://elspaniard97.github.io/anchorlink-msp/
-
-Old URL before rename:
-
-https://elspaniard97.github.io/hc-it-pros/
+GitHub Pages fallback URL after repo rename: https://elspaniard97.github.io/lone-star-its/
 
 ---
 
 ## Project Structure
 
 ```
-anchorlink-msp/
+lone-star-its/
 ├── index.html          # Homepage — hero, mission, brand pillars, goals
 ├── services.html       # Managed technology services offered
-├── pricing.html        # Pricing tiers: Basic, Standard, Premium
+├── pricing.html        # Pricing tiers and web design/management
 ├── about.html          # Company background and ownership messaging
 ├── contact.html        # Contact form via Formspree
 ├── thankyou.html       # Post-form confirmation page
-├── style.css           # Shared AnchorLink visual system
+├── privacy.html        # Practical privacy notice
+├── terms.html          # Website terms and service disclaimers
+├── security.html       # Security practices and responsible disclosure notes
+├── style.css           # Shared Lone Star ITS visual system
 ├── main.js             # Dark mode, hamburger menu, AI chat widget
-├── logo.png            # AnchorLink Tech brand image
+├── worker.js           # Cloudflare Worker chat proxy
+├── wrangler.jsonc      # Cloudflare Worker config
+├── CNAME               # GitHub Pages custom domain
+├── logo.svg            # Lone Star ITS brand image
 └── README.md           # Project documentation
 ```
 
@@ -39,13 +35,14 @@ anchorlink-msp/
 ## Features
 
 - Responsive static website built with HTML, CSS, and vanilla JavaScript
-- AnchorLink Tech visual identity: navy + teal + silver palette, circuit-inspired background details, clean corporate IT styling
+- Lone Star ITS visual identity: navy + teal + silver palette, Texas star/circuit-inspired branding, clean corporate IT styling
 - Dark mode toggle persisted via `localStorage`
 - Mobile hamburger menu
-- Contact form using Formspree
-- Floating AI chat widget UI
-- Security headers via page-level meta tags
+- Contact form using Formspree with a bot-trap field and privacy/terms notice
+- Floating AI chat widget UI backed by a Cloudflare Worker proxy
+- Page-level security headers via meta tags
 - GitHub Pages-friendly structure with no build step
+- Custom domain support through `CNAME`: `lonestar-its.com`
 
 ---
 
@@ -58,6 +55,7 @@ Current site messaging focuses on:
 - Backup & Recovery
 - Cybersecurity & Audits
 - Cloud, Email & Websites
+- Web Design & Management
 - Device Lifecycle Management
 
 Brand pillars used across the homepage:
@@ -69,20 +67,49 @@ Brand pillars used across the homepage:
 
 ---
 
-## AI Chat Widget Notes
+## Domain Setup
 
-The chat widget still points to the existing Cloudflare Worker endpoint:
+GitHub Pages is configured for the apex domain:
 
-```js
-const WORKER_URL = 'https://hc-it-pros.saints-correa23.workers.dev';
+```text
+lonestar-its.com
 ```
 
-Recommended follow-up after the repo rename:
+Recommended DNS records at Squarespace:
 
-1. Rename or recreate the Cloudflare Worker as `anchorlink-msp` or `anchorlink-tech`.
-2. Update the Worker system prompt from HC IT Pros to AnchorLink Tech.
-3. Verify CORS allows `https://elspaniard97.github.io`.
-4. Update `main.js` with the new Worker URL if it changes.
+```text
+A     @     185.199.108.153
+A     @     185.199.109.153
+A     @     185.199.110.153
+A     @     185.199.111.153
+CNAME www   ElSpaniard97.github.io
+```
+
+Security best practice: once DNS resolves, enforce HTTPS in GitHub Pages and keep the domain verified in GitHub account settings to prevent takeover risk.
+
+---
+
+## AI Chat Widget Notes
+
+The chat widget points to the Cloudflare Worker endpoint:
+
+```js
+const WORKER_URL = 'https://lone-star-its.saints-correa23.workers.dev/api/chat';
+```
+
+The Worker should be deployed with the configured name in `wrangler.jsonc`:
+
+```json
+"name": "lone-star-its"
+```
+
+Required Worker secret, if using Anthropic responses instead of fallback responses:
+
+```bash
+wrangler secret put ANTHROPIC_API_KEY
+```
+
+Do not commit API keys, tokens, passwords, private keys, or client credentials to this repository.
 
 ---
 
@@ -94,20 +121,33 @@ The Formspree endpoint remains:
 https://formspree.io/f/mqagreqy
 ```
 
-The hidden subject and redirect URL have been updated for AnchorLink Tech and the expected GitHub Pages path:
+The hidden subject and redirect URL are configured as:
 
 ```html
-New Contact Form Submission - AnchorLink Tech
-https://elspaniard97.github.io/anchorlink-msp/thankyou.html
+New Contact Form Submission - Lone Star ITS
+https://lonestar-its.com/thankyou.html
 ```
+
+Legal/security notes:
+
+- The form tells visitors not to submit credentials or other sensitive secrets.
+- `privacy.html`, `terms.html`, and `security.html` are practical starting pages, not a substitute for attorney review.
+- Any service promises should be captured in a signed proposal, statement of work, managed-services agreement, or SLA.
 
 ---
 
 ## How to Edit and Deploy
 
 ```bash
-git clone https://github.com/ElSpaniard97/anchorlink-msp.git
-cd anchorlink-msp
+git clone https://github.com/ElSpaniard97/lone-star-its.git
+cd lone-star-its
+python3 -m http.server 4180
+```
+
+Then open:
+
+```text
+http://localhost:4180/
 ```
 
 Edit pages directly:
@@ -117,14 +157,16 @@ Edit pages directly:
 - `pricing.html` — plan pricing and features
 - `about.html` — company background and family-/veteran-owned messaging
 - `contact.html` — form copy and hidden fields
+- `privacy.html`, `terms.html`, `security.html` — legal/security website notices
 - `style.css` — shared visual design
 - `main.js` — dark mode, mobile nav, chat behavior
+- `worker.js` — chat assistant backend/fallback behavior
 
 Deploy through GitHub Pages:
 
 ```bash
 git add .
-git commit -m "Rebrand website as AnchorLink Tech"
+git commit -m "Rebrand website as Lone Star ITS"
 git push origin main
 ```
 
@@ -136,9 +178,16 @@ GitHub Pages should rebuild automatically from the `main` branch root.
 
 | Plan | Price | Key Features |
 |---|---:|---|
-| Basic Support | $300/mo | Remote troubleshooting, asset management, basic security, $35/visit |
-| Standard Support | $500/mo | All Basic features, priority tickets, enhanced response, $50/visit |
-| Premium Support | $1,000/mo | All features, unlimited visits, website support, advanced monitoring/security |
+| Basic Support | $300/mo | Remote troubleshooting, asset management, basic security, $35/visit, up to 10 users |
+| Standard Support | $500/mo | All Basic features, priority tickets, enhanced response, $50/visit, up to 10 users |
+| Premium Support | $1,500/mo | All features, unlimited visits, website support, advanced monitoring/security, up to 15 users |
+| Web Design & Management | $150/mo after launch | Responsive website design, hosting/form guidance, content updates, checks; initial launch custom quote |
+
+---
+
+## Legal Notice
+
+This repository contains website content and practical legal/security starter notices for Lone Star ITS. Those materials are not legal advice and should be reviewed by qualified counsel before commercial launch, regulated-industry use, or use outside the intended jurisdiction.
 
 ---
 
@@ -149,9 +198,3 @@ IT Asset Management Lead Technician | CompTIA A+ | Network+<br>
 Austin, TX
 
 GitHub: https://github.com/ElSpaniard97
-
----
-
-## License
-
-This project is open for educational or personal use. Attribution to AnchorLink Tech is appreciated if reused publicly.

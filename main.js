@@ -1,10 +1,10 @@
 /* ============================================================
-   AnchorLink Tech — main.js
+   Lone Star ITS — main.js
    Dark Mode | Hamburger Menu | Contact Prefill | AI Chat Widget
    ============================================================ */
 
-// Cloudflare Worker endpoint for the AnchorLink Tech chat assistant.
-const WORKER_URL = 'https://hc-it-pros.saints-correa23.workers.dev/api/chat';
+// Cloudflare Worker endpoint for the Lone Star ITS chat assistant.
+const WORKER_URL = 'https://lone-star-its.saints-correa23.workers.dev/api/chat';
 
 document.addEventListener('DOMContentLoaded', () => {
 
