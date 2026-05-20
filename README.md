@@ -1,6 +1,6 @@
 # Lone Star ITS / lone-star-its
 
-**Lone Star ITS** is a family- and veteran-owned managed technology services website for small businesses that need reliable IT support, secure connectivity, cybersecurity basics, backups, cloud/email setup, website support, and practical help desk coverage.
+**Lone Star ITS** is a veteran family-owned and operated managed technology services website for small businesses that need reliable IT support, secure connectivity, cybersecurity basics, backups, cloud/email setup, website support, and practical human service desk coverage.
 
 Primary domain: https://lonestar-its.com/
 
@@ -40,7 +40,7 @@ lone-star-its/
 - Dark mode toggle persisted via `localStorage`
 - Mobile hamburger menu
 - Contact form using Formspree with a bot-trap field and privacy/terms notice
-- Floating AI chat widget UI backed by a Cloudflare Worker proxy
+- Floating website assistant UI backed by a Cloudflare Worker proxy for general website questions only
 - Page-level security headers via meta tags
 - GitHub Pages-friendly structure with no build step
 - Custom domain support through `CNAME`: `lonestar-its.com`
@@ -92,7 +92,9 @@ Security best practice: once DNS resolves, enforce HTTPS in GitHub Pages and kee
 
 ## AI Chat Widget Notes
 
-The chat widget points to the Cloudflare Worker endpoint:
+The chat widget points to the Cloudflare Worker endpoint and is positioned as a general website assistant, not as the service desk. Public service-desk messaging says support conversations are handled by real people from the Lone Star ITS team, with no foreign-country outsourcing and no AI chat bots replacing support technicians.
+
+Endpoint:
 
 ```js
 const WORKER_URL = 'https://lone-star-its.saints-correa23.workers.dev/api/chat';
@@ -156,7 +158,7 @@ Edit pages directly:
 - `index.html` — homepage and brand messaging
 - `services.html` — services list
 - `pricing.html` — plan pricing and features
-- `about.html` — company background and family-/veteran-owned messaging
+- `about.html` — company background, veteran family-owned messaging, no-offshore-outsourcing promise, and human service desk positioning
 - `contact.html` — form copy and hidden fields
 - `privacy.html`, `terms.html`, `security.html` — legal/security website notices
 - `style.css` — shared visual design

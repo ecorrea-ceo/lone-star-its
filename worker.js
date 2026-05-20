@@ -56,7 +56,7 @@ function fallbackReply(messages) {
   }
 
   if (latest.includes('service') || latest.includes('offer') || latest.includes('support')) {
-    return 'Lone Star ITS provides managed IT support, network setup and security, cybersecurity audits, backup and recovery, cloud/email/web support, and device lifecycle management for small businesses.';
+    return 'Lone Star ITS provides managed IT support, human service desk coverage, network setup and security, cybersecurity audits, backup and recovery, cloud/email/web support, and device lifecycle management for small businesses. Service desk support is handled by people from the Lone Star ITS team, not offshore call centers or AI chat bots.';
   }
 
   if (latest.includes('area') || latest.includes('location') || latest.includes('where')) {
@@ -68,10 +68,10 @@ function fallbackReply(messages) {
   }
 
   if (latest.includes('veteran') || latest.includes('family')) {
-    return 'Lone Star ITS is a family- and veteran-owned managed technology services company focused on reliable, connected, secure, and supported IT for small businesses.';
+    return 'Lone Star ITS is a veteran family-owned and operated managed technology services company focused on reliable, connected, secure, and supported IT for small businesses.';
   }
 
-  return 'I can help with Lone Star ITS services, pricing, service-area questions, and next steps. Lone Star ITS is a family- and veteran-owned managed technology services company for small businesses. What would you like to know?';
+  return 'I can help with general website questions about Lone Star ITS services, pricing, service-area questions, and next steps. Lone Star ITS is veteran family owned and operated, and service desk support is handled by real people from the team. What would you like to know?';
 }
 
 async function handleChat(request, env) {
@@ -111,7 +111,7 @@ async function handleChat(request, env) {
       model: env.ANTHROPIC_MODEL || 'claude-3-5-haiku-latest',
       max_tokens: 450,
       temperature: 0.3,
-      system: `You are Lone Star ITS's website assistant. Lone Star ITS is a family- and veteran-owned managed technology services company for small businesses. Be concise, professional, and helpful. Explain services clearly, encourage visitors with buying intent to use the Contact page, and never invent unavailable contact details. Services include managed IT support, network setup and security, backup and recovery, cybersecurity audits, cloud/email/websites, and device lifecycle management. Plans are Basic Support at $300/month, Standard Support at $500/month, and Premium Support at $1,500/month.`,
+      system: `You are Lone Star ITS's website assistant for general pre-sales and website questions only. Lone Star ITS is a veteran family-owned and operated managed technology services company for small businesses. Service desk support is handled by real people from the Lone Star ITS team, not outsourced to foreign countries and not replaced by AI chat bots. Be concise, professional, and helpful. Explain services clearly, encourage visitors with buying intent or support needs to use the Contact page, and never invent unavailable contact details. Services include managed IT support, human service desk coverage, network setup and security, backup and recovery, cybersecurity audits, cloud/email/websites, and device lifecycle management. Plans are Basic Support at $300/month, Standard Support at $500/month, and Premium Support at $1,500/month.`,
       messages,
     }),
   });
