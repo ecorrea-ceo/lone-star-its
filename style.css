@@ -463,6 +463,8 @@ button.submit { width: 100%; margin-top: 20px; }
 #chat-quick-replies { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 10px; }
 .quick-reply { background: none; border: 1px solid var(--teal); color: var(--teal); border-radius: 20px; padding: 5px 12px; font-size: 0.78em; cursor: pointer; font-weight: 800; }
 .quick-reply:hover { background: var(--teal); color: #fff; }
+#turnstile-container { display: flex; justify-content: center; padding: 8px 10px 0; min-height: 0; }
+#turnstile-container:empty { padding: 0; }
 #chat-input-row { display: flex; border-top: 1px solid var(--border); padding: 10px; gap: 8px; }
 #chat-input { flex: 1; border-radius: 20px; padding: 8px 14px; font-size: 0.85em; }
 #chat-send { background: var(--teal); border: none; border-radius: 999px; min-width: 58px; height: 36px; padding: 0 12px; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 900; }

@@ -74,6 +74,35 @@ function fallbackReply(messages) {
   return 'I can help with general website questions about Lone Star ITS services, pricing, service-area questions, and next steps. Lone Star ITS is veteran family owned and operated, and service desk support is handled by real people from the team. What would you like to know?';
 }
 
+async function verifyTurnstile(token, env, request) {
+  if (!env.TURNSTILE_SECRET) {
+    console.error('TURNSTILE_SECRET not configured; rejecting chat request');
+    return false;
+  }
+  if (!token || typeof token !== 'string') return false;
+
+  const formData = new FormData();
+  formData.append('secret', env.TURNSTILE_SECRET);
+  formData.append('response', token);
+  const ip = request.headers.get('CF-Connecting-IP');
+  if (ip) formData.append('remoteip', ip);
+
+  try {
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      body: formData,
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!data.success) {
+      console.error('Turnstile verify failed', data['error-codes']);
+    }
+    return data.success === true;
+  } catch (err) {
+    console.error('Turnstile verify exception', err);
+    return false;
+  }
+}
+
 function isAllowedSource(request) {
   const origin = request.headers.get('Origin') || '';
   if (origin) return ALLOWED_ORIGINS.has(origin);
@@ -105,6 +134,11 @@ async function handleChat(request, env) {
     payload = await request.json();
   } catch (_) {
     return jsonResponse(request, { error: 'Invalid JSON request body.' }, 400);
+  }
+
+  const verified = await verifyTurnstile(payload.turnstileToken, env, request);
+  if (!verified) {
+    return jsonResponse(request, { error: 'Bot verification failed. Please refresh the page and try again.' }, 403);
   }
 
   const messages = sanitizeMessages(payload.messages);

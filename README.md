@@ -112,6 +112,14 @@ Required Worker secret, if using Anthropic responses instead of fallback respons
 wrangler secret put ANTHROPIC_API_KEY
 ```
 
+The chat endpoint is gated by Cloudflare Turnstile. The Worker rejects requests without a valid Turnstile token, which guards the Anthropic budget against scripted abuse. Set the Turnstile secret before deploying:
+
+```bash
+wrangler secret put TURNSTILE_SECRET
+```
+
+The matching site key is embedded in `main.js` as `TURNSTILE_SITE_KEY` and is safe to commit. Configure the Turnstile widget in the Cloudflare dashboard with hostnames `lonestar-its.com`, `www.lonestar-its.com`, and `elspaniard97.github.io`.
+
 Do not commit API keys, tokens, passwords, private keys, or client credentials to this repository.
 
 ---
