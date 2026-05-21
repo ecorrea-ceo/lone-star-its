@@ -52,26 +52,62 @@ function fallbackReply(messages) {
   const latest = messages[messages.length - 1]?.content?.toLowerCase() || '';
 
   if (latest.includes('price') || latest.includes('pricing') || latest.includes('plan') || latest.includes('cost')) {
-    return 'Lone Star ITS offers Basic Support at $300/month, Standard Support at $500/month, and Premium Support at $1,500/month. The best fit depends on your users, devices, sites, and security needs. Please use the Contact page to request a consultation.';
+    return 'Lone Star ITS pricing: Basic Support $300/month, Standard Support $500/month, Premium Support $1,500/month. Standalone Web Design & Management is $150/month after the initial launch quote. The best fit depends on your users, devices, sites, and security needs. Use the Contact page for a consultation.';
+  }
+
+  if (latest.includes('web') && (latest.includes('design') || latest.includes('site') || latest.includes('management'))) {
+    return 'Lone Star ITS offers standalone Web Design & Management at $150/month after launch, with an initial custom quote. Premium Support clients get website support included. Use the Contact page to request a custom quote.';
   }
 
   if (latest.includes('service') || latest.includes('offer') || latest.includes('support')) {
-    return 'Lone Star ITS provides managed IT support, human service desk coverage, network setup and security, cybersecurity audits, backup and recovery, cloud/email/web support, and device lifecycle management for small businesses. Service desk support is handled by people from the Lone Star ITS team, not offshore call centers or AI chat bots.';
+    return 'Lone Star ITS provides managed IT support, human service desk coverage, network setup and security, cybersecurity audits, backup and recovery, cloud/email/web support, and device lifecycle management for small businesses. Service desk support is handled by people from our team, not offshore call centers or AI chat bots.';
   }
 
-  if (latest.includes('area') || latest.includes('location') || latest.includes('where')) {
-    return 'Lone Star ITS supports small businesses with practical managed technology services. For onsite availability and service-area questions, please use the Contact page so the team can confirm coverage.';
+  if (latest.includes('area') || latest.includes('location') || latest.includes('where') || latest.includes('rockdale') || latest.includes('texas')) {
+    return 'Lone Star ITS is based in Rockdale, Texas. For service-area and onsite availability questions, use the Contact page so our team can confirm coverage for your business.';
   }
 
-  if (latest.includes('contact') || latest.includes('call') || latest.includes('email') || latest.includes('quote')) {
-    return 'The fastest next step is to use the Contact page with a short note about your business, number of users/devices, and what you need help with. Lone Star ITS will follow up from there.';
+  if (latest.includes('hour') || latest.includes('open') || latest.includes('available')) {
+    return 'For current hours, availability, and after-hours coverage details, please use the Contact page or call 254-317-9258. Service desk conversations are handled by real people on our team.';
   }
 
-  if (latest.includes('veteran') || latest.includes('family')) {
-    return 'Lone Star ITS is a veteran family-owned and operated managed technology services company focused on reliable, connected, secure, and supported IT for small businesses.';
+  if (latest.includes('phone') || latest.includes('call') || latest.includes('number')) {
+    return 'You can reach Lone Star ITS by phone at 254-317-9258 or by email at ecorrea@lonestar-its.com. The Contact page is also a fast way to send your request.';
   }
 
-  return 'I can help with general website questions about Lone Star ITS services, pricing, service-area questions, and next steps. Lone Star ITS is veteran family owned and operated, and service desk support is handled by real people from the team. What would you like to know?';
+  if (latest.includes('email') || latest.includes('reach')) {
+    return 'Email Lone Star ITS at ecorrea@lonestar-its.com or call 254-317-9258. You can also use the Contact page to send a request with details.';
+  }
+
+  if (latest.includes('address') || latest.includes('mailing')) {
+    return 'Lone Star ITS is based at 214 Ackerman St., Rockdale, TX 76567. For onsite scheduling or business correspondence, use the Contact page first.';
+  }
+
+  if (latest.includes('contact') || latest.includes('quote') || latest.includes('consult')) {
+    return 'Lone Star ITS contact: Ezekiel Correa — ecorrea@lonestar-its.com — 254-317-9258 — 214 Ackerman St., Rockdale, TX 76567. The Contact page is the fastest way to send your request with details.';
+  }
+
+  if (latest.includes('veteran') || latest.includes('family') || latest.includes('owner')) {
+    return 'Lone Star ITS is a veteran family-owned and operated managed technology services company focused on reliable, connected, secure, and supported IT for small businesses in Texas.';
+  }
+
+  if (latest.includes('security') || latest.includes('cybersecurity') || latest.includes('hacker') || latest.includes('breach')) {
+    return 'Lone Star ITS handles network security, cybersecurity audits, backups, and recovery planning for small businesses. For specific concerns or an incident, use the Contact page or call 254-317-9258.';
+  }
+
+  if (latest.includes('backup') || latest.includes('recovery') || latest.includes('disaster')) {
+    return 'Lone Star ITS includes backup and recovery planning as part of managed support, with structured recovery procedures. Use the Contact page to discuss backup needs and recovery objectives.';
+  }
+
+  if (latest.includes('cloud') || latest.includes('365') || latest.includes('google workspace') || latest.includes('email setup')) {
+    return 'Lone Star ITS supports cloud, email, and website services including Microsoft 365 and Google Workspace setup. Use the Contact page to discuss your environment.';
+  }
+
+  if (latest.includes('hi') || latest.includes('hello') || latest.includes('hey')) {
+    return 'Hi! I am the Lone Star ITS website assistant. Ask about services, pricing, service area, or contact info, and I will point you in the right direction. For real support, you will work with people from our team.';
+  }
+
+  return 'I can help with basic questions about Lone Star ITS services, pricing, service area, or how to get in touch. Reach the team at ecorrea@lonestar-its.com or 254-317-9258, or use the Contact page. What would you like to know?';
 }
 
 async function verifyTurnstile(token, env, request) {
@@ -151,28 +187,32 @@ async function handleChat(request, env) {
     return jsonResponse(request, { reply: fallbackReply(messages) });
   }
 
-  const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-    },
-    body: JSON.stringify({
-      model: env.ANTHROPIC_MODEL || 'claude-haiku-4-5-20251001',
-      max_tokens: 450,
-      temperature: 0.3,
-      system: `You are Lone Star ITS's website assistant for general pre-sales and website questions only. Lone Star ITS is a veteran family-owned and operated managed technology services company for small businesses. Service desk support is handled by real people from the Lone Star ITS team, not outsourced to foreign countries and not replaced by AI chat bots. Be concise, professional, and helpful. Explain services clearly, encourage visitors with buying intent or support needs to use the Contact page, and never invent unavailable contact details. Services include managed IT support, human service desk coverage, network setup and security, backup and recovery, cybersecurity audits, cloud/email/websites, and device lifecycle management. Plans are Basic Support at $300/month, Standard Support at $500/month, and Premium Support at $1,500/month.`,
-      messages,
-    }),
-  });
+  let anthropicRes;
+  try {
+    anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify({
+        model: env.ANTHROPIC_MODEL || 'claude-haiku-4-5-20251001',
+        max_tokens: 450,
+        temperature: 0.3,
+        system: `You are Lone Star ITS's website assistant for general pre-sales and website questions only. Lone Star ITS is a veteran family-owned and operated managed technology services company for small businesses. Service desk support is handled by real people from the Lone Star ITS team, not outsourced to foreign countries and not replaced by AI chat bots. Be concise, professional, and helpful. Explain services clearly, encourage visitors with buying intent or support needs to use the Contact page, and never invent unavailable contact details. Services include managed IT support, human service desk coverage, network setup and security, backup and recovery, cybersecurity audits, cloud/email/websites, and device lifecycle management. Plans are Basic Support at $300/month, Standard Support at $500/month, and Premium Support at $1,500/month.`,
+        messages,
+      }),
+    });
+  } catch (err) {
+    console.error('Anthropic fetch threw', err?.message || err);
+    return jsonResponse(request, { reply: fallbackReply(messages) });
+  }
 
   const data = await anthropicRes.json().catch(() => ({}));
   if (!anthropicRes.ok) {
     console.error('Anthropic upstream error', anthropicRes.status, data?.error?.message);
-    return jsonResponse(request, {
-      error: 'The website assistant is temporarily unavailable. Please use the Contact page.',
-    }, 502);
+    return jsonResponse(request, { reply: fallbackReply(messages) });
   }
 
   const reply = data.content
@@ -182,7 +222,7 @@ async function handleChat(request, env) {
     ?.trim();
 
   return jsonResponse(request, {
-    reply: reply || 'Sorry, I could not generate a response. Please use the Contact page and we will follow up.',
+    reply: reply || fallbackReply(messages),
   });
 }
 
