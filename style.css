@@ -285,6 +285,7 @@ main { width: min(1120px, calc(100% - 32px)); margin: 0 auto 70px; }
 .service-card,
 .plan,
 .contact,
+.contact-info,
 .mission,
 .goals,
 .pricing-note,
@@ -299,10 +300,19 @@ body.dark-mode .cards article,
 body.dark-mode .service-card,
 body.dark-mode .plan,
 body.dark-mode .contact,
+body.dark-mode .contact-info,
 body.dark-mode .mission,
 body.dark-mode .goals,
 body.dark-mode .pricing-note,
 body.dark-mode .web-plan { background: rgba(13,27,47,0.9); }
+
+.contact-info { max-width: 680px; margin: 28px auto 0; padding: clamp(24px, 4vw, 38px); text-align: center; }
+.contact-info h2 { color: var(--navy); font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-family: 'Rajdhani', 'Inter', sans-serif; line-height: 1; margin-bottom: 14px; }
+body.dark-mode .contact-info h2 { color: #eaf8ff; }
+.contact-info address { font-style: normal; color: var(--muted); line-height: 1.9; }
+.contact-info .contact-name { color: var(--text); font-weight: 700; letter-spacing: 0.02em; }
+.contact-info a { color: var(--teal); text-decoration: none; font-weight: 600; }
+.contact-info a:hover { text-decoration: underline; }
 .trust-strip span { padding: 18px; text-align: center; color: var(--navy); font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; }
 body.dark-mode .trust-strip span { color: #e9f2f7; }
 
