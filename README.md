@@ -121,7 +121,7 @@ Do not commit API keys, tokens, passwords, private keys, or client credentials t
 The Formspree endpoint remains:
 
 ```html
-https://formspree.io/f/mqagreqy
+https://formspree.io/f/mojbdwra
 ```
 
 The hidden subject and redirect URL are configured as:
