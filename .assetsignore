@@ -1,7 +1,9 @@
 .git
 .gitignore
 .assetsignore
+.wrangler
 README.md
 wrangler.jsonc
 worker.js
 node_modules
+*.map
