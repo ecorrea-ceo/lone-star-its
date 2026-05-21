@@ -84,7 +84,7 @@ function fallbackReply(messages) {
   }
 
   if (latest.includes('contact') || latest.includes('quote') || latest.includes('consult')) {
-    return 'Lone Star ITS contact: Ezekiel Correa — ecorrea@lonestar-its.com — 254-317-9258 — 214 Ackerman St., Rockdale, TX 76567. The Contact page is the fastest way to send your request with details.';
+    return 'Lone Star ITS contact: Customer Service — ecorrea@lonestar-its.com — 254-317-9258 — 214 Ackerman St., Rockdale, TX 76567. The Contact page is the fastest way to send your request with details.';
   }
 
   if (latest.includes('veteran') || latest.includes('family') || latest.includes('owner')) {
