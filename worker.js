@@ -74,6 +74,19 @@ function fallbackReply(messages) {
   return 'I can help with general website questions about Lone Star ITS services, pricing, service-area questions, and next steps. Lone Star ITS is veteran family owned and operated, and service desk support is handled by real people from the team. What would you like to know?';
 }
 
+function isAllowedSource(request) {
+  const origin = request.headers.get('Origin') || '';
+  if (origin) return ALLOWED_ORIGINS.has(origin);
+  const referer = request.headers.get('Referer') || '';
+  if (!referer) return false;
+  try {
+    const ref = new URL(referer);
+    return ALLOWED_ORIGINS.has(`${ref.protocol}//${ref.host}`);
+  } catch (_) {
+    return false;
+  }
+}
+
 async function handleChat(request, env) {
   if (request.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: corsHeaders(request) });
@@ -81,6 +94,10 @@ async function handleChat(request, env) {
 
   if (request.method !== 'POST') {
     return jsonResponse(request, { error: 'Method not allowed' }, 405);
+  }
+
+  if (!isAllowedSource(request)) {
+    return jsonResponse(request, { error: 'Forbidden' }, 403);
   }
 
   let payload;
@@ -118,8 +135,9 @@ async function handleChat(request, env) {
 
   const data = await anthropicRes.json().catch(() => ({}));
   if (!anthropicRes.ok) {
+    console.error('Anthropic upstream error', anthropicRes.status, data?.error?.message);
     return jsonResponse(request, {
-      error: data.error?.message || `Anthropic request failed with status ${anthropicRes.status}`,
+      error: 'The website assistant is temporarily unavailable. Please use the Contact page.',
     }, 502);
   }
 
