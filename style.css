@@ -509,3 +509,35 @@ footer { text-align: center; padding: 28px 16px; color: #e9f2f7; background: lin
   .header-right { width: 100%; justify-content: flex-end; }
   .hero h1 { font-size: 2.25rem; }
 }
+
+/* Pricing page layout */
+body.pricing-page main,
+body.pricing-page .hero {
+  width: min(1280px, calc(100% - 32px));
+}
+
+.pricing.pricing-four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.pricing-four .plan { padding: 28px; }
+.pricing-four .price { font-size: clamp(2rem, 3vw, 2.4rem); }
+
+.launch-note {
+  color: var(--muted);
+  line-height: 1.55;
+  margin-top: -4px;
+}
+
+.launch-note strong { color: var(--teal); }
+
+.text-left { text-align: left; }
+
+@media (max-width: 1180px) {
+  .pricing.pricing-four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+  .pricing.pricing-four { grid-template-columns: 1fr; }
+}
