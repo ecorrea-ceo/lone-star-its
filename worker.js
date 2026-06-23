@@ -1,10 +1,34 @@
 const ALLOWED_ORIGINS = new Set([
   'https://lonestar-its.com',
   'https://www.lonestar-its.com',
-  'https://elspaniard97.github.io',
-  'https://elspaniard97.github.io/lone-star-its',
+  'https://ecorrea-ceo.github.io',
+  'https://ecorrea-ceo.github.io/lone-star-its',
   'https://lone-star-its.saints-correa23.workers.dev',
 ]);
+
+const CONTENT_SECURITY_POLICY = [
+  "default-src 'self'",
+  "script-src 'self' https://challenges.cloudflare.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  'font-src https://fonts.gstatic.com',
+  "img-src 'self' data:",
+  'form-action https://formspree.io/f/mojbdwra',
+  "connect-src 'self' https://lone-star-its.saints-correa23.workers.dev",
+  'frame-src https://challenges.cloudflare.com',
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  'upgrade-insecure-requests',
+].join('; ');
+
+const SECURITY_HEADERS = {
+  'Content-Security-Policy': CONTENT_SECURITY_POLICY,
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+};
 
 function corsHeaders(request) {
   const origin = request.headers.get('Origin') || '';
@@ -21,11 +45,23 @@ function corsHeaders(request) {
   };
 }
 
+function withSecurityHeaders(response) {
+  const headers = new Headers(response.headers);
+  Object.entries(SECURITY_HEADERS).forEach(([key, value]) => headers.set(key, value));
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 function jsonResponse(request, body, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
+      ...SECURITY_HEADERS,
       ...corsHeaders(request),
     },
   });
@@ -154,7 +190,7 @@ function isAllowedSource(request) {
 
 async function handleChat(request, env) {
   if (request.method === 'OPTIONS') {
-    return new Response(null, { status: 204, headers: corsHeaders(request) });
+    return new Response(null, { status: 204, headers: { ...SECURITY_HEADERS, ...corsHeaders(request) } });
   }
 
   if (request.method !== 'POST') {
@@ -235,9 +271,10 @@ export default {
     }
 
     if (env.ASSETS) {
-      return env.ASSETS.fetch(request);
+      const response = await env.ASSETS.fetch(request);
+      return withSecurityHeaders(response);
     }
 
-    return new Response('Not found', { status: 404 });
+    return withSecurityHeaders(new Response('Not found', { status: 404 }));
   },
 };
