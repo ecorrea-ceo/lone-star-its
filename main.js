@@ -32,16 +32,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const nav       = document.getElementById('main-nav');
 
   if (hamburger && nav) {
+    hamburger.setAttribute('aria-controls', nav.id || 'main-nav');
+    hamburger.setAttribute('aria-expanded', 'false');
+
+    function setMenuOpen(isOpen) {
+      hamburger.classList.toggle('open', isOpen);
+      nav.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+    }
+
     hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      nav.classList.toggle('open');
+      setMenuOpen(!nav.classList.contains('open'));
     });
 
     nav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        nav.classList.remove('open');
-      });
+      link.addEventListener('click', () => setMenuOpen(false));
     });
   }
 
@@ -68,6 +73,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const quickReplies = document.querySelectorAll('.quick-reply');
 
   if (!chatToggle || !chatBox || !chatInput || !chatSend || !chatMessages) return;
+
+  chatToggle.setAttribute('aria-controls', chatBox.id || 'chat-box');
+  chatToggle.setAttribute('aria-expanded', 'false');
+
+  function setChatOpen(isOpen) {
+    chatBox.classList.toggle('open', isOpen);
+    chatToggle.textContent = isOpen ? 'X' : 'Chat';
+    chatToggle.setAttribute('aria-expanded', String(isOpen));
+    chatToggle.setAttribute('aria-label', isOpen ? 'Close chat' : 'Open chat');
+
+    if (isOpen) {
+      chatInput.focus();
+      renderTurnstileWidget();
+    }
+  }
 
   // Conversation history sent to Claude (role: user | assistant)
   const conversationHistory = [];
@@ -215,19 +235,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* -- Toggle open/close -- */
   chatToggle.addEventListener('click', () => {
-    chatBox.classList.toggle('open');
-    chatToggle.textContent = chatBox.classList.contains('open') ? 'X' : 'Chat';
-    if (chatBox.classList.contains('open')) {
-      chatInput.focus();
-      renderTurnstileWidget();
-    }
+    setChatOpen(!chatBox.classList.contains('open'));
   });
 
   if (chatClose) {
-    chatClose.addEventListener('click', () => {
-      chatBox.classList.remove('open');
-      chatToggle.textContent = 'Chat';
-    });
+    chatClose.addEventListener('click', () => setChatOpen(false));
   }
 
   /* -- Send button & Enter key -- */
