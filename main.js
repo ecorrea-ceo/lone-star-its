@@ -12,8 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
   /* -------- Dark Mode -------- */
   const toggle = document.getElementById('dark-mode-toggle');
   const saved  = localStorage.getItem('darkMode');
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const startDark = saved === null ? prefersDark : saved === 'true';
 
-  if (saved === 'true') {
+  if (startDark) {
     document.body.classList.add('dark-mode');
     if (toggle) toggle.textContent = 'Light';
   }
