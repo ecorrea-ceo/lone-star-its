@@ -139,11 +139,11 @@ function fallbackReply(messages) {
   }
 
   if (latest.includes('phone') || latest.includes('call') || latest.includes('number')) {
-    return 'You can reach Lone Star ITS by phone at 254-317-9258 or by email at ecorrea@lonestar-its.com. The Contact page is also a fast way to send your request.';
+    return 'You can reach Lone Star ITS by phone at 254-317-9258 or by email at support@lonestar-its.com. The Contact page is also a fast way to send your request.';
   }
 
   if (latest.includes('email') || latest.includes('reach')) {
-    return 'Email Lone Star ITS at ecorrea@lonestar-its.com or call 254-317-9258. You can also use the Contact page to send a request with details.';
+    return 'Email Lone Star ITS at support@lonestar-its.com or call 254-317-9258. You can also use the Contact page to send a request with details.';
   }
 
   if (latest.includes('address') || latest.includes('mailing')) {
@@ -151,7 +151,7 @@ function fallbackReply(messages) {
   }
 
   if (latest.includes('contact') || latest.includes('quote') || latest.includes('consult')) {
-    return 'Lone Star ITS contact: Customer Service — ecorrea@lonestar-its.com — 254-317-9258 — 214 Ackerman St., Rockdale, TX 76567. The Contact page is the fastest way to send your request with details.';
+    return 'Lone Star ITS contact: Customer Service — support@lonestar-its.com — 254-317-9258 — 214 Ackerman St., Rockdale, TX 76567. The Contact page is the fastest way to send your request with details.';
   }
 
   if (latest.includes('veteran') || latest.includes('family') || latest.includes('owner')) {
@@ -174,7 +174,7 @@ function fallbackReply(messages) {
     return 'Hi! I am the Lone Star ITS website assistant. Ask about services, pricing, service area, or contact info, and I will point you in the right direction. For real support, you will work with people from our team.';
   }
 
-  return 'I can help with basic questions about Lone Star ITS services, pricing, service area, or how to get in touch. Reach the team at ecorrea@lonestar-its.com or 254-317-9258, or use the Contact page. What would you like to know?';
+  return 'I can help with basic questions about Lone Star ITS services, pricing, service area, or how to get in touch. Reach the team at support@lonestar-its.com or 254-317-9258, or use the Contact page. What would you like to know?';
 }
 
 async function verifyTurnstile(token, env, request) {
