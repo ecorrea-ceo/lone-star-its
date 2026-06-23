@@ -6,6 +6,8 @@ const ALLOWED_ORIGINS = new Set([
   'https://lone-star-its.saints-correa23.workers.dev',
 ]);
 
+const MAX_CHAT_REQUEST_BYTES = 32 * 1024;
+
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   "script-src 'self' https://challenges.cloudflare.com",
@@ -65,6 +67,14 @@ function jsonResponse(request, body, status = 200) {
       ...corsHeaders(request),
     },
   });
+}
+
+function isOversizedRequest(request) {
+  const contentLength = request.headers.get('Content-Length');
+  if (!contentLength) return false;
+
+  const bytes = Number(contentLength);
+  return Number.isFinite(bytes) && bytes > MAX_CHAT_REQUEST_BYTES;
 }
 
 function sanitizeMessages(messages) {
@@ -199,6 +209,10 @@ async function handleChat(request, env) {
 
   if (!isAllowedSource(request)) {
     return jsonResponse(request, { error: 'Forbidden' }, 403);
+  }
+
+  if (isOversizedRequest(request)) {
+    return jsonResponse(request, { error: 'Request body is too large.' }, 413);
   }
 
   let payload;
