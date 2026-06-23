@@ -1,11 +1,16 @@
 /* ============================================================
    Lone Star ITS — main.js
-   Dark Mode | Hamburger Menu | Contact Prefill | AI Chat Widget
+   Dark Mode | Hamburger Menu | Contact Form | AI Chat Widget
    ============================================================ */
 
 // Cloudflare Worker endpoint for the Lone Star ITS chat assistant.
 const WORKER_URL = 'https://lone-star-its.saints-correa23.workers.dev/api/chat';
 const TURNSTILE_SITE_KEY = '0x4AAAAAADT2dLLZ47ngexJ8';
+
+// HubSpot Forms Submission API — contact form on contact.html.
+const HUBSPOT_PORTAL_ID = '246524006';
+const HUBSPOT_FORM_GUID = '0ffda371-1758-4181-bb55-cb3451bde6b3';
+const HUBSPOT_SUBMIT_URL = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`;
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -63,6 +68,70 @@ document.addEventListener('DOMContentLoaded', () => {
       const matchingOption = Array.from(planSelect.options).find(option => option.value === requestedPlan);
       if (matchingOption) planSelect.value = requestedPlan;
     }
+  }
+
+  /* -------- Contact Form Submission (HubSpot) -------- */
+  const contactForm = document.getElementById('contact-form');
+  const formStatus  = document.getElementById('form-status');
+
+  if (contactForm) {
+    const setFormStatus = (text, type) => {
+      if (!formStatus) return;
+      formStatus.textContent = text;
+      formStatus.dataset.state = type || '';
+    };
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const honeypot = contactForm.elements['_gotcha'];
+      if (honeypot && honeypot.value) {
+        // Likely a bot — silently send to the success page.
+        window.location.href = 'thankyou.html';
+        return;
+      }
+
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      setFormStatus('Sending…', 'pending');
+
+      const payload = {
+        submittedAt: Date.now(),
+        fields: [
+          { objectTypeId: '0-1', name: 'firstname',       value: contactForm.elements['name'].value.trim() },
+          { objectTypeId: '0-1', name: 'email',           value: contactForm.elements['email'].value.trim() },
+          { objectTypeId: '0-1', name: 'plan_or_service', value: contactForm.elements['plan'].value },
+          { objectTypeId: '0-1', name: 'message',         value: contactForm.elements['message'].value.trim() }
+        ],
+        context: {
+          pageUri:  window.location.href,
+          pageName: document.title
+        }
+      };
+
+      try {
+        const res = await fetch(HUBSPOT_SUBMIT_URL, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          const errBody = await res.text();
+          console.error('HubSpot submission failed:', res.status, errBody);
+          throw new Error('Submission failed');
+        }
+
+        window.location.href = 'thankyou.html';
+      } catch (err) {
+        console.error('Contact form error:', err);
+        setFormStatus(
+          "Sorry — we couldn't send your message. Please email support@lonestar-its.com or try again in a moment.",
+          'error'
+        );
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
   }
 
   /* -------- Claude AI Chat Widget -------- */
