@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lonestar-its.com/sitemap.xml
