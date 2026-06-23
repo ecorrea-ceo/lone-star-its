@@ -32,6 +32,8 @@ const SECURITY_HEADERS = {
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
 };
 
+const CHAT_SYSTEM_PROMPT = `You are Lone Star ITS's website assistant for general pre-sales and website questions only. Lone Star ITS is a veteran family-owned and operated managed technology services company for small businesses. Service desk support is handled by real people from the Lone Star ITS team, not outsourced to foreign countries and not replaced by AI chat bots. Be concise, professional, and helpful. Explain services clearly, encourage visitors with buying intent or support needs to use the Contact page, and never invent unavailable contact details. Services include managed IT support, human service desk coverage, network setup and security, backup and recovery, cybersecurity audits, cloud/email/websites, web design and management, and device lifecycle management. Plans are Basic Support at $300/month for up to 10 supported users, Standard Support at $500/month for up to 10 supported users, and Premium Support at $1,500/month for up to 15 supported users. Premium includes unlimited onsite visits, advanced monitoring/security, quarterly technology review, and access to Web Design & Management. Standalone Web Design & Management is $150/month after an initial custom launch quote. Larger teams or out-of-scope needs require a custom quote through the Contact page.`;
+
 function corsHeaders(request) {
   const origin = request.headers.get('Origin') || '';
   const allowOrigin = ALLOWED_ORIGINS.has(origin) || origin === ''
@@ -98,15 +100,15 @@ function fallbackReply(messages) {
   const latest = messages[messages.length - 1]?.content?.toLowerCase() || '';
 
   if (latest.includes('price') || latest.includes('pricing') || latest.includes('plan') || latest.includes('cost')) {
-    return 'Lone Star ITS pricing: Basic Support $300/month, Standard Support $500/month, Premium Support $1,500/month. Standalone Web Design & Management is $150/month after the initial launch quote. The best fit depends on your users, devices, sites, and security needs. Use the Contact page for a consultation.';
+    return 'Lone Star ITS pricing: Basic Support $300/month for up to 10 supported users, Standard Support $500/month for up to 10 supported users, and Premium Support $1,500/month for up to 15 supported users. Standalone Web Design & Management is $150/month after the initial custom launch quote. Larger teams or out-of-scope needs require a custom quote through the Contact page.';
   }
 
   if (latest.includes('web') && (latest.includes('design') || latest.includes('site') || latest.includes('management'))) {
-    return 'Lone Star ITS offers standalone Web Design & Management at $150/month after launch, with an initial custom quote. Premium Support clients get website support included. Use the Contact page to request a custom quote.';
+    return 'Lone Star ITS offers standalone Web Design & Management at $150/month after launch, with an initial custom quote. Premium Support clients get access to Web Design & Management. Use the Contact page to request a custom quote.';
   }
 
   if (latest.includes('service') || latest.includes('offer') || latest.includes('support')) {
-    return 'Lone Star ITS provides managed IT support, human service desk coverage, network setup and security, cybersecurity audits, backup and recovery, cloud/email/web support, and device lifecycle management for small businesses. Service desk support is handled by people from our team, not offshore call centers or AI chat bots.';
+    return 'Lone Star ITS provides managed IT support, human service desk coverage, network setup and security, cybersecurity audits, backup and recovery, cloud/email/web support, web design and management, and device lifecycle management for small businesses. Service desk support is handled by people from our team, not offshore call centers or AI chat bots.';
   }
 
   if (latest.includes('area') || latest.includes('location') || latest.includes('where') || latest.includes('rockdale') || latest.includes('texas')) {
@@ -250,7 +252,7 @@ async function handleChat(request, env) {
         model: env.ANTHROPIC_MODEL || 'claude-haiku-4-5-20251001',
         max_tokens: 450,
         temperature: 0.3,
-        system: `You are Lone Star ITS's website assistant for general pre-sales and website questions only. Lone Star ITS is a veteran family-owned and operated managed technology services company for small businesses. Service desk support is handled by real people from the Lone Star ITS team, not outsourced to foreign countries and not replaced by AI chat bots. Be concise, professional, and helpful. Explain services clearly, encourage visitors with buying intent or support needs to use the Contact page, and never invent unavailable contact details. Services include managed IT support, human service desk coverage, network setup and security, backup and recovery, cybersecurity audits, cloud/email/websites, and device lifecycle management. Plans are Basic Support at $300/month, Standard Support at $500/month, and Premium Support at $1,500/month.`,
+        system: CHAT_SYSTEM_PROMPT,
         messages,
       }),
     });
