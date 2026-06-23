@@ -23,8 +23,10 @@ lone-star-its/
 ├── security.html       # Security practices and responsible disclosure notes
 ├── style.css           # Shared Lone Star ITS visual system
 ├── main.js             # Dark mode, hamburger menu, AI chat widget
-├── worker.js           # Cloudflare Worker chat proxy
+├── worker.js           # Cloudflare Worker chat proxy and security headers
 ├── wrangler.jsonc      # Cloudflare Worker config
+├── robots.txt          # Search crawler instructions
+├── sitemap.xml         # Search engine URL discovery
 ├── CNAME               # GitHub Pages custom domain
 ├── logo.png            # Lone Star ITS full brand logo
 ├── logo-mark.png       # Lone Star ITS star mark for favicon/header
@@ -38,11 +40,13 @@ lone-star-its/
 - Responsive static website built with HTML, CSS, and vanilla JavaScript
 - Lone Star ITS visual identity: navy + teal + silver palette, Texas star/circuit-inspired branding, clean corporate IT styling
 - Dark mode toggle persisted via `localStorage`
-- Mobile hamburger menu
+- Accessible mobile hamburger menu with managed `aria-expanded` state
 - Contact form using Formspree with a bot-trap field and privacy/terms notice
 - Floating website assistant UI backed by a Cloudflare Worker proxy for general website questions only
-- Page-level security headers via meta tags
+- Chat widget protected by Cloudflare Turnstile and a Worker-side request-size guard
+- Page-level security headers via meta tags, plus real HTTP security headers when served through the Cloudflare Worker
 - GitHub Pages-friendly structure with no build step
+- SEO discovery support through `robots.txt` and `sitemap.xml`
 - Custom domain support through `CNAME`: `lonestar-its.com`
 
 ---
@@ -118,6 +122,8 @@ The chat endpoint is gated by Cloudflare Turnstile. The Worker rejects requests 
 wrangler secret put TURNSTILE_SECRET
 ```
 
+The Worker also rejects oversized chat request bodies before JSON parsing. For stronger abuse control, add a Cloudflare WAF or rate-limiting rule for `/api/chat` in the Cloudflare dashboard.
+
 The matching site key is embedded in `main.js` as `TURNSTILE_SITE_KEY` and is safe to commit. Configure the Turnstile widget in the Cloudflare dashboard with hostnames `lonestar-its.com`, `www.lonestar-its.com`, and `ecorrea-ceo.github.io`.
 
 Do not commit API keys, tokens, passwords, private keys, or client credentials to this repository.
@@ -171,7 +177,8 @@ Edit pages directly:
 - `privacy.html`, `terms.html`, `security.html` — legal/security website notices
 - `style.css` — shared visual design
 - `main.js` — dark mode, mobile nav, chat behavior
-- `worker.js` — chat assistant backend/fallback behavior
+- `worker.js` — chat assistant backend/fallback behavior, security headers, and request guards
+- `robots.txt`, `sitemap.xml` — search discovery files
 
 Deploy through GitHub Pages:
 
@@ -182,6 +189,12 @@ git push origin main
 ```
 
 GitHub Pages should rebuild automatically from the `main` branch root.
+
+Deploy the Cloudflare Worker when `worker.js` or `wrangler.jsonc` changes:
+
+```bash
+wrangler deploy
+```
 
 ---
 
