@@ -3,14 +3,10 @@
    Dark Mode | Hamburger Menu | Contact Form | AI Chat Widget
    ============================================================ */
 
-// Cloudflare Worker endpoint for the Lone Star ITS chat assistant.
-const WORKER_URL = 'https://lone-star-its.saints-correa23.workers.dev/api/chat';
+// Cloudflare Worker endpoints.
+const WORKER_URL  = 'https://lone-star-its.saints-correa23.workers.dev/api/chat';
+const CONTACT_URL = 'https://lone-star-its.saints-correa23.workers.dev/api/contact';
 const TURNSTILE_SITE_KEY = '0x4AAAAAADT2dLLZ47ngexJ8';
-
-// HubSpot Forms Submission API — contact form on contact.html.
-const HUBSPOT_PORTAL_ID = '246524006';
-const HUBSPOT_FORM_GUID = '0ffda371-1758-4181-bb55-cb3451bde6b3';
-const HUBSPOT_SUBMIT_URL = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`;
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -96,37 +92,30 @@ document.addEventListener('DOMContentLoaded', () => {
       setFormStatus('Sending…', 'pending');
 
       const payload = {
-        submittedAt: Date.now(),
-        fields: [
-          { objectTypeId: '0-1', name: 'firstname',       value: contactForm.elements['name'].value.trim() },
-          { objectTypeId: '0-1', name: 'email',           value: contactForm.elements['email'].value.trim() },
-          { objectTypeId: '0-1', name: 'plan_or_service', value: contactForm.elements['plan'].value },
-          { objectTypeId: '0-1', name: 'message',         value: contactForm.elements['message'].value.trim() }
-        ],
-        context: {
-          pageUri:  window.location.href,
-          pageName: document.title
-        }
+        name:    contactForm.elements['name'].value.trim(),
+        email:   contactForm.elements['email'].value.trim(),
+        plan:    contactForm.elements['plan'].value,
+        message: contactForm.elements['message'].value.trim(),
       };
 
       try {
-        const res = await fetch(HUBSPOT_SUBMIT_URL, {
+        const res = await fetch(CONTACT_URL, {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify(payload)
+          body:    JSON.stringify(payload),
         });
 
-        if (!res.ok) {
-          const errBody = await res.text();
-          console.error('HubSpot submission failed:', res.status, errBody);
-          throw new Error('Submission failed');
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+          console.error('Contact submission failed:', res.status, data);
+          throw new Error(data.error || 'Submission failed');
         }
 
         window.location.href = 'thankyou.html';
       } catch (err) {
         console.error('Contact form error:', err);
         setFormStatus(
-          "Sorry — we couldn't send your message. Please email support@lonestar-its.com or try again in a moment.",
+          err.message || "Sorry — we couldn't send your message. Please email support@lonestar-its.com or try again in a moment.",
           'error'
         );
         if (submitBtn) submitBtn.disabled = false;
