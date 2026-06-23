@@ -14,7 +14,7 @@ const CONTENT_SECURITY_POLICY = [
   "style-src 'self' https://fonts.googleapis.com",
   'font-src https://fonts.gstatic.com',
   "img-src 'self' data:",
-  'form-action https://formspree.io/f/mojbdwra',
+  'form-action https://formspree.io/f/maqgnllq',
   "connect-src 'self' https://lone-star-its.saints-correa23.workers.dev",
   'frame-src https://challenges.cloudflare.com',
   "frame-ancestors 'none'",
