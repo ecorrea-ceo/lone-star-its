@@ -4,7 +4,7 @@
 
 Primary domain: https://lonestar-its.com/
 
-GitHub Pages fallback URL after repo rename: https://elspaniard97.github.io/lone-star-its/
+GitHub Pages fallback URL after repo rename: https://ecorrea-ceo.github.io/lone-star-its/
 
 ---
 
@@ -83,7 +83,7 @@ A     @     185.199.108.153
 A     @     185.199.109.153
 A     @     185.199.110.153
 A     @     185.199.111.153
-CNAME www   ElSpaniard97.github.io
+CNAME www   ecorrea-ceo.github.io
 ```
 
 Security best practice: once DNS resolves, enforce HTTPS in GitHub Pages and keep the domain verified in GitHub account settings to prevent takeover risk.
@@ -118,7 +118,7 @@ The chat endpoint is gated by Cloudflare Turnstile. The Worker rejects requests 
 wrangler secret put TURNSTILE_SECRET
 ```
 
-The matching site key is embedded in `main.js` as `TURNSTILE_SITE_KEY` and is safe to commit. Configure the Turnstile widget in the Cloudflare dashboard with hostnames `lonestar-its.com`, `www.lonestar-its.com`, and `elspaniard97.github.io`.
+The matching site key is embedded in `main.js` as `TURNSTILE_SITE_KEY` and is safe to commit. Configure the Turnstile widget in the Cloudflare dashboard with hostnames `lonestar-its.com`, `www.lonestar-its.com`, and `ecorrea-ceo.github.io`.
 
 Do not commit API keys, tokens, passwords, private keys, or client credentials to this repository.
 
@@ -150,7 +150,7 @@ Legal/security notes:
 ## How to Edit and Deploy
 
 ```bash
-git clone https://github.com/ElSpaniard97/lone-star-its.git
+git clone https://github.com/ecorrea-ceo/lone-star-its.git
 cd lone-star-its
 python3 -m http.server 4180
 ```
@@ -208,4 +208,4 @@ Ezekiel Correa<br>
 IT Asset Management Lead Technician | CompTIA A+ | Network+<br>
 Austin, TX
 
-GitHub: https://github.com/ElSpaniard97
+GitHub: https://github.com/ecorrea-ceo
