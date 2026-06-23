@@ -8,13 +8,27 @@ const ALLOWED_ORIGINS = new Set([
 
 const MAX_CHAT_REQUEST_BYTES = 32 * 1024;
 
+const HUBSPOT_PORTAL_ID = '246524006';
+const HUBSPOT_FORM_GUID = '0ffda371-1758-4181-bb55-cb3451bde6b3';
+const HUBSPOT_SUBMIT_URL = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`;
+const JIRA_BASE_URL = 'https://lonestar-its.atlassian.net';
+const JSM_PROJECT_KEY = 'LSAR';
+
+const ALLOWED_PLANS = new Set([
+  'Basic Support',
+  'Standard Support',
+  'Premium Support',
+  'Web Design & Management',
+  'Not Sure',
+]);
+
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   "script-src 'self' https://challenges.cloudflare.com",
   "style-src 'self' https://fonts.googleapis.com",
   'font-src https://fonts.gstatic.com',
   "img-src 'self' data:",
-  'form-action https://formspree.io/f/maqgnllq',
+  "form-action 'self'",
   "connect-src 'self' https://lone-star-its.saints-correa23.workers.dev",
   'frame-src https://challenges.cloudflare.com',
   "frame-ancestors 'none'",
@@ -231,6 +245,181 @@ async function checkRateLimit(env, request) {
   }
 }
 
+let cachedServiceDeskId = null;
+let cachedRequestTypeId = null;
+
+function basicAuth(env) {
+  return btoa(`${env.JIRA_EMAIL}:${env.JIRA_API_TOKEN}`);
+}
+
+function sanitizeContactInput(payload) {
+  if (!payload || typeof payload !== 'object') return null;
+  const trim = (v, max) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
+  const name    = trim(payload.name,    200);
+  const email   = trim(payload.email,   254);
+  const plan    = trim(payload.plan,    200);
+  const message = trim(payload.message, 4000);
+
+  if (!name || !email || !plan || !message) return null;
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return null;
+  if (!ALLOWED_PLANS.has(plan)) return null;
+
+  return { name, email, plan, message };
+}
+
+async function discoverJsmIds(env) {
+  if (cachedServiceDeskId && cachedRequestTypeId) {
+    return { serviceDeskId: cachedServiceDeskId, requestTypeId: cachedRequestTypeId };
+  }
+  const auth = basicAuth(env);
+  const headers = { Authorization: `Basic ${auth}`, Accept: 'application/json' };
+
+  const sdRes = await fetch(`${JIRA_BASE_URL}/rest/servicedeskapi/servicedesk?limit=50`, { headers });
+  if (!sdRes.ok) throw new Error(`Failed to list service desks: ${sdRes.status}`);
+  const sdData = await sdRes.json();
+  const lsar = (sdData.values || []).find((sd) => sd.projectKey === JSM_PROJECT_KEY);
+  if (!lsar) throw new Error(`Service desk for project ${JSM_PROJECT_KEY} not found`);
+
+  const rtRes = await fetch(`${JIRA_BASE_URL}/rest/servicedeskapi/servicedesk/${lsar.id}/requesttype?limit=50`, { headers });
+  if (!rtRes.ok) throw new Error(`Failed to list request types: ${rtRes.status}`);
+  const rtData = await rtRes.json();
+  const requestTypes = rtData.values || [];
+  const rt =
+    requestTypes.find((t) => /service request|general/i.test(t.name)) ||
+    requestTypes[0];
+  if (!rt) throw new Error('No request types available in LSAR');
+
+  cachedServiceDeskId = String(lsar.id);
+  cachedRequestTypeId = String(rt.id);
+  return { serviceDeskId: cachedServiceDeskId, requestTypeId: cachedRequestTypeId };
+}
+
+async function submitToHubSpot(fields, request) {
+  const payload = {
+    submittedAt: Date.now(),
+    fields: [
+      { objectTypeId: '0-1', name: 'firstname',       value: fields.name },
+      { objectTypeId: '0-1', name: 'email',           value: fields.email },
+      { objectTypeId: '0-1', name: 'plan_or_service', value: fields.plan },
+      { objectTypeId: '0-1', name: 'message',         value: fields.message },
+    ],
+    context: {
+      pageUri:  request.headers.get('Referer') || 'https://lonestar-its.com/contact.html',
+      pageName: 'Contact | Lone Star ITS',
+    },
+  };
+  try {
+    const res = await fetch(HUBSPOT_SUBMIT_URL, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      console.error('HubSpot submission failed', res.status, await res.text().catch(() => ''));
+    }
+  } catch (err) {
+    console.error('HubSpot fetch threw', err?.message || err);
+  }
+}
+
+async function createLsarTicket(fields, env) {
+  if (!env.JIRA_EMAIL || !env.JIRA_API_TOKEN) {
+    return { ok: false, status: 500, error: 'JSM credentials not configured' };
+  }
+
+  let serviceDeskId;
+  let requestTypeId;
+  try {
+    ({ serviceDeskId, requestTypeId } = await discoverJsmIds(env));
+  } catch (err) {
+    console.error('JSM discovery failed', err?.message || err);
+    return { ok: false, status: 502, error: 'JSM discovery failed' };
+  }
+
+  const summary = `Website contact: ${fields.name} — ${fields.plan}`.slice(0, 200);
+  const description = [
+    'New website contact submission.',
+    '',
+    `From: ${fields.name} <${fields.email}>`,
+    `Plan or service of interest: ${fields.plan}`,
+    '',
+    'Message:',
+    fields.message,
+    '',
+    '— Submitted from https://lonestar-its.com/contact.html',
+  ].join('\n');
+
+  const body = {
+    serviceDeskId,
+    requestTypeId,
+    requestFieldValues: { summary, description },
+    raiseOnBehalfOf: fields.email,
+  };
+
+  try {
+    const res = await fetch(`${JIRA_BASE_URL}/rest/servicedeskapi/request`, {
+      method:  'POST',
+      headers: {
+        Authorization:  `Basic ${basicAuth(env)}`,
+        'Content-Type': 'application/json',
+        Accept:         'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) {
+      const text = await res.text().catch(() => '');
+      console.error('JSM request creation failed', res.status, text);
+      return { ok: false, status: res.status, error: text || 'JSM ticket creation failed' };
+    }
+    const data = await res.json().catch(() => ({}));
+    return { ok: true, key: data.issueKey || null };
+  } catch (err) {
+    console.error('JSM fetch threw', err?.message || err);
+    return { ok: false, status: 502, error: 'JSM upstream error' };
+  }
+}
+
+async function handleContact(request, env, ctx) {
+  if (request.method === 'OPTIONS') {
+    return new Response(null, { status: 204, headers: { ...SECURITY_HEADERS, ...corsHeaders(request) } });
+  }
+  if (request.method !== 'POST') {
+    return jsonResponse(request, { error: 'Method not allowed' }, 405);
+  }
+  if (!isAllowedSource(request)) {
+    return jsonResponse(request, { error: 'Forbidden' }, 403);
+  }
+  if (!(await checkRateLimit(env, request))) {
+    return jsonResponse(request, { error: 'Too many requests. Please wait a moment and try again.' }, 429);
+  }
+
+  const parsed = await readBoundedJson(request);
+  if (parsed.error) {
+    return jsonResponse(request, { error: parsed.error.message }, parsed.error.status);
+  }
+
+  const fields = sanitizeContactInput(parsed.value);
+  if (!fields) {
+    return jsonResponse(request, { error: 'Required fields missing or invalid.' }, 400);
+  }
+
+  if (ctx && typeof ctx.waitUntil === 'function') {
+    ctx.waitUntil(submitToHubSpot(fields, request));
+  } else {
+    submitToHubSpot(fields, request).catch(() => {});
+  }
+
+  const result = await createLsarTicket(fields, env);
+  if (!result.ok) {
+    return jsonResponse(
+      request,
+      { error: "Sorry — we couldn't open a support ticket. Please email support@lonestar-its.com or try again in a moment." },
+      502,
+    );
+  }
+  return jsonResponse(request, { ok: true, key: result.key });
+}
+
 async function handleChat(request, env) {
   if (request.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: { ...SECURITY_HEADERS, ...corsHeaders(request) } });
@@ -315,8 +504,12 @@ async function handleChat(request, env) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
+
+    if (url.pathname === '/api/contact') {
+      return handleContact(request, env, ctx);
+    }
 
     if (request.method === 'OPTIONS' || url.pathname === '/api/chat' || (url.pathname === '/' && request.method === 'POST')) {
       return handleChat(request, env);
