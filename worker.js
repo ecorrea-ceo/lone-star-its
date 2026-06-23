@@ -11,7 +11,7 @@ const MAX_CHAT_REQUEST_BYTES = 32 * 1024;
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   "script-src 'self' https://challenges.cloudflare.com",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "style-src 'self' https://fonts.googleapis.com",
   'font-src https://fonts.gstatic.com',
   "img-src 'self' data:",
   'form-action https://formspree.io/f/mojbdwra',
@@ -42,7 +42,7 @@ function corsHeaders(request) {
 
   return {
     'Access-Control-Allow-Origin': allowOrigin,
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Max-Age': '86400',
     'Vary': 'Origin',
@@ -71,12 +71,31 @@ function jsonResponse(request, body, status = 200) {
   });
 }
 
-function isOversizedRequest(request) {
+function declaredContentLengthOversized(request) {
   const contentLength = request.headers.get('Content-Length');
   if (!contentLength) return false;
-
   const bytes = Number(contentLength);
   return Number.isFinite(bytes) && bytes > MAX_CHAT_REQUEST_BYTES;
+}
+
+async function readBoundedJson(request) {
+  if (declaredContentLengthOversized(request)) {
+    return { error: { status: 413, message: 'Request body is too large.' } };
+  }
+  let buffer;
+  try {
+    buffer = await request.arrayBuffer();
+  } catch (_) {
+    return { error: { status: 400, message: 'Invalid request body.' } };
+  }
+  if (buffer.byteLength > MAX_CHAT_REQUEST_BYTES) {
+    return { error: { status: 413, message: 'Request body is too large.' } };
+  }
+  try {
+    return { value: JSON.parse(new TextDecoder().decode(buffer)) };
+  } catch (_) {
+    return { error: { status: 400, message: 'Invalid JSON request body.' } };
+  }
 }
 
 function sanitizeMessages(messages) {
@@ -93,7 +112,7 @@ function sanitizeMessages(messages) {
 }
 
 function getApiKey(env) {
-  return env.ANTHROPIC_API_KEY || env.CLAUDE_API_TOKEN || env.Claude_API_Token || env.CLAUDE_API_KEY;
+  return env.ANTHROPIC_API_KEY;
 }
 
 function fallbackReply(messages) {
@@ -200,6 +219,18 @@ function isAllowedSource(request) {
   }
 }
 
+async function checkRateLimit(env, request) {
+  if (!env.RATE_LIMITER) return true;
+  const key = request.headers.get('CF-Connecting-IP') || 'anonymous';
+  try {
+    const { success } = await env.RATE_LIMITER.limit({ key });
+    return success !== false;
+  } catch (err) {
+    console.error('Rate limit check failed', err?.message || err);
+    return true;
+  }
+}
+
 async function handleChat(request, env) {
   if (request.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: { ...SECURITY_HEADERS, ...corsHeaders(request) } });
@@ -213,16 +244,15 @@ async function handleChat(request, env) {
     return jsonResponse(request, { error: 'Forbidden' }, 403);
   }
 
-  if (isOversizedRequest(request)) {
-    return jsonResponse(request, { error: 'Request body is too large.' }, 413);
+  if (!(await checkRateLimit(env, request))) {
+    return jsonResponse(request, { error: 'Too many requests. Please wait a moment and try again.' }, 429);
   }
 
-  let payload;
-  try {
-    payload = await request.json();
-  } catch (_) {
-    return jsonResponse(request, { error: 'Invalid JSON request body.' }, 400);
+  const parsed = await readBoundedJson(request);
+  if (parsed.error) {
+    return jsonResponse(request, { error: parsed.error.message }, parsed.error.status);
   }
+  const payload = parsed.value;
 
   const verified = await verifyTurnstile(payload.turnstileToken, env, request);
   if (!verified) {
@@ -252,7 +282,13 @@ async function handleChat(request, env) {
         model: env.ANTHROPIC_MODEL || 'claude-haiku-4-5-20251001',
         max_tokens: 450,
         temperature: 0.3,
-        system: CHAT_SYSTEM_PROMPT,
+        system: [
+          {
+            type: 'text',
+            text: CHAT_SYSTEM_PROMPT,
+            cache_control: { type: 'ephemeral' },
+          },
+        ],
         messages,
       }),
     });
