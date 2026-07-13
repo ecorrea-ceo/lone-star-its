@@ -16,7 +16,7 @@ lone-star-its/
 ├── services.html       # Managed technology services offered
 ├── pricing.html        # Pricing tiers and web design/management
 ├── about.html          # Company background and ownership messaging
-├── contact.html        # Contact form via Formspree
+├── contact.html        # Contact form (submits via Cloudflare Worker to HubSpot + Jira Service Management)
 ├── thankyou.html       # Post-form confirmation page
 ├── privacy.html        # Practical privacy notice
 ├── terms.html          # Website terms and service disclaimers
@@ -41,10 +41,12 @@ lone-star-its/
 - Lone Star ITS visual identity: navy + teal + silver palette, Texas star/circuit-inspired branding, clean corporate IT styling
 - Dark mode toggle persisted via `localStorage`
 - Accessible mobile hamburger menu with managed `aria-expanded` state
-- Contact form using Formspree with a bot-trap field and privacy/terms notice
-- Floating website assistant UI backed by a Cloudflare Worker proxy for general website questions only
-- Chat widget protected by Cloudflare Turnstile and a Worker-side request-size guard
+- Contact form with a bot-trap field, submitted via a Cloudflare Worker that creates a Jira Service Management ticket (project `LSAR`) and logs the lead in HubSpot
+- Floating website assistant UI backed by the same Cloudflare Worker, proxying to the Anthropic API for general website questions only
+- Chat widget protected by Cloudflare Turnstile and a Worker-side request-size guard; both `/api/chat` and `/api/contact` are rate-limited
 - Page-level security headers via meta tags, plus real HTTP security headers when served through the Cloudflare Worker
+- `LocalBusiness`/`ProfessionalService` structured data (JSON-LD) on the homepage, plus canonical links and Twitter Card tags across pages
+- Skip-to-content link and a labeled chat input for keyboard/screen-reader users
 - GitHub Pages-friendly structure with no build step
 - SEO discovery support through `robots.txt` and `sitemap.xml`
 - Custom domain support through `CNAME`: `lonestar-its.com`
@@ -132,17 +134,19 @@ Do not commit API keys, tokens, passwords, private keys, or client credentials t
 
 ## Contact Form Notes
 
-The Formspree endpoint is:
+The contact form posts JSON to the Cloudflare Worker's `/api/contact` endpoint:
 
-```html
-https://formspree.io/f/maqgnllq
+```js
+const CONTACT_URL = 'https://lone-star-its.saints-correa23.workers.dev/api/contact';
 ```
 
-The hidden subject and redirect URL are configured as:
+The Worker validates the submission, then (a) creates a request in Jira Service Management under the `LSAR` project's service desk, and (b) logs the lead as a HubSpot form submission (portal `246524006`). The client is redirected to `thankyou.html` only after the JSM ticket is created successfully; the HubSpot log runs in the background and does not block the redirect.
 
-```html
-New Contact Form Submission - Lone Star ITS
-https://lonestar-its.com/thankyou.html
+Required Worker secrets for the contact flow:
+
+```bash
+wrangler secret put JIRA_EMAIL
+wrangler secret put JIRA_API_TOKEN
 ```
 
 Legal/security notes:

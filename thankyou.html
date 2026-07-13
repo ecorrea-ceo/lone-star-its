@@ -10,14 +10,22 @@
   <meta property="og:description" content="Thank you for contacting Lone Star ITS. We'll be in touch shortly.">
   <meta property="og:image" content="https://lonestar-its.com/logo.png">
   <meta property="og:url" content="https://lonestar-its.com/thankyou.html">
+  <link rel="canonical" href="https://lonestar-its.com/thankyou.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Thank You | Lone Star ITS">
+  <meta name="twitter:description" content="Thank you for contacting Lone Star ITS. We'll be in touch shortly.">
+  <meta name="twitter:image" content="https://lonestar-its.com/logo.png">
   <link rel="icon" type="image/png" href="logo-mark.png">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action https://formspree.io/f/maqgnllq; connect-src 'self' https://lone-star-its.saints-correa23.workers.dev; frame-src https://challenges.cloudflare.com; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action 'self'; connect-src 'self' https://lone-star-its.saints-correa23.workers.dev; frame-src https://challenges.cloudflare.com; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <header>
   <a class="brand" href="index.html" aria-label="Lone Star ITS home">
     <img src="logo-mark.png" alt="Lone Star ITS blue star logo mark">
@@ -37,7 +45,7 @@
     </button>
   </div>
 </header>
-<section class="hero compact fade-in"><div class="hero-text slide-up"><p class="eyebrow">Message Received</p><h1>Thank you!</h1><p>Your message has been sent successfully. Lone Star ITS will get back to you soon.</p><p><em>You’ll be redirected to the home page shortly...</em></p><a class="btn primary" href="index.html">Return Home</a></div><div class="hero-logo-panel"><img src="logo.png" alt="Lone Star ITS logo"></div></section>
+<section class="hero compact fade-in" id="main-content"><div class="hero-text slide-up"><p class="eyebrow">Message Received</p><h1>Thank you!</h1><p>Your message has been sent successfully. Lone Star ITS will get back to you soon.</p><p><em>You’ll be redirected to the home page shortly...</em></p><a class="btn primary" href="index.html">Return Home</a></div><div class="hero-logo-panel"><img src="logo.png" alt="Lone Star ITS logo"></div></section>
 <footer>
   <p>© 2026 Lone Star ITS — Managed Technology Services. Reliable · Connected · Secure · Supported.</p>
   <p class="footer-links"><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms</a> · <a href="security.html">Security</a></p>
@@ -61,6 +69,7 @@
       <button class="quick-reply">Contact</button>
     </div>
     <div id="chat-input-row">
+      <label for="chat-input" class="visually-hidden">Type your message to the website assistant</label>
       <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off">
       <button id="chat-send" aria-label="Send message">Send</button>
     </div>

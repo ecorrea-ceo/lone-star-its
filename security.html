@@ -9,14 +9,22 @@
   <meta property="og:description" content="Website security practices and responsible disclosure guidance for Lone Star ITS.">
   <meta property="og:image" content="https://lonestar-its.com/logo.png">
   <meta property="og:url" content="https://lonestar-its.com/security.html">
+  <link rel="canonical" href="https://lonestar-its.com/security.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Security | Lone Star ITS">
+  <meta name="twitter:description" content="Website security practices and responsible disclosure guidance for Lone Star ITS.">
+  <meta name="twitter:image" content="https://lonestar-its.com/logo.png">
   <link rel="icon" type="image/png" href="logo-mark.png">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action https://formspree.io/f/maqgnllq; connect-src 'self' https://lone-star-its.saints-correa23.workers.dev; frame-src https://challenges.cloudflare.com; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action 'self'; connect-src 'self' https://lone-star-its.saints-correa23.workers.dev; frame-src https://challenges.cloudflare.com; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <header>
   <a class="brand" href="index.html" aria-label="Lone Star ITS home">
     <img src="logo-mark.png" alt="Lone Star ITS blue star logo mark">
@@ -35,14 +43,14 @@
   </div>
 </header>
 <section class="hero compact fade-in"><div class="hero-text slide-up"><p class="eyebrow">Security</p><h1>Security-first website practices.</h1><p>How Lone Star ITS protects this static site and how visitors should handle sensitive information.</p></div><div class="hero-logo-panel"><img src="logo.png" alt="Lone Star ITS logo"></div></section>
-<main>
+<main id="main-content">
   <section class="mission fade-in text-left">
     <p class="eyebrow">Security</p>
     <h2>Security Practices</h2>
-    <p>Lone Star ITS uses a static GitHub Pages website, HTTPS enforcement, restrictive page-level security headers, a least-privilege contact form, and a Cloudflare Worker proxy for the chat assistant so browser code does not expose AI provider API keys.</p>
+    <p>Lone Star ITS uses a static GitHub Pages website, HTTPS enforcement, restrictive page-level security headers, a least-privilege contact form, and a Cloudflare Worker proxy for the contact form and chat assistant so browser code never handles our HubSpot, Jira Service Management, or AI provider API keys directly. The chat widget is protected by Cloudflare Turnstile bot verification and request-size limits, and both the contact form and chat endpoints are rate-limited.</p>
     <p>Visitors should never send passwords, MFA codes, API keys, private keys, recovery phrases, or other credentials through the contact form or chat widget. If support work requires credential handling, use an agreed secure process outside the public website.</p>
     <p>Responsible disclosure: if you believe this website exposes sensitive data or has a security issue, use the Contact page and include a concise, non-destructive description. Do not access, modify, delete, or exfiltrate data.</p>
-    <p>Operational recommendations before production launch: enable GitHub Pages HTTPS, verify the custom domain in GitHub, keep DNS records minimal, rotate any old Worker/API secrets, set Cloudflare Worker secrets with environment variables only, and review third-party processors such as Formspree.</p>
+    <p>Operational recommendations before production launch: enable GitHub Pages HTTPS, verify the custom domain in GitHub, keep DNS records minimal, rotate any old Worker/API secrets, set Cloudflare Worker secrets with environment variables only, and review third-party processors such as HubSpot, Atlassian (Jira Service Management), and Anthropic.</p>
   </section>
 </main>
 <footer>
