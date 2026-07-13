@@ -14,7 +14,7 @@ GitHub Pages fallback URL after repo rename: https://ecorrea-ceo.github.io/lone-
 lone-star-its/
 ├── index.html          # Homepage — hero, mission, brand pillars, goals
 ├── services.html       # Managed technology services offered
-├── pricing.html        # Pricing tiers and web design/management
+├── pricing.html        # Plan tiers and web design/management (quote-based, no prices published)
 ├── about.html          # Company background and ownership messaging
 ├── contact.html        # Contact form (submits via Cloudflare Worker to HubSpot + Jira Service Management)
 ├── thankyou.html       # Post-form confirmation page
@@ -175,7 +175,7 @@ Edit pages directly:
 
 - `index.html` — homepage and brand messaging
 - `services.html` — services list
-- `pricing.html` — plan pricing and features
+- `pricing.html` — plan tiers and features (quote-based pricing)
 - `about.html` — company background, veteran family-owned messaging, no-offshore-outsourcing promise, and human service desk positioning
 - `contact.html` — form copy and hidden fields
 - `privacy.html`, `terms.html`, `security.html` — legal/security website notices
@@ -202,14 +202,18 @@ wrangler deploy
 
 ---
 
-## Pricing Plans
+## Plans
 
-| Plan | Price | Key Features |
-|---|---:|---|
-| Basic Support | $300/mo | Remote troubleshooting, asset management, basic security, $50/visit, up to 10 users |
-| Standard Support | $500/mo | All Basic features, priority tickets, enhanced response, $35/visit, up to 10 users |
-| Premium Support | $1,500/mo | All features, unlimited visits, website support, advanced monitoring/security, up to 15 users |
-| Web Design & Management | $150/mo after launch | Responsive website design, hosting/form guidance, content updates, checks; initial launch custom quote |
+No prices are published on the site. Every plan is quoted after a visitor submits the Contact form and selects a plan of interest; the Worker's `handleContact` flow opens a Jira Service Management ticket and logs the lead in HubSpot so the team can follow up with a custom quote.
+
+| Plan | Key Features |
+|---|---|
+| Basic Support | Remote troubleshooting, asset management, basic security, up to 10 users |
+| Standard Support | All Basic features, priority tickets, enhanced response, up to 10 users |
+| Premium Support | All features, unlimited on-site visits, advanced monitoring/security, quarterly technology review, up to 15 users, access to Web Design & Management |
+| Web Design & Management | Responsive website design, hosting/form guidance, content updates, checks; standalone plan available to non-Premium clients |
+
+`worker.js`'s `CHAT_SYSTEM_PROMPT` and `fallbackReply()` are both instructed to never state or estimate dollar amounts — pricing questions are always redirected to the Contact page. Keep that invariant in mind if you edit either.
 
 ---
 
